@@ -1,0 +1,23 @@
+/plugin install context7@claude-plugins-official      # live Expo/RN/WatermelonDB docs
+/plugin marketplace add ComposioHQ/awesome-claude-plugins
+/plugin install senior-frontend                        # React/TypeScript patterns
+/plugin install test-writer-fixer                      # writes and fixes Jest/RN tests
+https://claude.com/plugins/code-review
+https://claude.com/plugins/frontend-design
+https://claude.com/plugins/superpowers
+https://claude.com/plugins/code-simplifier
+https://claude.com/plugins/commit-commands
+https://claude.com/plugins/security-guidance
+https://claude.com/plugins/typescript-lsp
+https://claude.com/plugins/claude-md-management
+https://claude.com/plugins/feature-dev
+https://github.com/callstackincubator/agent-skills
+
+Read CLAUDE.md in full. Break Phase 1 into implementation tasks small enough 
+to complete in a single Claude Code session each. For each task specify:
+- What exists before the task starts
+- What exists when the task is done
+- Which files are created or modified
+- The definition of done from CLAUDE.md
+
+Output as a numbered checklist to tasks.md

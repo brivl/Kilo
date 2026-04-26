@@ -1,0 +1,32 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write",
+        "command": "echo 'Remember: Run tsc --noEmit after writing .tsx files'"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash(npm install*)",
+        "command": "echo 'Verify package.json for unexpected dependency additions'"
+      }
+    ],
+    "Stop": [
+      {
+        "command": "terminal-notifier -message 'Claude finished the task' -title 'Claude Code'"
+      }
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllow": true,
+    "network": {
+      "allowedHosts": ["registry.npmjs.org", "world.openfoodfacts.org", "expo.dev", "*.expo.dev"]
+    },
+    "permissions": {
+      "denyRead": ["~/.ssh", "~/.aws", "~/.config/gh", ".env", "~/"],
+      "allowRead": ["."]
+    }
+  }
+}
