@@ -2,11 +2,11 @@ import { StyleSheet, View } from 'react-native'
 
 import { ThemedText } from '@/components/themed-text'
 
-export default function FoodLogScreen() {
+export default function ProgressScreen() {
   return (
     <View style={styles.container}>
-      <ThemedText type="title">Food Log</ThemedText>
-      <ThemedText>Phase 1 — Food Log coming soon</ThemedText>
+      <ThemedText type="title">Progress</ThemedText>
+      <ThemedText>Phase 4 — Progress Charts coming soon</ThemedText>
     </View>
   )
 }
