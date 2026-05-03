@@ -14,7 +14,8 @@
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
     "test": "jest --no-watchman",
-    "test:ci": "jest --no-watchman --ci"
+    "test:ci": "jest --no-watchman --ci",
+    "prepare": "cp scripts/pre-commit.sh .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
