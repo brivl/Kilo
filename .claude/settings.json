@@ -1,12 +1,68 @@
 {
   "permissions": {
+    "allow": [
+      "Read(**)",
+      "Glob(**)",
+      "Grep(**)",
+      "Write(app/**)",
+      "Write(components/**)",
+      "Write(db/**)",
+      "Write(store/**)",
+      "Write(utils/**)",
+      "Write(__tests__/**)",
+      "Write(e2e/**)",
+      "Bash(npx tsc *)",
+      "Bash(npx jest *)",
+      "Bash(npx prettier *)",
+      "Bash(npx eslint *)",
+      "Bash(cat *)",
+      "Bash(ls *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(mkdir *)"
+    ],
     "deny": [
       "Read(~/.ssh)",
       "Read(~/.aws)",
       "Read(~/.config/gh)",
       "Read(**/.env)",
-      "Read(**/.env.*)"
-    ]
+      "Read(**/.env.*)",
+      "Write(**/.env)",
+      "Write(**/.env.*)",
+      "Write(app.config.ts)",
+      "Write(eas.json)",
+      "Write(tsconfig.json)",
+      "Bash(rm -rf *)",
+      "Bash(git push *)",
+      "Bash(git checkout main)",
+      "Bash(eas build *)",
+      "Bash(eas submit *)",
+      "Bash(npx expo publish *)"
+    ],
+    "ask": ["Write(package.json)"]
+  },
+  "sandbox": {
+    "failIfUnavailable": true,
+    "autoAllowBashIfSandboxed": true,
+    "filesystem": {
+      "allowWrite": [".", "/tmp"],
+      "denyRead": ["~/.ssh", "~/.aws", "~/.config/gh", "~/.npmrc", "~/.gitconfig"],
+      "denyWrite": ["~/.ssh", "~/.aws", "~/.zshrc", "~/.bashrc"]
+    },
+    "network": {
+      "allowedDomains": [
+        "registry.npmjs.org",
+        "world.openfoodfacts.org",
+        "expo.dev",
+        "api.expo.dev",
+        "assets.expo.dev",
+        "github.com"
+      ],
+      "allowLocalBinding": true
+    }
   },
   "hooks": {
     "SessionStart": [
@@ -26,7 +82,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "FILE=$(jq -r '.tool_input.file_path // empty'); echo \"$FILE\" | grep -qE '(\\.env|app\\.config\\.ts|eas\\.json|package\\.json)' && echo 'Blocked: sensitive file requires manual review' >&2 && exit 2 || exit 0"
+            "command": "FILE=$(jq -r '.tool_input.file_path // empty'); echo \"$FILE\" | grep -qE '(\\.env|app\\.config\\.ts|eas\\.json)' && echo 'Blocked: sensitive file requires manual review' >&2 && exit 2 || exit 0"
           }
         ]
       },
