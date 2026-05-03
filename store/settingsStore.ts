@@ -1,20 +1,20 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
-import { todayISO } from '@/utils/date'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
+import { todayISO } from '@/utils/date';
 
 interface SettingsState {
-  weightUnit: 'kg' | 'lbs'
-  selectedDate: string
-  calorieGoal: number
-  proteinGoal: number
-  carbsGoal: number
-  fatGoal: number
-  setWeightUnit: (u: 'kg' | 'lbs') => void
-  setSelectedDate: (d: string) => void
-  setCalorieGoal: (n: number) => void
-  setMacroGoals: (g: { proteinG: number; carbsG: number; fatG: number }) => void
-  resetToToday: () => void
+  weightUnit: 'kg' | 'lbs';
+  selectedDate: string;
+  calorieGoal: number;
+  proteinGoal: number;
+  carbsGoal: number;
+  fatGoal: number;
+  setWeightUnit: (u: 'kg' | 'lbs') => void;
+  setSelectedDate: (d: string) => void;
+  setCalorieGoal: (n: number) => void;
+  setMacroGoals: (g: { proteinG: number; carbsG: number; fatG: number }) => void;
+  resetToToday: () => void;
 }
 
 export const useSettingsStore = create<SettingsState>()(
@@ -35,4 +35,4 @@ export const useSettingsStore = create<SettingsState>()(
     }),
     { name: 'settings', storage: createJSONStorage(() => AsyncStorage) },
   ),
-)
+);

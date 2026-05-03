@@ -1,3 +1,3 @@
-import { schemaMigrations } from '@nozbe/watermelondb/Schema/migrations'
+import { schemaMigrations } from '@nozbe/watermelondb/Schema/migrations';
 
-export default schemaMigrations({ migrations: [] })
+export default schemaMigrations({ migrations: [] });

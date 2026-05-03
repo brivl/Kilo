@@ -46,7 +46,7 @@ npm run typecheck   # TypeScript check (--noEmit)
 Use `@/` prefix for all imports:
 
 ```ts
-import { ThemedText } from '@/components/themed-text'
+import { ThemedText } from '@/components/themed-text';
 ```
 
 Never use relative `../` paths.

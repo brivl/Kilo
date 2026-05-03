@@ -1,6 +1,6 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native';
 
-import { ThemedText } from '@/components/themed-text'
+import { ThemedText } from '@/components/themed-text';
 
 export default function ProgressScreen() {
   return (
@@ -8,7 +8,7 @@ export default function ProgressScreen() {
       <ThemedText type="title">Progress</ThemedText>
       <ThemedText>Phase 4 — Progress Charts coming soon</ThemedText>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 8,
   },
-})
+});

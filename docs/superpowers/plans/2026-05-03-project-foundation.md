@@ -12,13 +12,13 @@
 
 ## File Map
 
-| Action | Path | Responsibility |
-|--------|------|----------------|
-| Create | `app.config.ts` | Single Expo config with bundle ID, `extra.openFoodFactsBaseUrl`, and plugins |
-| Create | `babel.config.js` | Decorators plugin (legacy: true) required by WatermelonDB + reanimated plugin last |
-| Create | `jest.config.js` | jest-expo preset, moduleNameMapper for `@/*`, transformIgnorePatterns for all native packages |
-| Create | `jest.setup.ts` | Module mocks for reanimated, expo-constants, async-storage |
-| Modify | `package.json` | Add `test` and `test:ci` scripts |
+| Action | Path              | Responsibility                                                                                |
+| ------ | ----------------- | --------------------------------------------------------------------------------------------- |
+| Create | `app.config.ts`   | Single Expo config with bundle ID, `extra.openFoodFactsBaseUrl`, and plugins                  |
+| Create | `babel.config.js` | Decorators plugin (legacy: true) required by WatermelonDB + reanimated plugin last            |
+| Create | `jest.config.js`  | jest-expo preset, moduleNameMapper for `@/*`, transformIgnorePatterns for all native packages |
+| Create | `jest.setup.ts`   | Module mocks for reanimated, expo-constants, async-storage                                    |
+| Modify | `package.json`    | Add `test` and `test:ci` scripts                                                              |
 
 ---
 
@@ -50,6 +50,7 @@ Expected: `Switched to a new branch 'phase1/project-foundation'`
 Using `npx expo install` ensures each package gets a version that Expo 54 has vetted for compatibility. Do not use plain `npm install` for these packages.
 
 **Files:**
+
 - Modify: `package.json`
 
 - [ ] **Step 1: Run the install**
@@ -83,6 +84,7 @@ Expected: all eight print `✓`.
 ### Task 3: Install dev dependencies
 
 **Files:**
+
 - Modify: `package.json`
 
 - [ ] **Step 1: Run the install**
@@ -113,6 +115,7 @@ Expected: all five print `✓`.
 Replaces the deleted `app.json` as the single Expo config file. Keeps all existing expo-router wiring and adds the `extra.openFoodFactsBaseUrl` field required by the OFF client (Task 7) and `expo-build-properties` for iOS deployment target.
 
 **Files:**
+
 - Create: `app.config.ts`
 
 - [ ] **Step 1: Create the file**
@@ -151,10 +154,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     bundler: 'metro',
     favicon: './assets/images/favicon.png',
   },
-  plugins: [
-    'expo-router',
-    ['expo-build-properties', { ios: { deploymentTarget: '16.0' } }],
-  ],
+  plugins: ['expo-router', ['expo-build-properties', { ios: { deploymentTarget: '16.0' } }]],
   extra: {
     openFoodFactsBaseUrl: 'https://world.openfoodfacts.org',
   },
@@ -176,6 +176,7 @@ Expected: no errors. If you see "cannot find module 'expo/config'", run `npx exp
 WatermelonDB model classes use TypeScript/Babel decorators (`@field`, `@date`, etc.). The `legacy: true` flag for `@babel/plugin-proposal-decorators` is required — WatermelonDB does not support the current Stage 3 decorator proposal. The `react-native-reanimated/plugin` must be **last** in the plugins array; reanimated will throw a build error if another plugin appears after it.
 
 **Files:**
+
 - Create: `babel.config.js`
 
 - [ ] **Step 1: Create the file**
@@ -211,6 +212,7 @@ Expected: Babel outputs transformed JS with no "Decorators are not enabled" erro
 The `transformIgnorePatterns` entry is the most critical part of this file. By default, Jest skips transforming `node_modules`. Native Expo/RN packages and WatermelonDB ship as ESM or use flow types — they must be in the allow-list or tests will fail with syntax errors when those modules are imported.
 
 **Files:**
+
 - Create: `jest.config.js`
 
 - [ ] **Step 1: Create the file**
@@ -221,10 +223,7 @@ The `transformIgnorePatterns` entry is the most critical part of this file. By d
 module.exports = {
   preset: 'jest-expo',
   setupFilesAfterFramework: ['./jest.setup.ts'],
-  testMatch: [
-    '**/__tests__/**/*.test.ts',
-    '**/__tests__/**/*.test.tsx',
-  ],
+  testMatch: ['**/__tests__/**/*.test.ts', '**/__tests__/**/*.test.tsx'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
   },
@@ -241,7 +240,7 @@ module.exports = {
       '|react-native-svg' +
       '|react-native-reanimated' +
       '|react-native-worklets' +
-    '))',
+      '))',
   ],
 };
 ```
@@ -261,6 +260,7 @@ Expected: output contains `"jest-expo"`.
 Provides module-level mocks for the three packages that either use native modules (AsyncStorage, reanimated) or read runtime config (expo-constants) that wouldn't be available in a Node.js test environment. The expo-constants mock must mirror `app.config.ts`'s `extra` shape exactly — if the shapes diverge, tests that import the OFF base URL will silently get `undefined`.
 
 **Files:**
+
 - Create: `jest.setup.ts`
 
 - [ ] **Step 1: Create the file**
@@ -273,7 +273,7 @@ jest.mock('react-native-reanimated', () => require('react-native-reanimated/mock
 
 // async-storage mock — uses the official mock provided by the package
 jest.mock('@react-native-async-storage/async-storage', () =>
-  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock'),
 );
 
 // expo-constants mock — mirrors app.config.ts extra shape
@@ -290,9 +290,11 @@ jest.mock('expo-constants', () => ({
 ```
 
 > **Note on reanimated v4:** If `npm test` reports `Cannot find module 'react-native-reanimated/mock'`, replace that mock line with:
+>
 > ```ts
 > jest.mock('react-native-reanimated');
 > ```
+>
 > This uses Jest's auto-mock. The auto-mock is sufficient for Task 1–6 where no animated components are rendered in tests.
 
 ---
@@ -302,6 +304,7 @@ jest.mock('expo-constants', () => ({
 The `--no-watchman` flag is required in the Claude Code sandbox (watchman is not installed). CI adds `--ci` which disables interactive prompts and fails on missing snapshots.
 
 **Files:**
+
 - Modify: `package.json`
 
 - [ ] **Step 1: Open `package.json` and add two scripts to the `"scripts"` block**
@@ -346,11 +349,11 @@ npx tsc --noEmit
 
 Expected: exits 0 with no output. If you see errors:
 
-| Error | Fix |
-|-------|-----|
-| `Cannot find module 'expo/config'` | `npx expo install expo` |
+| Error                                                | Fix                                                                                     |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `Cannot find module 'expo/config'`                   | `npx expo install expo`                                                                 |
 | `Property 'XXX' does not exist on type 'ExpoConfig'` | Check the field name against Expo's TypeScript types in `node_modules/expo/config.d.ts` |
-| Decorator errors | Confirm `babel.config.js` has `{ legacy: true }` |
+| Decorator errors                                     | Confirm `babel.config.js` has `{ legacy: true }`                                        |
 
 ---
 
@@ -383,12 +386,12 @@ Either is acceptable — "no tests" without a crash is the success condition.
 
 Common failures and fixes:
 
-| Error | Cause | Fix |
-|-------|-------|-----|
-| `Cannot find module 'react-native-reanimated/mock'` | v4 removed this file | Replace with `jest.mock('react-native-reanimated')` in `jest.setup.ts` |
-| `Cannot find module '@react-native-async-storage/async-storage/jest/async-storage-mock'` | Old path | Replace require path with `require('@react-native-async-storage/async-storage').default` and wrap it manually |
-| `SyntaxError: Unexpected token 'export'` in a node_modules package | That package is missing from `transformIgnorePatterns` | Add the package name to the allow-list in `jest.config.js` |
-| `jest.setup.ts: jest is not defined` | `setupFilesAfterFramework` misspelled or wrong key | Confirm the key is exactly `setupFilesAfterFramework` in `jest.config.js` |
+| Error                                                                                    | Cause                                                  | Fix                                                                                                           |
+| ---------------------------------------------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| `Cannot find module 'react-native-reanimated/mock'`                                      | v4 removed this file                                   | Replace with `jest.mock('react-native-reanimated')` in `jest.setup.ts`                                        |
+| `Cannot find module '@react-native-async-storage/async-storage/jest/async-storage-mock'` | Old path                                               | Replace require path with `require('@react-native-async-storage/async-storage').default` and wrap it manually |
+| `SyntaxError: Unexpected token 'export'` in a node_modules package                       | That package is missing from `transformIgnorePatterns` | Add the package name to the allow-list in `jest.config.js`                                                    |
+| `jest.setup.ts: jest is not defined`                                                     | `setupFilesAfterFramework` misspelled or wrong key     | Confirm the key is exactly `setupFilesAfterFramework` in `jest.config.js`                                     |
 
 ---
 
@@ -436,34 +439,34 @@ Expected: commit succeeds. Run `git log --oneline -3` to confirm.
 
 ### Spec coverage check
 
-| Requirement (from tasks.md Task 1) | Covered in plan? |
-|------------------------------------|-----------------|
-| `@nozbe/watermelondb` installed | Task 2 ✓ |
-| `zustand` installed | Task 2 ✓ |
-| `zod` installed | Task 2 ✓ |
-| `victory-native` installed | Task 2 ✓ |
-| `react-native-svg` installed | Task 2 ✓ |
-| `@react-native-async-storage/async-storage` installed | Task 2 ✓ |
-| `@react-native-community/datetimepicker` installed | Task 2 ✓ |
-| `expo-build-properties` installed | Task 2 ✓ |
-| `jest` dev dep | Task 3 ✓ |
-| `jest-expo` dev dep | Task 3 ✓ |
-| `@testing-library/react-native` dev dep | Task 3 ✓ |
-| `@types/jest` dev dep | Task 3 ✓ |
-| `@babel/plugin-proposal-decorators` dev dep | Task 3 ✓ |
-| `app.config.ts` with `extra.openFoodFactsBaseUrl` | Task 4 ✓ |
-| `app.config.ts` with bundle identifier `com.yourname.gymtracker` | Task 4 ✓ |
-| `app.config.ts` SDK version comment | Task 4 ✓ |
-| `babel.config.js` with decorators legacy:true | Task 5 ✓ |
-| `babel.config.js` with reanimated plugin last | Task 5 ✓ |
-| `jest.config.js` with jest-expo preset | Task 6 ✓ |
-| `jest.setup.ts` mocking reanimated | Task 7 ✓ |
-| `jest.setup.ts` mocking expo-constants | Task 7 ✓ |
-| `jest.setup.ts` mocking async-storage | Task 7 ✓ |
-| `package.json` `"test": "jest --no-watchman"` | Task 8 ✓ |
-| `package.json` `"test:ci": "jest --no-watchman --ci"` | Task 8 ✓ |
-| TS clean | Task 9 ✓ |
-| `npm test` reports "no tests" cleanly | Task 10 ✓ |
-| Committed to feature branch | Task 11 ✓ |
+| Requirement (from tasks.md Task 1)                               | Covered in plan? |
+| ---------------------------------------------------------------- | ---------------- |
+| `@nozbe/watermelondb` installed                                  | Task 2 ✓         |
+| `zustand` installed                                              | Task 2 ✓         |
+| `zod` installed                                                  | Task 2 ✓         |
+| `victory-native` installed                                       | Task 2 ✓         |
+| `react-native-svg` installed                                     | Task 2 ✓         |
+| `@react-native-async-storage/async-storage` installed            | Task 2 ✓         |
+| `@react-native-community/datetimepicker` installed               | Task 2 ✓         |
+| `expo-build-properties` installed                                | Task 2 ✓         |
+| `jest` dev dep                                                   | Task 3 ✓         |
+| `jest-expo` dev dep                                              | Task 3 ✓         |
+| `@testing-library/react-native` dev dep                          | Task 3 ✓         |
+| `@types/jest` dev dep                                            | Task 3 ✓         |
+| `@babel/plugin-proposal-decorators` dev dep                      | Task 3 ✓         |
+| `app.config.ts` with `extra.openFoodFactsBaseUrl`                | Task 4 ✓         |
+| `app.config.ts` with bundle identifier `com.yourname.gymtracker` | Task 4 ✓         |
+| `app.config.ts` SDK version comment                              | Task 4 ✓         |
+| `babel.config.js` with decorators legacy:true                    | Task 5 ✓         |
+| `babel.config.js` with reanimated plugin last                    | Task 5 ✓         |
+| `jest.config.js` with jest-expo preset                           | Task 6 ✓         |
+| `jest.setup.ts` mocking reanimated                               | Task 7 ✓         |
+| `jest.setup.ts` mocking expo-constants                           | Task 7 ✓         |
+| `jest.setup.ts` mocking async-storage                            | Task 7 ✓         |
+| `package.json` `"test": "jest --no-watchman"`                    | Task 8 ✓         |
+| `package.json` `"test:ci": "jest --no-watchman --ci"`            | Task 8 ✓         |
+| TS clean                                                         | Task 9 ✓         |
+| `npm test` reports "no tests" cleanly                            | Task 10 ✓        |
+| Committed to feature branch                                      | Task 11 ✓        |
 
 All requirements covered. No gaps.

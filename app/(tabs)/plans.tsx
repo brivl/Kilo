@@ -1,6 +1,6 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native';
 
-import { ThemedText } from '@/components/themed-text'
+import { ThemedText } from '@/components/themed-text';
 
 export default function PlansScreen() {
   return (
@@ -8,7 +8,7 @@ export default function PlansScreen() {
       <ThemedText type="title">Plans</ThemedText>
       <ThemedText>Phase 3 — Training Plans coming soon</ThemedText>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 8,
   },
-})
+});

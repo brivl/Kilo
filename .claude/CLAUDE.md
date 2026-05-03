@@ -162,7 +162,7 @@ All environment values flow through `app.config.ts` → `Constants.expoConfig.ex
 export default {
   expo: {
     extra: {
-      openFoodFactsBaseUrl: "https://world.openfoodfacts.org",
+      openFoodFactsBaseUrl: 'https://world.openfoodfacts.org',
     },
   },
 };
@@ -171,7 +171,7 @@ export default {
 Access in code:
 
 ```ts
-import Constants from "expo-constants";
+import Constants from 'expo-constants';
 const BASE_URL = Constants.expoConfig?.extra?.openFoodFactsBaseUrl;
 ```
 
@@ -205,7 +205,7 @@ Structure:
 
 ```ts
 // db/migrations.ts
-import { schemaMigrations } from "@nozbe/watermelondb/Schema/migrations";
+import { schemaMigrations } from '@nozbe/watermelondb/Schema/migrations';
 
 export default schemaMigrations({
   migrations: [
@@ -416,7 +416,7 @@ Settings are not WatermelonDB data — they don't need sync or relational querie
 ```ts
 // store/settingsStore.ts
 interface SettingsState {
-  weightUnit: "kg" | "lbs";
+  weightUnit: 'kg' | 'lbs';
   selectedDate: string; // YYYY-MM-DD, defaults to today
   calorieGoal: number; // default 2000
   proteinGoal: number; // default 150g
@@ -438,8 +438,8 @@ interface SettingsState {
 
 ```ts
 // utils/formatWeight.ts
-export function formatWeight(kg: number, unit: "kg" | "lbs"): string {
-  if (unit === "lbs") return `${(kg * 2.20462).toFixed(1)} lbs`;
+export function formatWeight(kg: number, unit: 'kg' | 'lbs'): string {
+  if (unit === 'lbs') return `${(kg * 2.20462).toFixed(1)} lbs`;
   return `${kg} kg`;
 }
 ```
