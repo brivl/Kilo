@@ -1,10 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-
-function todayISO() {
-  return new Date().toISOString().slice(0, 10)
-}
+import { todayISO } from '@/utils/date'
 
 interface SettingsState {
   weightUnit: 'kg' | 'lbs'
