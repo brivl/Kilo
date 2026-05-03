@@ -12,7 +12,9 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": false
+    "exactOptionalPropertyTypes": false,
+    "experimentalDecorators": true,
+    "types": ["jest"]
   },
   "include": [
     "**/*.ts",
