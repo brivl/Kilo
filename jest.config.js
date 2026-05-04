@@ -16,6 +16,7 @@ module.exports = {
       '|react-navigation' +
       '|@react-navigation/.*' +
       '|@nozbe/watermelondb' +
+      '|@nozbe/with-observables' +
       '|victory-native' +
       '|react-native-svg' +
       '|react-native-reanimated' +
