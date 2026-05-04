@@ -19,16 +19,27 @@ type Unit = (typeof UNITS)[number];
 
 export default function AddFoodScreen() {
   const router = useRouter();
-  const { mealType = 'breakfast' } = useLocalSearchParams<{ mealType: string }>();
+  const params = useLocalSearchParams<{
+    mealType?: string;
+    foodName?: string;
+    calories?: string;
+    protein?: string;
+    carbs?: string;
+    fat?: string;
+    quantity?: string;
+    unit?: string;
+    source?: string;
+  }>();
+  const mealType = params.mealType ?? 'breakfast';
   const selectedDate = useSettingsStore(s => s.selectedDate);
 
-  const [foodName, setFoodName] = useState('');
-  const [calories, setCalories] = useState('');
-  const [protein, setProtein] = useState('');
-  const [carbs, setCarbs] = useState('');
-  const [fat, setFat] = useState('');
-  const [quantity, setQuantity] = useState('1');
-  const [unit, setUnit] = useState<Unit>('serving');
+  const [foodName, setFoodName] = useState(params.foodName ?? '');
+  const [calories, setCalories] = useState(params.calories ?? '');
+  const [protein, setProtein] = useState(params.protein ?? '');
+  const [carbs, setCarbs] = useState(params.carbs ?? '');
+  const [fat, setFat] = useState(params.fat ?? '');
+  const [quantity, setQuantity] = useState(params.quantity ?? '1');
+  const [unit, setUnit] = useState<Unit>((params.unit as Unit | undefined) ?? 'serving');
   const [nameError, setNameError] = useState(false);
 
   async function handleSave() {
@@ -47,7 +58,7 @@ export default function AddFoodScreen() {
       fatG: parseFloat(fat) || 0,
       quantity: parseFloat(quantity) || 1,
       unit,
-      source: 'manual',
+      source: params.source === 'open_food_facts' ? 'open_food_facts' : 'manual',
     });
     router.back();
   }
