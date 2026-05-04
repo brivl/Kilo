@@ -1,14 +1,14 @@
 import { Database } from '@nozbe/watermelondb';
 import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite';
 
-import schema from './schema';
 import migrations from './migrations';
-import { FoodEntry } from './models/FoodEntry';
-import { WorkoutSession } from './models/WorkoutSession';
-import { WorkoutSet } from './models/WorkoutSet';
 import { BodyWeightEntry } from './models/BodyWeightEntry';
+import { FoodEntry } from './models/FoodEntry';
 import { MealTemplate } from './models/MealTemplate';
 import { MealTemplateItem } from './models/MealTemplateItem';
+import { WorkoutSession } from './models/WorkoutSession';
+import { WorkoutSet } from './models/WorkoutSet';
+import schema from './schema';
 
 const adapter = new SQLiteAdapter({
   schema,

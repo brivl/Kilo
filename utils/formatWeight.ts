@@ -1,4 +1,4 @@
-export function formatWeight(kg: number, unit: 'kg' | 'lbs'): string {
-  if (unit === 'lbs') return `${(kg * 2.20462).toFixed(1)} lbs`;
-  return `${kg} kg`;
-}
+import type { WeightUnit } from '@/types/weight-unit-type';
+
+export const formatWeight = (kg: number, unit: WeightUnit): string =>
+  unit === 'lbs' ? `${(kg * 2.20462).toFixed(1)} lbs` : `${kg} kg`;

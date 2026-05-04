@@ -15,3 +15,9 @@ export function addDaysISO(dateISO: string, days: number): string {
   d.setUTCDate(d.getUTCDate() + days);
   return toISO(d);
 }
+
+export function substractDaysISO(dateISO: string, days: number): string {
+  const d = parseISO(dateISO);
+  d.setUTCDate(d.getUTCDate() - days);
+  return toISO(d);
+}

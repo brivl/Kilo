@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // jest.setup.ts
 
 // react-native-reanimated v4 mock — prevents "Cannot use import statement" during test

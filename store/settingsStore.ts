@@ -1,16 +1,18 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
+
+import type { WeightUnit } from '@/types/weight-unit-type';
 import { todayISO } from '@/utils/date';
 
 interface SettingsState {
-  weightUnit: 'kg' | 'lbs';
+  weightUnit: WeightUnit;
   selectedDate: string;
   calorieGoal: number;
   proteinGoal: number;
   carbsGoal: number;
   fatGoal: number;
-  setWeightUnit: (u: 'kg' | 'lbs') => void;
+  setWeightUnit: (u: WeightUnit) => void;
   setSelectedDate: (d: string) => void;
   setCalorieGoal: (n: number) => void;
   setMacroGoals: (g: { proteinG: number; carbsG: number; fatG: number }) => void;

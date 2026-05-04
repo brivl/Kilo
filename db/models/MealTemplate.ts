@@ -1,6 +1,7 @@
 import { Model } from '@nozbe/watermelondb';
-import { text, readonly, date, children } from '@nozbe/watermelondb/decorators';
 import type { Query } from '@nozbe/watermelondb';
+import { text, readonly, date, children } from '@nozbe/watermelondb/decorators';
+
 import type { MealTemplateItem } from './MealTemplateItem';
 
 export class MealTemplate extends Model {

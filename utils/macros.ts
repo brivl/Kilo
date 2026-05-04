@@ -1,4 +1,4 @@
-export function caloriesFromMacros({
+export const caloriesFromMacros = ({
   proteinG,
   carbsG,
   fatG,
@@ -6,17 +6,14 @@ export function caloriesFromMacros({
   proteinG: number;
   carbsG: number;
   fatG: number;
-}): number {
-  return proteinG * 4 + carbsG * 4 + fatG * 9;
-}
+}): number => proteinG * 4 + carbsG * 4 + fatG * 9;
 
-export function scaleNutrient(perBase: number, baseQty: number, actualQty: number): number {
-  return (perBase / baseQty) * actualQty;
-}
+export const scaleNutrient = (perBase: number, baseQty: number, actualQty: number): number =>
+  (perBase / baseQty) * actualQty;
 
 export function sumMacros(
-  entries: Array<{ calories: number; proteinG: number; carbsG: number; fatG: number }>,
-) {
+  entries: { calories: number; proteinG: number; carbsG: number; fatG: number }[],
+): { calories: number; proteinG: number; carbsG: number; fatG: number } {
   return entries.reduce(
     (acc, e) => ({
       calories: acc.calories + e.calories,

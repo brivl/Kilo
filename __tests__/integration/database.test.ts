@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { makeTestDatabase } from '../test-utils/makeTestDatabase';
 
 describe('database smoke tests', () => {
