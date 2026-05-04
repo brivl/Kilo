@@ -33,6 +33,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   plugins: ['expo-router', ['expo-build-properties', { ios: { deploymentTarget: '16.0' } }]],
   extra: {
-    openFoodFactsBaseUrl: 'https://world.openfoodfacts.org',
+    openFoodFactsBaseUrl: 'https://uk.openfoodfacts.org',
   },
 });

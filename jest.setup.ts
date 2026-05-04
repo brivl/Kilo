@@ -15,7 +15,7 @@ jest.mock('expo-constants', () => ({
   default: {
     expoConfig: {
       extra: {
-        openFoodFactsBaseUrl: 'https://world.openfoodfacts.org',
+        openFoodFactsBaseUrl: 'https://uk.openfoodfacts.org',
       },
     },
   },
