@@ -3,7 +3,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import TemplatesScreen from '@/app/food/templates';
 import { createTemplate } from '@/store/mealTemplateStore';
 
-import { makeTestDatabase } from '../test-utils/makeTestDatabase';
+import { makeTestDatabase } from '../../test-utils/makeTestDatabase';
 
 let mockDb: ReturnType<typeof makeTestDatabase>;
 

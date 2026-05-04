@@ -25,6 +25,6 @@ maestro test e2e/log-meal.yaml
 
 ## Flows
 
-| File | Journey |
-|------|---------|
+| File            | Journey                                                                        |
+| --------------- | ------------------------------------------------------------------------------ |
 | `log-meal.yaml` | Open app → Breakfast section → manual entry form → save → verify entry visible |

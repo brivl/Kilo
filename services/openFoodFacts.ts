@@ -21,6 +21,7 @@ export async function searchFoods(query: string, signal?: AbortSignal): Promise<
   const url = `${BASE_URL}/cgi/search.pl?search_terms=${encodeURIComponent(query)}&search_simple=1&action=process&json=1&page_size=20`;
   let response: Response;
   try {
+    // TODO: Extract to custom http client for easier usage
     response = await fetch(url, {
       signal,
       headers: { 'User-Agent': 'Kilo/0.1 (ilya.wublenski@gmail.com)' },

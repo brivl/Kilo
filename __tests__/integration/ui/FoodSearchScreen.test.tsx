@@ -5,7 +5,7 @@ import type { OffFood } from '@/services/openFoodFacts';
 import { addEntry } from '@/store/foodStore';
 import { useSettingsStore } from '@/store/settingsStore';
 
-import { makeTestDatabase } from '../test-utils/makeTestDatabase';
+import { makeTestDatabase } from '../../test-utils/makeTestDatabase';
 
 let mockDb: ReturnType<typeof makeTestDatabase>;
 

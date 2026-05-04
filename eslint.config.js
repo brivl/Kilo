@@ -3,7 +3,8 @@ import { fileURLToPath } from 'url';
 
 import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
-import prettier from 'eslint-plugin-prettier';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import prettierPlugin from 'eslint-plugin-prettier';
 import tseslint from 'typescript-eslint';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -12,22 +13,21 @@ const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
   baseDirectory: __dirname,
   recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
 });
 
 export default tseslint.config(
-  // 1. Global Ignores
   {
     ignores: ['**/node_modules/', '**/.expo/', '**/dist/', '**/coverage/'],
   },
+  // 1. Base configs (Expo, JS, TS)
+  ...compat.extends('expo'),
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
 
-  // 2. Legacy Compatibility (spread these)
-  ...compat.extends('expo', 'prettier'),
-
-  // 3. Custom Rules and Plugin Definitions
+  // 2. Your custom rules
   {
     plugins: {
-      prettier,
+      prettier: prettierPlugin,
       '@typescript-eslint': tseslint.plugin,
     },
     languageOptions: {
@@ -36,7 +36,8 @@ export default tseslint.config(
     rules: {
       'prettier/prettier': 'error',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
-      'no-unused-vars': 'warn',
+      'unused-imports/no-unused-imports': 'off',
+      'no-unused-vars': 'error', // Turn off base rule to use TS version
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
@@ -53,4 +54,7 @@ export default tseslint.config(
       ],
     },
   },
+
+  // 3. MUST BE LAST: Disables all conflicting stylistic rules
+  eslintConfigPrettier,
 );

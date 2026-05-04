@@ -4,7 +4,7 @@ import FoodLogTab from '@/app/(tabs)/index';
 import { addEntry } from '@/store/foodStore';
 import { useSettingsStore } from '@/store/settingsStore';
 
-import { makeTestDatabase } from '../test-utils/makeTestDatabase';
+import { makeTestDatabase } from '../../test-utils/makeTestDatabase';
 
 let mockDb: ReturnType<typeof makeTestDatabase>;
 

@@ -5,6 +5,7 @@ import { useSettingsStore } from '@/store/settingsStore';
 import { todayISO } from '@/utils/date';
 
 jest.mock('@react-native-community/datetimepicker', () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { Pressable, Text } = require('react-native');
   function MockDatePicker({ onChange }: { onChange: (e: unknown, d: Date) => void }) {
     return (

@@ -7,35 +7,35 @@ appId: com.yourname.gymtracker
 
 # Tap the + Log food button in the Breakfast section
 - tapOn:
-    accessibilityLabel: "Log food for Breakfast"
+    accessibilityLabel: 'Log food for Breakfast'
 
 # On the search screen, tap Add manually
 - tapOn:
-    accessibilityLabel: "Add food manually"
+    accessibilityLabel: 'Add food manually'
 
 # Fill in the manual entry form
 - tapOn:
-    accessibilityLabel: "Food name"
-- inputText: "Chicken breast"
+    accessibilityLabel: 'Food name'
+- inputText: 'Chicken breast'
 
 - tapOn:
-    accessibilityLabel: "Calories"
-- inputText: "165"
+    accessibilityLabel: 'Calories'
+- inputText: '165'
 
 - tapOn:
-    accessibilityLabel: "Protein grams"
-- inputText: "31"
+    accessibilityLabel: 'Protein grams'
+- inputText: '31'
 
 - tapOn:
-    accessibilityLabel: "Carbs grams"
-- inputText: "0"
+    accessibilityLabel: 'Carbs grams'
+- inputText: '0'
 
 - tapOn:
-    accessibilityLabel: "Fat grams"
-- inputText: "4"
+    accessibilityLabel: 'Fat grams'
+- inputText: '4'
 
 - tapOn:
-    accessibilityLabel: "Save"
+    accessibilityLabel: 'Save'
 
 # Back on the food log — entry should be visible
-- assertVisible: "Chicken breast"
+- assertVisible: 'Chicken breast'
