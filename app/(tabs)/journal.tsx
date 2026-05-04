@@ -1,13 +1,16 @@
 import { StyleSheet, View } from 'react-native';
 
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ThemedText } from '@/components/themed-text';
 
 export default function JournalScreen() {
   return (
-    <View style={styles.container}>
-      <ThemedText type="title">Journal</ThemedText>
-      <ThemedText>Phase 2 — Gym Journal coming soon</ThemedText>
-    </View>
+    <ErrorBoundary>
+      <View style={styles.container}>
+        <ThemedText type="title">Journal</ThemedText>
+        <ThemedText>Phase 2 — Gym Journal coming soon</ThemedText>
+      </View>
+    </ErrorBoundary>
   );
 }
 

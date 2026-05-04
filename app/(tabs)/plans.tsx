@@ -1,13 +1,16 @@
 import { StyleSheet, View } from 'react-native';
 
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ThemedText } from '@/components/themed-text';
 
 export default function PlansScreen() {
   return (
-    <View style={styles.container}>
-      <ThemedText type="title">Plans</ThemedText>
-      <ThemedText>Phase 3 — Training Plans coming soon</ThemedText>
-    </View>
+    <ErrorBoundary>
+      <View style={styles.container}>
+        <ThemedText type="title">Plans</ThemedText>
+        <ThemedText>Phase 3 — Training Plans coming soon</ThemedText>
+      </View>
+    </ErrorBoundary>
   );
 }
 
