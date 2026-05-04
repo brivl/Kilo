@@ -1,0 +1,41 @@
+appId: com.yourname.gymtracker
+---
+# Happy path: manually log a food entry and see it in the daily food log
+
+- launchApp:
+    clearState: true
+
+# Tap the + Log food button in the Breakfast section
+- tapOn:
+    accessibilityLabel: "Log food for Breakfast"
+
+# On the search screen, tap Add manually
+- tapOn:
+    accessibilityLabel: "Add food manually"
+
+# Fill in the manual entry form
+- tapOn:
+    accessibilityLabel: "Food name"
+- inputText: "Chicken breast"
+
+- tapOn:
+    accessibilityLabel: "Calories"
+- inputText: "165"
+
+- tapOn:
+    accessibilityLabel: "Protein grams"
+- inputText: "31"
+
+- tapOn:
+    accessibilityLabel: "Carbs grams"
+- inputText: "0"
+
+- tapOn:
+    accessibilityLabel: "Fat grams"
+- inputText: "4"
+
+- tapOn:
+    accessibilityLabel: "Save"
+
+# Back on the food log — entry should be visible
+- assertVisible: "Chicken breast"
