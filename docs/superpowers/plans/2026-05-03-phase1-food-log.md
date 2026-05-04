@@ -13,7 +13,8 @@
 ## Status
 
 - **Task 1**: ✅ DONE (merged `phase1/project-foundation`)
-- **Tasks 2–18**: pending
+- **Tasks 2–18**: ✅ DONE (branch `phase1/tabs-skeleton-wt`, 57 tests passing, 0 TS errors)
+- **Merge + simulator verification**: ⬜ TODO — manual steps required (see exit criteria below)
 
 ## Repo state at planning time
 
@@ -2311,9 +2312,57 @@ git add -A && git commit -m "feat: Maestro E2E flow for logging a meal"
 
 All 17 implementation tasks committed to feature branches and merged. Then:
 
-- [ ] `npm run typecheck` passes from `main`
-- [ ] `npm test` passes from `main`
-- [ ] App boots on iOS simulator, navigates all 4 tabs without error
-- [ ] Full flow works: open app → navigate to food log → log a meal via search → see it in the daily log with correct macros → log using a saved meal template → entry appears
-- [ ] `e2e/log-meal.yaml` runs green on simulator
-- [ ] `tasks.md` (old plan) deleted — this file supersedes it
+- [x] `npm run typecheck` passes on branch (0 errors)
+- [x] `npm test` passes on branch (57 tests, 19 suites)
+- [x] `tasks.md` deleted
+
+**Manual steps remaining — run these yourself:**
+
+### 1. Push and merge the branch
+
+```bash
+# From the worktree or main repo:
+cd /Users/babrov/Projects/kilo/.worktrees/phase1-tabs-skeleton
+git push -u origin phase1/tabs-skeleton-wt
+
+# Create PR (or merge directly):
+gh pr create \
+  --title "feat: Phase 1 — complete food log" \
+  --base main \
+  --head phase1/tabs-skeleton-wt \
+  --body "Tasks 2–18: food log, search, manual entry, meal templates, re-log, MacroRing, DateHeader, OFF client, WatermelonDB data layer, Maestro E2E. 57 tests passing, 0 TS errors."
+```
+
+### 2. After merge — verify from main
+
+```bash
+cd /Users/babrov/Projects/kilo
+git checkout main && git pull
+npm run typecheck   # expect: no output (0 errors)
+npm test -- --no-watchman --forceExit   # expect: 57 tests passing
+```
+
+### 3. Simulator smoke test
+
+Build and install the development client if not already done:
+```bash
+eas build --profile development --platform ios
+# Install the resulting .app on simulator
+```
+
+Then boot the app and manually verify:
+- [ ] App boots, lands on food log tab showing today's date
+- [ ] All 4 tabs navigate without error
+- [ ] Tap "+ Log food" → search screen opens
+- [ ] Type a food name → OFF results appear
+- [ ] Tap "+ Add manually" → add form opens, fill fields, Save → entry appears in food log with correct macros in the ring
+- [ ] Re-log: open search with no query → recent food appears → tap it → form pre-filled → Save → second entry appears
+- [ ] Create a meal template (run `createTemplate` from a test or add a UI button in Phase 2)
+
+### 4. Maestro E2E
+
+```bash
+maestro test e2e/log-meal.yaml
+```
+
+Requires the development build installed on the simulator (not Expo Go).
