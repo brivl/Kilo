@@ -1,5 +1,6 @@
 import { firstValueFrom } from 'rxjs';
 
+import type { FoodEntry } from '@/db/models/FoodEntry';
 import { observeEntriesForDate } from '@/db/queries/foodEntries';
 import { addEntry, deleteEntry, relogEntry } from '@/store/foodStore';
 
@@ -33,9 +34,9 @@ beforeAll(() => {
 });
 
 beforeEach(async () => {
-  const entries = await mockDb.collections.get('food_entries').query().fetch();
+  const entries = await mockDb.collections.get<FoodEntry>('food_entries').query().fetch();
   await mockDb.write(async () => {
-    for (const e of entries) await (e as any).destroyPermanently();
+    for (const e of entries) await e.destroyPermanently();
   });
 });
 
@@ -43,13 +44,13 @@ it('addEntry creates a record visible via observe', async () => {
   await addEntry(base);
   const entries = await firstValueFrom(observeEntriesForDate('2026-05-03'));
   expect(entries).toHaveLength(1);
-  expect((entries[0] as any).foodName).toBe('Eggs');
+  expect(entries[0]!.foodName).toBe('Eggs');
 });
 
 it('deleteEntry removes the record', async () => {
   await addEntry(base);
   const before = await firstValueFrom(observeEntriesForDate('2026-05-03'));
-  await deleteEntry((before[0] as any).id);
+  await deleteEntry(before[0]!.id);
   const after = await firstValueFrom(observeEntriesForDate('2026-05-03'));
   expect(after).toHaveLength(0);
 });
@@ -57,9 +58,9 @@ it('deleteEntry removes the record', async () => {
 it('relogEntry copies to new date and meal', async () => {
   await addEntry(base);
   const [src] = await firstValueFrom(observeEntriesForDate('2026-05-03'));
-  await relogEntry((src as any).id, '2026-05-04', 'lunch');
+  await relogEntry(src!.id, '2026-05-04', 'lunch');
   const newEntries = await firstValueFrom(observeEntriesForDate('2026-05-04'));
   expect(newEntries).toHaveLength(1);
-  expect((newEntries[0] as any).mealType).toBe('lunch');
-  expect((newEntries[0] as any).foodName).toBe('Eggs');
+  expect(newEntries[0]!.mealType).toBe('lunch');
+  expect(newEntries[0]!.foodName).toBe('Eggs');
 });
