@@ -6,11 +6,14 @@ import { todayISO } from '@/utils/date';
 
 jest.mock('@react-native-community/datetimepicker', () => {
   const { Pressable, Text } = require('react-native');
-  return ({ onChange }: { onChange: (e: unknown, d: Date) => void }) => (
-    <Pressable testID="datepicker" onPress={() => onChange({}, new Date('2026-01-15T12:00:00Z'))}>
-      <Text>DatePicker</Text>
-    </Pressable>
-  );
+  function MockDatePicker({ onChange }: { onChange: (e: unknown, d: Date) => void }) {
+    return (
+      <Pressable testID="datepicker" onPress={() => onChange({}, new Date('2026-01-15T12:00:00Z'))}>
+        <Text>DatePicker</Text>
+      </Pressable>
+    );
+  }
+  return MockDatePicker;
 });
 
 beforeEach(() => useSettingsStore.setState({ selectedDate: '2026-05-03' }));
