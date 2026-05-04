@@ -35,18 +35,18 @@ npm run typecheck   # TypeScript check (--noEmit)
 
 ## Config files
 
-| File            | Purpose                                             |
-| --------------- | --------------------------------------------------- |
-| `tsconfig.json` | Strict TS, path alias `@/*`                         |
-| `.eslintrc.js`  | expo + prettier, `no-explicit-any` error            |
-| `.prettierrc`   | semicolons disabled, single quotes, trailing commas |
+| File               | Purpose                                             |
+| ------------------ | --------------------------------------------------- |
+| `tsconfig.json`    | Strict TS, path alias `@/*`                         |
+| `eslint.config.js` | expo + prettier, `no-explicit-any` error            |
+| `.prettierrc`      | semicolons disabled, single quotes, trailing commas |
 
 ## Path aliases
 
 Use `@/` prefix for all imports:
 
 ```ts
-import { ThemedText } from '@/components/themed-text'
+import { ThemedText } from '@/components/themed-text';
 ```
 
 Never use relative `../` paths.

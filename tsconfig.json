@@ -4,9 +4,7 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     },
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -14,11 +12,7 @@
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": false,
     "experimentalDecorators": true,
-    "types": ["jest"]
+    "types": ["jest", "node"]
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.d.ts"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.d.ts"]
 }

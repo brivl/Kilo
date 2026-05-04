@@ -12,20 +12,20 @@
 
 ## File Map
 
-| Action | Path | Responsibility |
-|--------|------|----------------|
-| Modify | `app/(tabs)/_layout.tsx` | Declare four product tabs with correct icons |
-| Modify | `app/(tabs)/index.tsx` | Placeholder food-log screen |
-| Create | `app/(tabs)/journal.tsx` | Placeholder gym journal screen |
-| Create | `app/(tabs)/plans.tsx` | Placeholder training plans screen |
-| Create | `app/(tabs)/progress.tsx` | Placeholder progress screen |
-| Modify | `app/_layout.tsx` | Remove modal `Stack.Screen` entry |
-| Modify | `components/ui/icon-symbol.tsx` | Add three SF Symbol → Material Icon mappings |
-| Delete | `app/(tabs)/explore.tsx` | Template screen, not used in Phase 1 |
-| Delete | `app/modal.tsx` | Template modal, not used in Phase 1 |
-| Delete | `components/hello-wave.tsx` | Template component, not used in Phase 1 |
-| Delete | `components/parallax-scroll-view.tsx` | Template component, not used in Phase 1 |
-| Delete | `components/external-link.tsx` | Template component, not used in Phase 1 |
+| Action | Path                                  | Responsibility                               |
+| ------ | ------------------------------------- | -------------------------------------------- |
+| Modify | `app/(tabs)/_layout.tsx`              | Declare four product tabs with correct icons |
+| Modify | `app/(tabs)/index.tsx`                | Placeholder food-log screen                  |
+| Create | `app/(tabs)/journal.tsx`              | Placeholder gym journal screen               |
+| Create | `app/(tabs)/plans.tsx`                | Placeholder training plans screen            |
+| Create | `app/(tabs)/progress.tsx`             | Placeholder progress screen                  |
+| Modify | `app/_layout.tsx`                     | Remove modal `Stack.Screen` entry            |
+| Modify | `components/ui/icon-symbol.tsx`       | Add three SF Symbol → Material Icon mappings |
+| Delete | `app/(tabs)/explore.tsx`              | Template screen, not used in Phase 1         |
+| Delete | `app/modal.tsx`                       | Template modal, not used in Phase 1          |
+| Delete | `components/hello-wave.tsx`           | Template component, not used in Phase 1      |
+| Delete | `components/parallax-scroll-view.tsx` | Template component, not used in Phase 1      |
+| Delete | `components/external-link.tsx`        | Template component, not used in Phase 1      |
 
 ---
 
@@ -57,6 +57,7 @@ Expected: `Switched to a new branch 'phase1/tabs-skeleton'`
 The `IconSymbol` component uses SF Symbols on iOS and maps them to Material Icons for Android/web. Three new SF Symbol names need entries in `MAPPING` before `_layout.tsx` can reference them.
 
 **Files:**
+
 - Modify: `components/ui/icon-symbol.tsx`
 
 - [ ] **Step 1: Open `components/ui/icon-symbol.tsx` and extend `MAPPING`**
@@ -71,7 +72,7 @@ const MAPPING = {
   'chevron.right': 'chevron-right',
   'fork.knife': 'restaurant',
   'dumbbell.fill': 'fitness-center',
-  'calendar': 'calendar-today',
+  calendar: 'calendar-today',
   'chart.bar.fill': 'bar-chart',
 } as IconMapping;
 ```
@@ -89,6 +90,7 @@ Expected: exits 0. If you see `Type 'string' is not assignable`, the Material Ic
 ### Task 3: Replace `app/(tabs)/_layout.tsx` with four-tab layout
 
 **Files:**
+
 - Modify: `app/(tabs)/_layout.tsx`
 
 - [ ] **Step 1: Overwrite `app/(tabs)/_layout.tsx` with the four-tab version**
@@ -111,7 +113,8 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
         tabBarButton: HapticTab,
-      }}>
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
@@ -158,6 +161,7 @@ Expected: exits 0. If you see `Property 'fork.knife' does not exist`, Task 2 map
 ### Task 4: Replace `app/(tabs)/index.tsx` with placeholder food-log screen
 
 **Files:**
+
 - Modify: `app/(tabs)/index.tsx`
 
 - [ ] **Step 1: Overwrite `app/(tabs)/index.tsx`**
@@ -199,6 +203,7 @@ Expected: exits 0.
 ### Task 5: Create placeholder `app/(tabs)/journal.tsx`
 
 **Files:**
+
 - Create: `app/(tabs)/journal.tsx`
 
 - [ ] **Step 1: Create the file**
@@ -240,6 +245,7 @@ Expected: exits 0.
 ### Task 6: Create placeholder `app/(tabs)/plans.tsx`
 
 **Files:**
+
 - Create: `app/(tabs)/plans.tsx`
 
 - [ ] **Step 1: Create the file**
@@ -281,6 +287,7 @@ Expected: exits 0.
 ### Task 7: Create placeholder `app/(tabs)/progress.tsx`
 
 **Files:**
+
 - Create: `app/(tabs)/progress.tsx`
 
 - [ ] **Step 1: Create the file**
@@ -322,6 +329,7 @@ Expected: exits 0.
 ### Task 8: Update `app/_layout.tsx` to remove the modal route
 
 **Files:**
+
 - Modify: `app/_layout.tsx`
 
 - [ ] **Step 1: Overwrite `app/_layout.tsx`**
@@ -363,6 +371,7 @@ Expected: exits 0.
 ### Task 9: Delete template-only files
 
 **Files:**
+
 - Delete: `app/(tabs)/explore.tsx`
 - Delete: `app/modal.tsx`
 - Delete: `components/hello-wave.tsx`
@@ -460,22 +469,22 @@ Expected: commit succeeds. Run `git log --oneline -3` to confirm.
 
 ### Spec coverage check (from tasks.md Task 2)
 
-| Requirement | Covered |
-|-------------|---------|
-| `(tabs)/_layout.tsx` declares four tabs: `index`, `journal`, `plans`, `progress` | Task 3 ✓ |
-| Icons via `@expo/vector-icons` or `expo-symbols` | Task 2 + 3 ✓ |
-| `app/(tabs)/index.tsx` is a placeholder food-log screen | Task 4 ✓ |
-| `app/(tabs)/journal.tsx` placeholder | Task 5 ✓ |
-| `app/(tabs)/plans.tsx` placeholder | Task 6 ✓ |
-| `app/(tabs)/progress.tsx` placeholder | Task 7 ✓ |
-| Deleted: `app/(tabs)/explore.tsx` | Task 9 ✓ |
-| Deleted: `app/modal.tsx` | Task 9 ✓ |
-| Deleted: `components/hello-wave.tsx` | Task 9 ✓ |
-| Deleted: `components/parallax-scroll-view.tsx` | Task 9 ✓ |
-| Deleted: `components/external-link.tsx` | Task 9 ✓ |
-| Kept: themed components, haptic-tab, ui/ components | Not deleted ✓ |
-| `app/_layout.tsx` drops modal route entry | Task 8 ✓ |
-| TS clean | Task 10 ✓ |
-| Committed to feature branch | Task 11 ✓ |
+| Requirement                                                                      | Covered       |
+| -------------------------------------------------------------------------------- | ------------- |
+| `(tabs)/_layout.tsx` declares four tabs: `index`, `journal`, `plans`, `progress` | Task 3 ✓      |
+| Icons via `@expo/vector-icons` or `expo-symbols`                                 | Task 2 + 3 ✓  |
+| `app/(tabs)/index.tsx` is a placeholder food-log screen                          | Task 4 ✓      |
+| `app/(tabs)/journal.tsx` placeholder                                             | Task 5 ✓      |
+| `app/(tabs)/plans.tsx` placeholder                                               | Task 6 ✓      |
+| `app/(tabs)/progress.tsx` placeholder                                            | Task 7 ✓      |
+| Deleted: `app/(tabs)/explore.tsx`                                                | Task 9 ✓      |
+| Deleted: `app/modal.tsx`                                                         | Task 9 ✓      |
+| Deleted: `components/hello-wave.tsx`                                             | Task 9 ✓      |
+| Deleted: `components/parallax-scroll-view.tsx`                                   | Task 9 ✓      |
+| Deleted: `components/external-link.tsx`                                          | Task 9 ✓      |
+| Kept: themed components, haptic-tab, ui/ components                              | Not deleted ✓ |
+| `app/_layout.tsx` drops modal route entry                                        | Task 8 ✓      |
+| TS clean                                                                         | Task 10 ✓     |
+| Committed to feature branch                                                      | Task 11 ✓     |
 
 All requirements covered. No gaps.
