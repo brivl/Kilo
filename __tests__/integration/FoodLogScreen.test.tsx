@@ -26,8 +26,8 @@ jest.mock('react-native-safe-area-context', () => ({
 }));
 
 // datetimepicker mock
-
 jest.mock('@react-native-community/datetimepicker', () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { View } = require('react-native');
   function MockPicker() {
     return <View />;

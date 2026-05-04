@@ -22,7 +22,6 @@ const MEALS = [
 ];
 
 function FoodLogInner({ entries, templates }: { entries: FoodEntry[]; templates: MealTemplate[] }) {
-  const selectedDate = useSettingsStore(s => s.selectedDate);
   const totals = sumMacros(
     entries.map(e => ({
       calories: e.calories,
