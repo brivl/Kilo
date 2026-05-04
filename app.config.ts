@@ -31,11 +31,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     bundler: 'metro',
     favicon: './assets/images/favicon.png',
   },
-  plugins: [
-    'expo-router',
-    ['expo-build-properties', { ios: { deploymentTarget: '16.0' } }],
-  ],
+  plugins: ['expo-router', ['expo-build-properties', { ios: { deploymentTarget: '16.0' } }]],
   extra: {
-    openFoodFactsBaseUrl: 'https://world.openfoodfacts.org',
+    openFoodFactsBaseUrl: 'https://uk.openfoodfacts.org',
   },
 });
