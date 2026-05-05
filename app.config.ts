@@ -1,6 +1,6 @@
 // app.config.ts
 // Pinned SDK: expo@54.0.33 — do not upgrade mid-project
-import type { ExpoConfig, ConfigContext } from 'expo/config';
+import type { ConfigContext, ExpoConfig } from 'expo/config';
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
@@ -33,6 +33,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   plugins: ['expo-router', ['expo-build-properties', { ios: { deploymentTarget: '16.0' } }]],
   extra: {
-    openFoodFactsBaseUrl: 'https://uk.openfoodfacts.org',
+    openFoodFactsBaseUrl: 'https://world.openfoodfacts.org',
   },
 });
