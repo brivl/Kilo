@@ -8,7 +8,6 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View,
 } from 'react-native';
 
 import { useSettingsStore } from '@/store/settingsStore';
