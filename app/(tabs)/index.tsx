@@ -1,4 +1,4 @@
-import withObservables from '@nozbe/with-observables';
+import { withObservables } from '@nozbe/watermelondb/react';
 import { SectionList, StyleSheet, Text, View } from 'react-native';
 
 import { DateHeader } from '@/components/DateHeader';
@@ -110,8 +110,8 @@ export default function FoodLogTab() {
 }
 
 const s = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#0f172a' },
+  screen: { flex: 1, backgroundColor: '#f8fafc' },
   ring: { alignItems: 'center', paddingVertical: 16 },
   list: { flex: 1 },
-  empty: { color: '#4b5563', fontSize: 13, paddingHorizontal: 16, paddingVertical: 8 },
+  empty: { color: '#94a3b8', fontSize: 13, paddingHorizontal: 16, paddingVertical: 8 },
 });

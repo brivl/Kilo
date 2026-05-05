@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
@@ -69,9 +69,9 @@ export default function FoodSearchScreen() {
         mealType,
         foodName: food.name,
         calories: String(Math.round(food.kcalPer100g)),
-        protein: String(food.proteinPer100g),
-        carbs: String(food.carbsPer100g),
-        fat: String(food.fatPer100g),
+        protein: String(Math.round(food.proteinPer100g * 10) / 10),
+        carbs: String(Math.round(food.carbsPer100g * 10) / 10),
+        fat: String(Math.round(food.fatPer100g * 10) / 10),
         quantity: '100',
         unit: 'g',
         source: 'open_food_facts',
@@ -117,6 +117,7 @@ export default function FoodSearchScreen() {
 
   return (
     <View style={s.screen}>
+      <Stack.Screen options={{ title: 'Search food' }} />
       <View style={s.searchBar}>
         <TextInput
           style={s.input}
@@ -171,18 +172,18 @@ export default function FoodSearchScreen() {
 }
 
 const s = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#0f172a' },
+  screen: { flex: 1, backgroundColor: '#f8fafc' },
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
     margin: 12,
-    backgroundColor: '#1e293b',
+    backgroundColor: '#ffffff',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: '#e2e8f0',
     paddingHorizontal: 12,
   },
-  input: { flex: 1, color: '#f1f5f9', fontSize: 16, paddingVertical: 10 },
+  input: { flex: 1, color: '#0f172a', fontSize: 16, paddingVertical: 10 },
   spinner: { marginLeft: 8 },
   sectionLabel: {
     color: '#64748b',
@@ -197,19 +198,19 @@ const s = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#1e293b',
+    borderBottomColor: '#e2e8f0',
     minHeight: 44,
     justifyContent: 'center',
   },
-  label: { color: '#f1f5f9', fontSize: 15 },
+  label: { color: '#0f172a', fontSize: 15 },
   sub: { color: '#64748b', fontSize: 12, marginTop: 2 },
-  empty: { color: '#4b5563', fontSize: 14, textAlign: 'center', marginTop: 32 },
+  empty: { color: '#94a3b8', fontSize: 14, textAlign: 'center', marginTop: 32 },
   manualBtn: {
     margin: 16,
     paddingVertical: 12,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: '#e2e8f0',
     borderRadius: 8,
     minHeight: 44,
     justifyContent: 'center',

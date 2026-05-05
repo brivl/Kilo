@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
   KeyboardAvoidingView,
@@ -65,6 +65,7 @@ export default function AddFoodScreen() {
 
   return (
     <KeyboardAvoidingView style={s.flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <Stack.Screen options={{ title: 'Add food' }} />
       <ScrollView
         style={s.scroll}
         contentContainerStyle={s.content}
@@ -181,20 +182,20 @@ export default function AddFoodScreen() {
 }
 
 const s = StyleSheet.create({
-  flex: { flex: 1, backgroundColor: '#0f172a' },
+  flex: { flex: 1, backgroundColor: '#f8fafc' },
   scroll: { flex: 1 },
   content: { padding: 16, paddingBottom: 40 },
-  heading: { color: '#f1f5f9', fontSize: 22, fontWeight: '700', marginBottom: 20 },
-  label: { color: '#94a3b8', fontSize: 13, marginBottom: 4, marginTop: 12 },
+  heading: { color: '#0f172a', fontSize: 22, fontWeight: '700', marginBottom: 20 },
+  label: { color: '#64748b', fontSize: 13, marginBottom: 4, marginTop: 12 },
   input: {
-    backgroundColor: '#1e293b',
-    color: '#f1f5f9',
+    backgroundColor: '#ffffff',
+    color: '#0f172a',
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 16,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: '#e2e8f0',
   },
   inputError: { borderColor: '#ef4444' },
   error: { color: '#ef4444', fontSize: 12, marginTop: 4 },
@@ -206,14 +207,14 @@ const s = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 6,
     borderRadius: 12,
-    backgroundColor: '#1e293b',
+    backgroundColor: '#ffffff',
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: '#e2e8f0',
     minHeight: 44,
     justifyContent: 'center',
   },
   unitChipActive: { backgroundColor: '#4f46e5', borderColor: '#4f46e5' },
-  unitText: { color: '#94a3b8', fontSize: 13 },
+  unitText: { color: '#64748b', fontSize: 13 },
   unitTextActive: { color: '#fff' },
   saveBtn: {
     backgroundColor: '#4f46e5',

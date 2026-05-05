@@ -1,6 +1,7 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useSettingsStore } from '@/store/settingsStore';
 import { addDaysISO, parseISO, todayISO, toISO } from '@/utils/date';
@@ -8,6 +9,7 @@ import { addDaysISO, parseISO, todayISO, toISO } from '@/utils/date';
 export function DateHeader() {
   const { selectedDate, setSelectedDate, resetToToday } = useSettingsStore();
   const [showPicker, setShowPicker] = useState(false);
+  const { top } = useSafeAreaInsets();
   const isToday = selectedDate === todayISO();
 
   const formatted = new Intl.DateTimeFormat('en-GB', {
@@ -17,7 +19,7 @@ export function DateHeader() {
   }).format(parseISO(selectedDate));
 
   return (
-    <View style={s.row}>
+    <View style={[s.row, { paddingTop: top + 8 }]}>
       <Pressable
         onPress={() => setSelectedDate(addDaysISO(selectedDate, -1))}
         style={s.arrow}
@@ -46,17 +48,21 @@ export function DateHeader() {
           <Text style={s.todayText}>Today</Text>
         </Pressable>
       )}
-      {showPicker && (
-        <DateTimePicker
-          value={parseISO(selectedDate)}
-          mode="date"
-          display="inline"
-          onChange={(_, date) => {
-            setShowPicker(false);
-            if (date) setSelectedDate(toISO(date));
-          }}
-        />
-      )}
+      <Modal visible={showPicker} transparent animationType="fade">
+        <Pressable style={s.backdrop} onPress={() => setShowPicker(false)}>
+          <View style={s.pickerCard}>
+            <DateTimePicker
+              value={parseISO(selectedDate)}
+              mode="date"
+              display="inline"
+              onChange={(_, date) => {
+                setShowPicker(false);
+                if (date) setSelectedDate(toISO(date));
+              }}
+            />
+          </View>
+        </Pressable>
+      </Modal>
     </View>
   );
 }
@@ -66,12 +72,12 @@ const s = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingBottom: 12,
   },
   arrow: { minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
-  arrowText: { fontSize: 24, color: '#fff' },
+  arrowText: { fontSize: 24, color: '#0f172a' },
   dateBtn: { flex: 1, alignItems: 'center', minHeight: 44, justifyContent: 'center' },
-  dateText: { fontSize: 17, fontWeight: '600', color: '#fff' },
+  dateText: { fontSize: 17, fontWeight: '600', color: '#0f172a' },
   todayBtn: {
     minWidth: 44,
     minHeight: 44,
@@ -80,4 +86,15 @@ const s = StyleSheet.create({
     paddingHorizontal: 8,
   },
   todayText: { fontSize: 13, color: '#6366f1' },
+  backdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  pickerCard: {
+    backgroundColor: '#ffffff',
+    borderRadius: 16,
+    overflow: 'hidden',
+  },
 });

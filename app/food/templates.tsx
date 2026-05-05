@@ -41,18 +41,18 @@ export default function TemplatesScreen() {
 }
 
 const s = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#0f172a', padding: 16 },
-  heading: { color: '#f1f5f9', fontSize: 22, fontWeight: '700', marginBottom: 16 },
+  screen: { flex: 1, backgroundColor: '#f8fafc', padding: 16 },
+  heading: { color: '#0f172a', fontSize: 22, fontWeight: '700', marginBottom: 16 },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 14,
     borderBottomWidth: 1,
-    borderBottomColor: '#1e293b',
+    borderBottomColor: '#e2e8f0',
     minHeight: 44,
   },
-  name: { color: '#f1f5f9', fontSize: 15, flex: 1 },
+  name: { color: '#0f172a', fontSize: 15, flex: 1 },
   deleteBtn: {
     paddingHorizontal: 12,
     paddingVertical: 6,

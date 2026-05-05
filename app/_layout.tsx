@@ -5,13 +5,10 @@ import { View } from 'react-native';
 
 import 'react-native-reanimated';
 import { Toast } from '@/components/Toast';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={DefaultTheme}>
       <View style={{ flex: 1 }}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

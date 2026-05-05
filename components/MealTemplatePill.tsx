@@ -22,7 +22,7 @@ export function MealTemplatePill({ name, totalCal, onPress }: Props) {
 const s = StyleSheet.create({
   pill: {
     flexDirection: 'row',
-    backgroundColor: '#312e81',
+    backgroundColor: '#ede9fe',
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 16,
@@ -31,6 +31,6 @@ const s = StyleSheet.create({
     minHeight: 44,
     alignItems: 'center',
   },
-  name: { color: '#c7d2fe', fontSize: 13, fontWeight: '500' },
-  cal: { color: '#818cf8', fontSize: 12 },
+  name: { color: '#4338ca', fontSize: 13, fontWeight: '500' },
+  cal: { color: '#6366f1', fontSize: 12 },
 });

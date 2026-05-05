@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 // jest.setup.ts
 
+// suppress RNTL peer-dep check — react-test-renderer may resolve to a minor ahead of react
+process.env.RNTL_SKIP_DEPS_CHECK = 'true';
+
 // react-native-reanimated v4 mock — prevents "Cannot use import statement" during test
 jest.mock('react-native-reanimated', () => require('react-native-reanimated/mock'));
 
@@ -15,7 +18,7 @@ jest.mock('expo-constants', () => ({
   default: {
     expoConfig: {
       extra: {
-        openFoodFactsBaseUrl: 'https://uk.openfoodfacts.org',
+        openFoodFactsBaseUrl: 'https://world.openfoodfacts.org',
       },
     },
   },
