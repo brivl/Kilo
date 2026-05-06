@@ -4,6 +4,10 @@ import { DateHeader } from '@/components/DateHeader';
 import { useSettingsStore } from '@/store/settingsStore';
 import { todayISO } from '@/utils/date';
 
+jest.mock('react-native-safe-area-context', () => ({
+  useSafeAreaInsets: () => ({ bottom: 0, top: 0, left: 0, right: 0 }),
+}));
+
 jest.mock('@react-native-community/datetimepicker', () => {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { Pressable, Text } = require('react-native');

@@ -25,6 +25,7 @@ const mockPush = jest.fn();
 jest.mock('expo-router', () => ({
   useRouter: () => ({ push: mockPush, back: jest.fn() }),
   useLocalSearchParams: () => ({ mealType: 'breakfast' }),
+  Stack: { Screen: () => null },
 }));
 
 jest.mock('react-native-safe-area-context', () => ({

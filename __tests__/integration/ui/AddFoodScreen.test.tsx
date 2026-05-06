@@ -17,6 +17,7 @@ jest.mock('@/db/database', () => ({
 jest.mock('expo-router', () => ({
   useRouter: () => ({ back: jest.fn() }),
   useLocalSearchParams: () => ({ mealType: 'breakfast' }),
+  Stack: { Screen: () => null },
 }));
 
 jest.mock('react-native-safe-area-context', () => ({

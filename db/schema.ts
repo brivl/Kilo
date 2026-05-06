@@ -1,7 +1,7 @@
 import { appSchema, tableSchema } from '@nozbe/watermelondb';
 
 export default appSchema({
-  version: 1,
+  version: 2,
   tables: [
     tableSchema({
       name: 'food_entries',
@@ -56,6 +56,26 @@ export default appSchema({
       name: 'meal_templates',
       columns: [
         { name: 'name', type: 'string' },
+        { name: 'created_at', type: 'number' },
+      ],
+    }),
+    tableSchema({
+      name: 'training_plans',
+      columns: [
+        { name: 'name', type: 'string' },
+        { name: 'created_at', type: 'number' },
+      ],
+    }),
+    tableSchema({
+      name: 'training_plan_exercises',
+      columns: [
+        { name: 'plan_id', type: 'string' },
+        { name: 'day', type: 'string' },
+        { name: 'exercise_name', type: 'string' },
+        { name: 'target_sets', type: 'number' },
+        { name: 'target_reps', type: 'number' },
+        { name: 'target_weight_kg', type: 'number' },
+        { name: 'order_index', type: 'number' },
         { name: 'created_at', type: 'number' },
       ],
     }),

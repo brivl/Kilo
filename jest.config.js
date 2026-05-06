@@ -19,6 +19,7 @@ module.exports = {
       '|@nozbe/watermelondb' +
       '|@nozbe/with-observables' +
       '|victory-native' +
+      '|@shopify/react-native-skia' +
       '|react-native-svg' +
       '|react-native-reanimated' +
       '|react-native-worklets' +

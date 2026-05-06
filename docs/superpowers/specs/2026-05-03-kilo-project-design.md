@@ -1,7 +1,8 @@
-# Kilo — Full Project Design
+# Kilo — Full Project Design (brainstorm spec, partially implemented)
 
 **Date:** 2026-05-03
-**Scope:** Full v1 design including additions and changes from brainstorming session
+**Status:** Phases 1–4 core features are shipped. Items marked below as "addition" were brainstormed but not yet built — they are future feature candidates.
+**Canonical project plan:** `AGENTS.md` (root)
 
 ---
 

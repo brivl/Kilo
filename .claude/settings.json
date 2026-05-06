@@ -22,7 +22,11 @@
       "Bash(wc *)",
       "Bash(find *)",
       "Bash(grep *)",
-      "Bash(mkdir *)"
+      "Bash(mkdir *)",
+      "Bash(npm test *)",
+      "Write(services/**)",
+      "Write(lib/**)",
+      "Write(docs/**)"
     ],
     "deny": [
       "Read(~/.ssh)",

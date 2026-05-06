@@ -6,6 +6,8 @@ import { BodyWeightEntry } from '@/db/models/BodyWeightEntry';
 import { FoodEntry } from '@/db/models/FoodEntry';
 import { MealTemplate } from '@/db/models/MealTemplate';
 import { MealTemplateItem } from '@/db/models/MealTemplateItem';
+import { TrainingPlan } from '@/db/models/TrainingPlan';
+import { TrainingPlanExercise } from '@/db/models/TrainingPlanExercise';
 import { WorkoutSession } from '@/db/models/WorkoutSession';
 import { WorkoutSet } from '@/db/models/WorkoutSet';
 import schema from '@/db/schema';
@@ -26,6 +28,8 @@ export function makeTestDatabase(): Database {
       BodyWeightEntry,
       MealTemplate,
       MealTemplateItem,
+      TrainingPlan,
+      TrainingPlanExercise,
     ],
   });
 }
