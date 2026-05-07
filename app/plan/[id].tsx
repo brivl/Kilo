@@ -22,6 +22,7 @@ import {
   deletePlanExercise,
   launchSessionFromPlan,
 } from '@/store/trainingPlanStore';
+import { Colors } from '@/utils/colors';
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -195,7 +196,7 @@ export default function PlanDetailScreen() {
               <TextInput
                 style={s.input}
                 placeholder="e.g. Bench press"
-                placeholderTextColor="#94a3b8"
+                placeholderTextColor={Colors.textMuted}
                 value={exName}
                 onChangeText={setExName}
                 accessibilityLabel="Exercise name"
@@ -252,15 +253,15 @@ export default function PlanDetailScreen() {
 }
 
 const s = StyleSheet.create({
-  root: { flex: 1, backgroundColor: '#f8fafc' },
+  root: { flex: 1, backgroundColor: Colors.background },
   list: { padding: 16, gap: 12, paddingBottom: 40 },
-  emptyMain: { color: '#94a3b8', fontSize: 14, textAlign: 'center', marginTop: 24 },
+  emptyMain: { color: Colors.textMuted, fontSize: 14, textAlign: 'center', marginTop: 24 },
 
   dayCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.surface,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
     overflow: 'hidden',
   },
   dayHeader: {
@@ -268,13 +269,13 @@ const s = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 10,
-    backgroundColor: '#f1f5f9',
+    backgroundColor: Colors.surfaceSubtle,
     borderBottomWidth: 1,
-    borderBottomColor: '#e2e8f0',
+    borderBottomColor: Colors.border,
   },
-  dayTitle: { flex: 1, fontSize: 15, fontWeight: '700', color: '#0f172a' },
+  dayTitle: { flex: 1, fontSize: 15, fontWeight: '700', color: Colors.textPrimary },
   launchBtn: {
-    backgroundColor: '#4f46e5',
+    backgroundColor: Colors.brand,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 6,
@@ -282,9 +283,9 @@ const s = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  launchTxt: { color: '#ffffff', fontSize: 13, fontWeight: '700' },
+  launchTxt: { color: Colors.surface, fontSize: 13, fontWeight: '700' },
   emptyDay: {
-    color: '#94a3b8',
+    color: Colors.textMuted,
     fontSize: 13,
     padding: 16,
     textAlign: 'center',
@@ -296,58 +297,58 @@ const s = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderTopWidth: 1,
-    borderTopColor: '#f1f5f9',
+    borderTopColor: Colors.surfaceSubtle,
   },
   exInfo: { flex: 1 },
-  exName: { fontSize: 15, fontWeight: '600', color: '#0f172a' },
-  exMeta: { fontSize: 13, color: '#64748b', marginTop: 2 },
+  exName: { fontSize: 15, fontWeight: '600', color: Colors.textPrimary },
+  exMeta: { fontSize: 13, color: Colors.textSecondary, marginTop: 2 },
   deleteBtn: { minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
-  deleteTxt: { color: '#94a3b8', fontSize: 16 },
+  deleteTxt: { color: Colors.textMuted, fontSize: 16 },
 
   form: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.surface,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
     padding: 16,
     gap: 10,
     marginTop: 8,
   },
-  formTitle: { fontSize: 16, fontWeight: '700', color: '#0f172a', marginBottom: 4 },
-  label: { fontSize: 13, fontWeight: '600', color: '#475569' },
+  formTitle: { fontSize: 16, fontWeight: '700', color: Colors.textPrimary, marginBottom: 4 },
+  label: { fontSize: 13, fontWeight: '600', color: Colors.textLabel },
   dayPills: { gap: 8, paddingVertical: 4 },
   pill: {
     borderRadius: 20,
     paddingHorizontal: 14,
     paddingVertical: 8,
-    backgroundColor: '#f1f5f9',
+    backgroundColor: Colors.surfaceSubtle,
     minHeight: 44,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  pillActive: { backgroundColor: '#4f46e5' },
-  pillTxt: { fontSize: 13, fontWeight: '600', color: '#64748b' },
-  pillTxtActive: { color: '#ffffff' },
+  pillActive: { backgroundColor: Colors.brand },
+  pillTxt: { fontSize: 13, fontWeight: '600', color: Colors.textSecondary },
+  pillTxtActive: { color: Colors.surface },
   input: {
-    backgroundColor: '#f8fafc',
+    backgroundColor: Colors.background,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
     padding: 10,
     fontSize: 15,
-    color: '#0f172a',
+    color: Colors.textPrimary,
     minHeight: 44,
   },
   row: { flexDirection: 'row', gap: 8 },
   col: { flex: 1, gap: 6 },
   addBtn: {
-    backgroundColor: '#4f46e5',
+    backgroundColor: Colors.brand,
     borderRadius: 10,
     paddingVertical: 13,
     alignItems: 'center',
     minHeight: 44,
     marginTop: 4,
   },
-  addBtnDisabled: { backgroundColor: '#c7d2fe' },
-  addBtnTxt: { color: '#ffffff', fontSize: 15, fontWeight: '700' },
+  addBtnDisabled: { backgroundColor: Colors.brandDisabled },
+  addBtnTxt: { color: Colors.surface, fontSize: 15, fontWeight: '700' },
 });

@@ -1,5 +1,7 @@
 import { Pressable, StyleSheet, Text } from 'react-native';
 
+import { Colors } from '@/utils/colors';
+
 interface Props {
   name: string;
   totalCal: number;
@@ -22,7 +24,7 @@ export function MealTemplatePill({ name, totalCal, onPress }: Props) {
 const s = StyleSheet.create({
   pill: {
     flexDirection: 'row',
-    backgroundColor: '#ede9fe',
+    backgroundColor: Colors.brandSubtle,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 16,
@@ -31,6 +33,6 @@ const s = StyleSheet.create({
     minHeight: 44,
     alignItems: 'center',
   },
-  name: { color: '#4338ca', fontSize: 13, fontWeight: '500' },
-  cal: { color: '#6366f1', fontSize: 12 },
+  name: { color: Colors.brandPillText, fontSize: 13, fontWeight: '500' },
+  cal: { color: Colors.brandSecondary, fontSize: 12 },
 });

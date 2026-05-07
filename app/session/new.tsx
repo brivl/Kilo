@@ -12,6 +12,7 @@ import {
 
 import { useSettingsStore } from '@/store/settingsStore';
 import { createSession } from '@/store/workoutStore';
+import { Colors } from '@/utils/colors';
 
 export default function NewSessionScreen() {
   const router = useRouter();
@@ -48,7 +49,7 @@ export default function NewSessionScreen() {
         <TextInput
           style={[s.input, nameError && s.inputError]}
           placeholder="e.g. Push day, Leg day…"
-          placeholderTextColor="#94a3b8"
+          placeholderTextColor={Colors.textMuted}
           value={name}
           onChangeText={t => {
             setName(t);
@@ -64,7 +65,7 @@ export default function NewSessionScreen() {
         <TextInput
           style={[s.input, s.inputMulti]}
           placeholder="Any notes…"
-          placeholderTextColor="#94a3b8"
+          placeholderTextColor={Colors.textMuted}
           value={notes}
           onChangeText={setNotes}
           multiline
@@ -86,30 +87,30 @@ export default function NewSessionScreen() {
 }
 
 const s = StyleSheet.create({
-  flex: { flex: 1, backgroundColor: '#f8fafc' },
+  flex: { flex: 1, backgroundColor: Colors.background },
   scroll: { flex: 1 },
   content: { padding: 16, paddingBottom: 40 },
-  label: { color: '#64748b', fontSize: 13, marginBottom: 4, marginTop: 16 },
+  label: { color: Colors.textSecondary, fontSize: 13, marginBottom: 4, marginTop: 16 },
   input: {
-    backgroundColor: '#ffffff',
-    color: '#0f172a',
+    backgroundColor: Colors.surface,
+    color: Colors.textPrimary,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 16,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
   },
   inputMulti: { height: 80, textAlignVertical: 'top' },
-  inputError: { borderColor: '#ef4444' },
-  error: { color: '#ef4444', fontSize: 12, marginTop: 4 },
+  inputError: { borderColor: Colors.danger },
+  error: { color: Colors.danger, fontSize: 12, marginTop: 4 },
   saveBtn: {
-    backgroundColor: '#4f46e5',
+    backgroundColor: Colors.brand,
     borderRadius: 10,
     paddingVertical: 14,
     alignItems: 'center',
     marginTop: 32,
     minHeight: 44,
   },
-  saveTxt: { color: '#ffffff', fontSize: 16, fontWeight: '700' },
+  saveTxt: { color: Colors.surface, fontSize: 16, fontWeight: '700' },
 });

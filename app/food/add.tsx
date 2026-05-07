@@ -13,6 +13,7 @@ import {
 
 import { addEntry } from '@/store/foodStore';
 import { useSettingsStore } from '@/store/settingsStore';
+import { Colors } from '@/utils/colors';
 
 const UNITS = ['serving', 'g', 'ml', 'oz'] as const;
 type Unit = (typeof UNITS)[number];
@@ -77,7 +78,7 @@ export default function AddFoodScreen() {
         <TextInput
           style={[s.input, nameError && s.inputError]}
           placeholder="Food name"
-          placeholderTextColor="#64748b"
+          placeholderTextColor={Colors.textSecondary}
           value={foodName}
           onChangeText={t => {
             setFoodName(t);
@@ -93,7 +94,7 @@ export default function AddFoodScreen() {
             <TextInput
               style={s.input}
               placeholder="1"
-              placeholderTextColor="#64748b"
+              placeholderTextColor={Colors.textSecondary}
               value={quantity}
               onChangeText={setQuantity}
               keyboardType="decimal-pad"
@@ -122,7 +123,7 @@ export default function AddFoodScreen() {
         <TextInput
           style={s.input}
           placeholder="Calories"
-          placeholderTextColor="#64748b"
+          placeholderTextColor={Colors.textSecondary}
           value={calories}
           onChangeText={setCalories}
           keyboardType="decimal-pad"
@@ -135,7 +136,7 @@ export default function AddFoodScreen() {
             <TextInput
               style={s.input}
               placeholder="Protein (g)"
-              placeholderTextColor="#64748b"
+              placeholderTextColor={Colors.textSecondary}
               value={protein}
               onChangeText={setProtein}
               keyboardType="decimal-pad"
@@ -147,7 +148,7 @@ export default function AddFoodScreen() {
             <TextInput
               style={s.input}
               placeholder="Carbs (g)"
-              placeholderTextColor="#64748b"
+              placeholderTextColor={Colors.textSecondary}
               value={carbs}
               onChangeText={setCarbs}
               keyboardType="decimal-pad"
@@ -159,7 +160,7 @@ export default function AddFoodScreen() {
             <TextInput
               style={s.input}
               placeholder="Fat (g)"
-              placeholderTextColor="#64748b"
+              placeholderTextColor={Colors.textSecondary}
               value={fat}
               onChangeText={setFat}
               keyboardType="decimal-pad"
@@ -182,23 +183,23 @@ export default function AddFoodScreen() {
 }
 
 const s = StyleSheet.create({
-  flex: { flex: 1, backgroundColor: '#f8fafc' },
+  flex: { flex: 1, backgroundColor: Colors.background },
   scroll: { flex: 1 },
   content: { padding: 16, paddingBottom: 40 },
-  heading: { color: '#0f172a', fontSize: 22, fontWeight: '700', marginBottom: 20 },
-  label: { color: '#64748b', fontSize: 13, marginBottom: 4, marginTop: 12 },
+  heading: { color: Colors.textPrimary, fontSize: 22, fontWeight: '700', marginBottom: 20 },
+  label: { color: Colors.textSecondary, fontSize: 13, marginBottom: 4, marginTop: 12 },
   input: {
-    backgroundColor: '#ffffff',
-    color: '#0f172a',
+    backgroundColor: Colors.surface,
+    color: Colors.textPrimary,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 16,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
   },
-  inputError: { borderColor: '#ef4444' },
-  error: { color: '#ef4444', fontSize: 12, marginTop: 4 },
+  inputError: { borderColor: Colors.danger },
+  error: { color: Colors.danger, fontSize: 12, marginTop: 4 },
   row: { flexDirection: 'row', gap: 12 },
   half: { flex: 1 },
   third: { flex: 1 },
@@ -207,22 +208,22 @@ const s = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 6,
     borderRadius: 12,
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.surface,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
     minHeight: 44,
     justifyContent: 'center',
   },
-  unitChipActive: { backgroundColor: '#4f46e5', borderColor: '#4f46e5' },
-  unitText: { color: '#64748b', fontSize: 13 },
-  unitTextActive: { color: '#fff' },
+  unitChipActive: { backgroundColor: Colors.brand, borderColor: Colors.brand },
+  unitText: { color: Colors.textSecondary, fontSize: 13 },
+  unitTextActive: { color: Colors.surface },
   saveBtn: {
-    backgroundColor: '#4f46e5',
+    backgroundColor: Colors.brand,
     borderRadius: 10,
     paddingVertical: 14,
     alignItems: 'center',
     marginTop: 28,
     minHeight: 44,
   },
-  saveTxt: { color: '#fff', fontSize: 16, fontWeight: '700' },
+  saveTxt: { color: Colors.surface, fontSize: 16, fontWeight: '700' },
 });

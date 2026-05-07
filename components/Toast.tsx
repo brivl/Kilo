@@ -2,6 +2,7 @@ import { Pressable, StyleSheet, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useToastStore } from '@/store/toastStore';
+import { Colors } from '@/utils/colors';
 
 export function Toast() {
   const { message, kind, dismissToast } = useToastStore();
@@ -28,7 +29,7 @@ const s = StyleSheet.create({
     borderRadius: 8,
     zIndex: 999,
   },
-  info: { backgroundColor: '#1e293b' },
-  error: { backgroundColor: '#7f1d1d' },
-  text: { color: '#fff', fontSize: 14, textAlign: 'center' },
+  info: { backgroundColor: Colors.toastInfo },
+  error: { backgroundColor: Colors.dangerDark },
+  text: { color: Colors.surface, fontSize: 14, textAlign: 'center' },
 });

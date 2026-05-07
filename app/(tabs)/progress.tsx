@@ -6,6 +6,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import type { BodyWeightEntry } from '@/db/models/BodyWeightEntry';
 import { observeAllWeightEntries } from '@/db/queries/bodyWeight';
 import { deleteWeightEntry, logWeight } from '@/store/bodyWeightStore';
+import { Colors } from '@/utils/colors';
 
 type ChartPoint = { x: number; weight: number };
 
@@ -29,7 +30,7 @@ function WeightChart({ entries }: { entries: BodyWeightEntry[] }) {
         {({ points }) => (
           <Line
             points={points.weight}
-            color="#4f46e5"
+            color={Colors.brand}
             strokeWidth={2.5}
             animate={{ type: 'timing', duration: 300 }}
           />
@@ -89,7 +90,7 @@ function LogForm() {
         <TextInput
           style={[s.input, s.weightInput]}
           placeholder="e.g. 80.5"
-          placeholderTextColor="#94a3b8"
+          placeholderTextColor={Colors.textMuted}
           keyboardType="decimal-pad"
           value={weight}
           onChangeText={setWeight}
@@ -102,7 +103,7 @@ function LogForm() {
       <TextInput
         style={s.input}
         placeholder="Notes (optional)"
-        placeholderTextColor="#94a3b8"
+        placeholderTextColor={Colors.textMuted}
         value={notes}
         onChangeText={setNotes}
         accessibilityLabel="Notes"
@@ -156,11 +157,11 @@ export default function ProgressScreen() {
 }
 
 const s = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#f8fafc' },
+  screen: { flex: 1, backgroundColor: Colors.background },
   heading: {
     fontSize: 22,
     fontWeight: '700',
-    color: '#0f172a',
+    color: Colors.textPrimary,
     paddingHorizontal: 16,
     paddingTop: 60,
     paddingBottom: 8,
@@ -169,69 +170,69 @@ const s = StyleSheet.create({
 
   chartEmpty: {
     height: 160,
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.surface,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
     alignItems: 'center',
     justifyContent: 'center',
   },
   chartEmptyTxt: {
-    color: '#94a3b8',
+    color: Colors.textMuted,
     fontSize: 13,
     textAlign: 'center',
     paddingHorizontal: 24,
   },
   chart: {
     height: 200,
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.surface,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
     overflow: 'hidden',
     padding: 8,
   },
 
   form: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.surface,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
     padding: 16,
     gap: 10,
   },
-  formTitle: { fontSize: 15, fontWeight: '700', color: '#0f172a' },
+  formTitle: { fontSize: 15, fontWeight: '700', color: Colors.textPrimary },
   formRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   input: {
     flex: 1,
-    backgroundColor: '#f8fafc',
+    backgroundColor: Colors.background,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
     padding: 10,
     fontSize: 15,
-    color: '#0f172a',
+    color: Colors.textPrimary,
     minHeight: 44,
   },
   weightInput: { flex: 1 },
-  kgLabel: { fontSize: 15, color: '#64748b', fontWeight: '600' },
+  kgLabel: { fontSize: 15, color: Colors.textSecondary, fontWeight: '600' },
   saveBtn: {
-    backgroundColor: '#4f46e5',
+    backgroundColor: Colors.brand,
     borderRadius: 10,
     paddingVertical: 12,
     alignItems: 'center',
     minHeight: 44,
   },
-  saveBtnDisabled: { backgroundColor: '#c7d2fe' },
-  saveBtnTxt: { color: '#ffffff', fontSize: 15, fontWeight: '700' },
+  saveBtnDisabled: { backgroundColor: Colors.brandDisabled },
+  saveBtnTxt: { color: Colors.surface, fontSize: 15, fontWeight: '700' },
 
-  historyLabel: { fontSize: 14, fontWeight: '600', color: '#475569', marginTop: 4 },
+  historyLabel: { fontSize: 14, fontWeight: '600', color: Colors.textLabel, marginTop: 4 },
 
   entryRow: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.surface,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
     paddingHorizontal: 16,
     paddingVertical: 12,
     flexDirection: 'row',
@@ -239,10 +240,10 @@ const s = StyleSheet.create({
     gap: 8,
   },
   entryInfo: { flex: 1 },
-  entryWeight: { fontSize: 16, fontWeight: '700', color: '#0f172a' },
-  entryDate: { fontSize: 12, color: '#94a3b8', marginTop: 2 },
-  entryNotes: { flex: 1, fontSize: 13, color: '#64748b' },
+  entryWeight: { fontSize: 16, fontWeight: '700', color: Colors.textPrimary },
+  entryDate: { fontSize: 12, color: Colors.textMuted, marginTop: 2 },
+  entryNotes: { flex: 1, fontSize: 13, color: Colors.textSecondary },
   deleteBtn: { minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
-  deleteTxt: { color: '#94a3b8', fontSize: 16 },
-  empty: { color: '#94a3b8', fontSize: 14, textAlign: 'center', marginTop: 24 },
+  deleteTxt: { color: Colors.textMuted, fontSize: 16 },
+  empty: { color: Colors.textMuted, fontSize: 14, textAlign: 'center', marginTop: 24 },
 });

@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import { createPlan } from '@/store/trainingPlanStore';
+import { Colors } from '@/utils/colors';
 
 export default function NewPlanScreen() {
   const router = useRouter();
@@ -40,7 +41,7 @@ export default function NewPlanScreen() {
             ref={inputRef}
             style={s.input}
             placeholder="e.g. Push / Pull / Legs"
-            placeholderTextColor="#94a3b8"
+            placeholderTextColor={Colors.textMuted}
             value={name}
             onChangeText={setName}
             autoFocus
@@ -64,26 +65,26 @@ export default function NewPlanScreen() {
 }
 
 const s = StyleSheet.create({
-  root: { flex: 1, backgroundColor: '#f8fafc' },
+  root: { flex: 1, backgroundColor: Colors.background },
   form: { padding: 16, gap: 12 },
-  label: { fontSize: 14, fontWeight: '600', color: '#475569' },
+  label: { fontSize: 14, fontWeight: '600', color: Colors.textLabel },
   input: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.surface,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
     padding: 12,
     fontSize: 16,
-    color: '#0f172a',
+    color: Colors.textPrimary,
     minHeight: 44,
   },
   btn: {
-    backgroundColor: '#4f46e5',
+    backgroundColor: Colors.brand,
     borderRadius: 10,
     paddingVertical: 14,
     alignItems: 'center',
     minHeight: 44,
   },
-  btnDisabled: { backgroundColor: '#c7d2fe' },
-  btnTxt: { color: '#ffffff', fontSize: 16, fontWeight: '700' },
+  btnDisabled: { backgroundColor: Colors.brandDisabled },
+  btnTxt: { color: Colors.surface, fontSize: 16, fontWeight: '700' },
 });

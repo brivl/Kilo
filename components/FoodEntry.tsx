@@ -1,5 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import { Colors } from '@/utils/colors';
+
 interface Entry {
   id: string;
   foodName: string;
@@ -51,9 +53,9 @@ const s = StyleSheet.create({
     minHeight: 72,
   },
   main: { flex: 1, marginRight: 8 },
-  name: { fontSize: 15, color: '#0f172a', fontWeight: '500' },
-  sub: { fontSize: 12, color: '#64748b', marginTop: 2 },
-  cal: { fontSize: 14, color: '#334155', marginRight: 8 },
+  name: { fontSize: 15, color: Colors.textPrimary, fontWeight: '500' },
+  sub: { fontSize: 12, color: Colors.textSecondary, marginTop: 2 },
+  cal: { fontSize: 14, color: Colors.textStrong, marginRight: 8 },
   del: { minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
-  delText: { color: '#888', fontSize: 16 },
+  delText: { color: Colors.textMuted, fontSize: 16 },
 });

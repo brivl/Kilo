@@ -6,6 +6,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import type { TrainingPlan } from '@/db/models/TrainingPlan';
 import { observeAllPlans } from '@/db/queries/trainingPlans';
 import { deletePlan } from '@/store/trainingPlanStore';
+import { Colors } from '@/utils/colors';
 
 function PlanCard({ plan }: { plan: TrainingPlan }) {
   const router = useRouter();
@@ -64,39 +65,39 @@ export default function PlansTab() {
 }
 
 const s = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#f8fafc' },
+  screen: { flex: 1, backgroundColor: Colors.background },
   heading: {
     fontSize: 22,
     fontWeight: '700',
-    color: '#0f172a',
+    color: Colors.textPrimary,
     paddingHorizontal: 16,
     paddingTop: 60,
     paddingBottom: 8,
   },
   list: { padding: 16, gap: 12, paddingBottom: 100 },
-  empty: { color: '#94a3b8', fontSize: 14, textAlign: 'center', marginTop: 48 },
+  empty: { color: Colors.textMuted, fontSize: 14, textAlign: 'center', marginTop: 48 },
   card: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.surface,
     borderRadius: 12,
     padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
   },
-  cardName: { flex: 1, fontSize: 16, fontWeight: '600', color: '#0f172a' },
+  cardName: { flex: 1, fontSize: 16, fontWeight: '600', color: Colors.textPrimary },
   deleteBtn: { minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
-  deleteTxt: { color: '#94a3b8', fontSize: 16 },
+  deleteTxt: { color: Colors.textMuted, fontSize: 16 },
   fab: {
     position: 'absolute',
     bottom: 24,
     left: 16,
     right: 16,
-    backgroundColor: '#4f46e5',
+    backgroundColor: Colors.brand,
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: 'center',
     minHeight: 44,
   },
-  fabTxt: { color: '#ffffff', fontSize: 16, fontWeight: '700' },
+  fabTxt: { color: Colors.surface, fontSize: 16, fontWeight: '700' },
 });

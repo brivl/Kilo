@@ -3,6 +3,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { logTemplate } from '@/store/mealTemplateStore';
 import { useSettingsStore } from '@/store/settingsStore';
+import { Colors } from '@/utils/colors';
 
 import { MealTemplatePill } from './MealTemplatePill';
 
@@ -53,17 +54,17 @@ const s = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 16,
     paddingBottom: 4,
-    backgroundColor: '#f8fafc',
+    backgroundColor: Colors.background,
   },
   row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   label: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#64748b',
+    color: Colors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 1,
   },
   addBtn: { minHeight: 44, minWidth: 44, justifyContent: 'center', paddingHorizontal: 8 },
-  addText: { color: '#6366f1', fontSize: 14 },
+  addText: { color: Colors.brandSecondary, fontSize: 14 },
   pills: { marginTop: 8 },
 });

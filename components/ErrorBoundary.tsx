@@ -1,6 +1,8 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import { Colors } from '@/utils/colors';
+
 interface Props {
   children: React.ReactNode;
 }
@@ -35,9 +37,9 @@ export class ErrorBoundary extends React.Component<Props, State> {
 
 const s = StyleSheet.create({
   container: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 },
-  title: { fontSize: 18, color: '#fff', marginBottom: 16 },
+  title: { fontSize: 18, color: Colors.surface, marginBottom: 16 },
   button: {
-    backgroundColor: '#4f46e5',
+    backgroundColor: Colors.brand,
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderRadius: 8,
@@ -45,5 +47,5 @@ const s = StyleSheet.create({
     minWidth: 44,
     alignItems: 'center',
   },
-  buttonText: { color: '#fff', fontSize: 16 },
+  buttonText: { color: Colors.surface, fontSize: 16 },
 });

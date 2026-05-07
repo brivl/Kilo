@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 
 import { useSettingsStore } from '@/store/settingsStore';
+import { Colors } from '@/utils/colors';
 
 interface Totals {
   calories: number;
@@ -65,12 +66,12 @@ export function MacroRing({ totals }: { totals: Totals }) {
             cy={SIZE / 2}
             r={R}
             fill="none"
-            stroke="#e2e8f0"
+            stroke={Colors.border}
             strokeWidth={STROKE}
           />
-          {ring(totals.proteinG / proteinGoal, '#6ee7b7', 0)}
-          {ring(totals.carbsG / carbsGoal, '#93c5fd', 0.33)}
-          {ring(totals.fatG / fatGoal, '#fca5a5', 0.66)}
+          {ring(totals.proteinG / proteinGoal, Colors.macroProtein, 0)}
+          {ring(totals.carbsG / carbsGoal, Colors.macroCarbs, 0.33)}
+          {ring(totals.fatG / fatGoal, Colors.macroFat, 0.66)}
         </Svg>
         <View style={s.center}>
           <Text style={s.cal}>{totals.calories}</Text>
@@ -78,9 +79,14 @@ export function MacroRing({ totals }: { totals: Totals }) {
         </View>
       </View>
       <View style={s.stats}>
-        <MacroStat label="Protein" value={totals.proteinG} goal={proteinGoal} color="#6ee7b7" />
-        <MacroStat label="Carbs" value={totals.carbsG} goal={carbsGoal} color="#93c5fd" />
-        <MacroStat label="Fat" value={totals.fatG} goal={fatGoal} color="#fca5a5" />
+        <MacroStat
+          label="Protein"
+          value={totals.proteinG}
+          goal={proteinGoal}
+          color={Colors.macroProtein}
+        />
+        <MacroStat label="Carbs" value={totals.carbsG} goal={carbsGoal} color={Colors.macroCarbs} />
+        <MacroStat label="Fat" value={totals.fatG} goal={fatGoal} color={Colors.macroFat} />
       </View>
     </View>
   );
@@ -90,12 +96,12 @@ const s = StyleSheet.create({
   wrapper: { alignItems: 'center', gap: 16 },
   container: { width: SIZE, height: SIZE, alignItems: 'center', justifyContent: 'center' },
   center: { position: 'absolute', alignItems: 'center' },
-  cal: { fontSize: 28, fontWeight: 'bold', color: '#0f172a' },
-  calLabel: { fontSize: 12, color: '#64748b' },
+  cal: { fontSize: 28, fontWeight: 'bold', color: Colors.textPrimary },
+  calLabel: { fontSize: 12, color: Colors.textSecondary },
   stats: { flexDirection: 'row', gap: 24 },
   stat: { alignItems: 'center', gap: 2 },
   dot: { width: 8, height: 8, borderRadius: 4, marginBottom: 2 },
-  statValue: { fontSize: 15, fontWeight: '600', color: '#0f172a' },
-  statLabel: { fontSize: 11, color: '#64748b' },
-  statGoal: { fontSize: 11, color: '#94a3b8' },
+  statValue: { fontSize: 15, fontWeight: '600', color: Colors.textPrimary },
+  statLabel: { fontSize: 11, color: Colors.textSecondary },
+  statGoal: { fontSize: 11, color: Colors.textMuted },
 });

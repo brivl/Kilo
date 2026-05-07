@@ -4,6 +4,7 @@ import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useSettingsStore } from '@/store/settingsStore';
+import { Colors } from '@/utils/colors';
 import { addDaysISO, parseISO, todayISO, toISO } from '@/utils/date';
 
 export function DateHeader() {
@@ -75,9 +76,9 @@ const s = StyleSheet.create({
     paddingBottom: 12,
   },
   arrow: { minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
-  arrowText: { fontSize: 24, color: '#0f172a' },
+  arrowText: { fontSize: 24, color: Colors.textPrimary },
   dateBtn: { flex: 1, alignItems: 'center', minHeight: 44, justifyContent: 'center' },
-  dateText: { fontSize: 17, fontWeight: '600', color: '#0f172a' },
+  dateText: { fontSize: 17, fontWeight: '600', color: Colors.textPrimary },
   todayBtn: {
     minWidth: 44,
     minHeight: 44,
@@ -85,7 +86,7 @@ const s = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 8,
   },
-  todayText: { fontSize: 13, color: '#6366f1' },
+  todayText: { fontSize: 13, color: Colors.brandSecondary },
   backdrop: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',
@@ -93,7 +94,7 @@ const s = StyleSheet.create({
     alignItems: 'center',
   },
   pickerCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.surface,
     borderRadius: 16,
     overflow: 'hidden',
   },

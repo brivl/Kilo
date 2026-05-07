@@ -65,7 +65,7 @@
   - [ ] Tag workflow: `git tag v1.0.0 && git push --tags`
 - [ ] #27: Pre-launch observability — Sentry + PostHog
 - [ ] #28: Monetization — RevenueCat subscription
-- [ ] #29: Light/dark theming system (central colors.ts)
+- [x] #29: Light/dark theming system (central colors.ts)
 - [ ] #30: Improve food search (min 2 chars, cache, ranking)
 - [ ] #31: Integration tests for plan screens (plan/new, plan/[id])
 

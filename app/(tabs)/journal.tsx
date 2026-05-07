@@ -8,6 +8,7 @@ import type { WorkoutSession } from '@/db/models/WorkoutSession';
 import { observeSessionsForDate } from '@/db/queries/workoutSessions';
 import { useSettingsStore } from '@/store/settingsStore';
 import { deleteSession } from '@/store/workoutStore';
+import { Colors } from '@/utils/colors';
 
 function SessionCard({ session }: { session: WorkoutSession }) {
   const router = useRouter();
@@ -81,34 +82,34 @@ export default function JournalTab() {
 }
 
 const s = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#f8fafc' },
+  screen: { flex: 1, backgroundColor: Colors.background },
   list: { padding: 16, gap: 12, paddingBottom: 100 },
-  empty: { color: '#94a3b8', fontSize: 14, textAlign: 'center', marginTop: 48 },
+  empty: { color: Colors.textMuted, fontSize: 14, textAlign: 'center', marginTop: 48 },
   card: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.surface,
     borderRadius: 12,
     padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
   },
   cardMain: { flex: 1 },
-  cardName: { fontSize: 16, fontWeight: '600', color: '#0f172a' },
-  cardNotes: { fontSize: 13, color: '#64748b', marginTop: 2 },
-  cardMeta: { fontSize: 12, color: '#94a3b8', marginTop: 4 },
+  cardName: { fontSize: 16, fontWeight: '600', color: Colors.textPrimary },
+  cardNotes: { fontSize: 13, color: Colors.textSecondary, marginTop: 2 },
+  cardMeta: { fontSize: 12, color: Colors.textMuted, marginTop: 4 },
   deleteBtn: { minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
-  deleteTxt: { color: '#94a3b8', fontSize: 16 },
+  deleteTxt: { color: Colors.textMuted, fontSize: 16 },
   fab: {
     position: 'absolute',
     bottom: 24,
     left: 16,
     right: 16,
-    backgroundColor: '#4f46e5',
+    backgroundColor: Colors.brand,
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: 'center',
     minHeight: 44,
   },
-  fabTxt: { color: '#ffffff', fontSize: 16, fontWeight: '700' },
+  fabTxt: { color: Colors.surface, fontSize: 16, fontWeight: '700' },
 });

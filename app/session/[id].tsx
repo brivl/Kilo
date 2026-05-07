@@ -18,6 +18,7 @@ import type { WorkoutSet } from '@/db/models/WorkoutSet';
 import { observeSetsForSession } from '@/db/queries/workoutSets';
 import { useSettingsStore } from '@/store/settingsStore';
 import { addSet, deleteSet } from '@/store/workoutStore';
+import { Colors } from '@/utils/colors';
 
 interface SetRow {
   id: string;
@@ -151,7 +152,7 @@ export default function SessionDetailScreen() {
             <TextInput
               style={s.input}
               placeholder="Exercise name"
-              placeholderTextColor="#94a3b8"
+              placeholderTextColor={Colors.textMuted}
               value={exerciseName}
               onChangeText={setExerciseName}
               returnKeyType="next"
@@ -178,7 +179,7 @@ export default function SessionDetailScreen() {
                 <TextInput
                   style={s.input}
                   placeholder="0"
-                  placeholderTextColor="#94a3b8"
+                  placeholderTextColor={Colors.textMuted}
                   value={reps}
                   onChangeText={setReps}
                   keyboardType="number-pad"
@@ -191,7 +192,7 @@ export default function SessionDetailScreen() {
                 <TextInput
                   style={s.input}
                   placeholder="0"
-                  placeholderTextColor="#94a3b8"
+                  placeholderTextColor={Colors.textMuted}
                   value={weight}
                   onChangeText={setWeight}
                   keyboardType="decimal-pad"
@@ -219,68 +220,68 @@ export default function SessionDetailScreen() {
 }
 
 const s = StyleSheet.create({
-  flex: { flex: 1, backgroundColor: '#f8fafc' },
+  flex: { flex: 1, backgroundColor: Colors.background },
   content: { padding: 16, gap: 12, paddingBottom: 40 },
-  empty: { color: '#94a3b8', fontSize: 14, textAlign: 'center', marginTop: 24 },
+  empty: { color: Colors.textMuted, fontSize: 14, textAlign: 'center', marginTop: 24 },
   exerciseCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.surface,
     borderRadius: 12,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
   },
-  exerciseName: { fontSize: 15, fontWeight: '700', color: '#0f172a', marginBottom: 10 },
+  exerciseName: { fontSize: 15, fontWeight: '700', color: Colors.textPrimary, marginBottom: 10 },
   table: { gap: 4 },
   tableHeader: {
     flexDirection: 'row',
     paddingBottom: 4,
     borderBottomWidth: 1,
-    borderBottomColor: '#f1f5f9',
+    borderBottomColor: Colors.surfaceSubtle,
   },
   tableRow: { flexDirection: 'row', paddingVertical: 6 },
-  tableCell: { fontSize: 14, color: '#0f172a' },
-  colSet: { width: 36, color: '#64748b', fontSize: 12, fontWeight: '600' },
+  tableCell: { fontSize: 14, color: Colors.textPrimary },
+  colSet: { width: 36, color: Colors.textSecondary, fontSize: 12, fontWeight: '600' },
   colReps: { flex: 1, textAlign: 'center' },
   colWeight: { flex: 1, textAlign: 'center' },
   colDel: { width: 36, alignItems: 'flex-end', justifyContent: 'center' },
-  delTxt: { color: '#94a3b8', fontSize: 14 },
+  delTxt: { color: Colors.textMuted, fontSize: 14 },
   form: {
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.surface,
     borderRadius: 12,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
     marginTop: 4,
   },
-  formTitle: { fontSize: 15, fontWeight: '700', color: '#0f172a', marginBottom: 4 },
-  label: { color: '#64748b', fontSize: 13, marginBottom: 4, marginTop: 12 },
+  formTitle: { fontSize: 15, fontWeight: '700', color: Colors.textPrimary, marginBottom: 4 },
+  label: { color: Colors.textSecondary, fontSize: 13, marginBottom: 4, marginTop: 12 },
   input: {
-    backgroundColor: '#f8fafc',
-    color: '#0f172a',
+    backgroundColor: Colors.background,
+    color: Colors.textPrimary,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 15,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
   },
   chips: { marginTop: 8 },
   chip: {
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 16,
-    backgroundColor: '#f1f5f9',
+    backgroundColor: Colors.surfaceSubtle,
     marginRight: 8,
     minHeight: 32,
     justifyContent: 'center',
   },
-  chipActive: { backgroundColor: '#ede9fe' },
-  chipTxt: { fontSize: 13, color: '#64748b' },
-  chipTxtActive: { color: '#4f46e5', fontWeight: '600' },
+  chipActive: { backgroundColor: Colors.brandSubtle },
+  chipTxt: { fontSize: 13, color: Colors.textSecondary },
+  chipTxtActive: { color: Colors.brand, fontWeight: '600' },
   row: { flexDirection: 'row', gap: 12 },
   half: { flex: 1 },
   addBtn: {
-    backgroundColor: '#4f46e5',
+    backgroundColor: Colors.brand,
     borderRadius: 10,
     paddingVertical: 12,
     alignItems: 'center',
@@ -288,5 +289,5 @@ const s = StyleSheet.create({
     minHeight: 44,
   },
   addBtnDisabled: { opacity: 0.5 },
-  addBtnTxt: { color: '#ffffff', fontSize: 15, fontWeight: '700' },
+  addBtnTxt: { color: Colors.surface, fontSize: 15, fontWeight: '700' },
 });

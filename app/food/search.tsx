@@ -14,6 +14,7 @@ import type { FoodEntry } from '@/db/models/FoodEntry';
 import { observeRecentFoods } from '@/db/queries/foodEntries';
 import { OffNetworkError, searchFoods, type OffFood } from '@/services/openFoodFacts';
 import { useToastStore } from '@/store/toastStore';
+import { Colors } from '@/utils/colors';
 
 interface ListItem {
   type: 'recent' | 'result';
@@ -122,14 +123,14 @@ export default function FoodSearchScreen() {
         <TextInput
           style={s.input}
           placeholder="Search foods…"
-          placeholderTextColor="#64748b"
+          placeholderTextColor={Colors.textSecondary}
           value={query}
           onChangeText={setQuery}
           autoFocus
           returnKeyType="search"
           accessibilityLabel="Search foods"
         />
-        {loading && <ActivityIndicator style={s.spinner} color="#6366f1" />}
+        {loading && <ActivityIndicator style={s.spinner} color={Colors.brandSecondary} />}
       </View>
 
       {!query.trim() && recentFoods.length > 0 && <Text style={s.sectionLabel}>Recent</Text>}
@@ -172,21 +173,21 @@ export default function FoodSearchScreen() {
 }
 
 const s = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#f8fafc' },
+  screen: { flex: 1, backgroundColor: Colors.background },
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
     margin: 12,
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.surface,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
     paddingHorizontal: 12,
   },
-  input: { flex: 1, color: '#0f172a', fontSize: 16, paddingVertical: 10 },
+  input: { flex: 1, color: Colors.textPrimary, fontSize: 16, paddingVertical: 10 },
   spinner: { marginLeft: 8 },
   sectionLabel: {
-    color: '#64748b',
+    color: Colors.textSecondary,
     fontSize: 12,
     fontWeight: '600',
     textTransform: 'uppercase',
@@ -198,22 +199,22 @@ const s = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#e2e8f0',
+    borderBottomColor: Colors.border,
     minHeight: 44,
     justifyContent: 'center',
   },
-  label: { color: '#0f172a', fontSize: 15 },
-  sub: { color: '#64748b', fontSize: 12, marginTop: 2 },
-  empty: { color: '#94a3b8', fontSize: 14, textAlign: 'center', marginTop: 32 },
+  label: { color: Colors.textPrimary, fontSize: 15 },
+  sub: { color: Colors.textSecondary, fontSize: 12, marginTop: 2 },
+  empty: { color: Colors.textMuted, fontSize: 14, textAlign: 'center', marginTop: 32 },
   manualBtn: {
     margin: 16,
     paddingVertical: 12,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: Colors.border,
     borderRadius: 8,
     minHeight: 44,
     justifyContent: 'center',
   },
-  manualTxt: { color: '#6366f1', fontSize: 14 },
+  manualTxt: { color: Colors.brandSecondary, fontSize: 14 },
 });

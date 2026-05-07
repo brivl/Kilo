@@ -4,6 +4,7 @@ import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { MealTemplate } from '@/db/models/MealTemplate';
 import { observeAllTemplates } from '@/db/queries/mealTemplates';
 import { deleteTemplate } from '@/store/mealTemplateStore';
+import { Colors } from '@/utils/colors';
 
 export default function TemplatesScreen() {
   const [templates, setTemplates] = useState<MealTemplate[]>([]);
@@ -41,24 +42,24 @@ export default function TemplatesScreen() {
 }
 
 const s = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#f8fafc', padding: 16 },
-  heading: { color: '#0f172a', fontSize: 22, fontWeight: '700', marginBottom: 16 },
+  screen: { flex: 1, backgroundColor: Colors.background, padding: 16 },
+  heading: { color: Colors.textPrimary, fontSize: 22, fontWeight: '700', marginBottom: 16 },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 14,
     borderBottomWidth: 1,
-    borderBottomColor: '#e2e8f0',
+    borderBottomColor: Colors.border,
     minHeight: 44,
   },
-  name: { color: '#0f172a', fontSize: 15, flex: 1 },
+  name: { color: Colors.textPrimary, fontSize: 15, flex: 1 },
   deleteBtn: {
     paddingHorizontal: 12,
     paddingVertical: 6,
     minHeight: 44,
     justifyContent: 'center',
   },
-  deleteTxt: { color: '#ef4444', fontSize: 14 },
-  empty: { color: '#4b5563', fontSize: 14, textAlign: 'center', marginTop: 32 },
+  deleteTxt: { color: Colors.danger, fontSize: 14 },
+  empty: { color: Colors.textSecondary, fontSize: 14, textAlign: 'center', marginTop: 32 },
 });

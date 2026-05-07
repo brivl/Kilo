@@ -12,6 +12,7 @@ import { observeEntriesForDate } from '@/db/queries/foodEntries';
 import { observeAllTemplates } from '@/db/queries/mealTemplates';
 import { deleteEntry } from '@/store/foodStore';
 import { useSettingsStore } from '@/store/settingsStore';
+import { Colors } from '@/utils/colors';
 import { sumMacros } from '@/utils/macros';
 
 const MEALS = [
@@ -110,8 +111,8 @@ export default function FoodLogTab() {
 }
 
 const s = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#f8fafc' },
+  screen: { flex: 1, backgroundColor: Colors.background },
   ring: { alignItems: 'center', paddingVertical: 16 },
   list: { flex: 1 },
-  empty: { color: '#94a3b8', fontSize: 13, paddingHorizontal: 16, paddingVertical: 8 },
+  empty: { color: Colors.textMuted, fontSize: 13, paddingHorizontal: 16, paddingVertical: 8 },
 });
