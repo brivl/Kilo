@@ -6,7 +6,9 @@ import { useAuthStore } from '@/store/authStore';
 let mockRedirect: jest.Mock;
 
 jest.mock('expo-router', () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const React = require('react');
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { Text } = require('react-native');
   mockRedirect = jest.fn();
   return {
@@ -35,6 +37,7 @@ describe('ProtectedLayout', () => {
   });
 
   it('renders nothing while loading', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mockUseAuthStore.mockImplementation((selector: (s: any) => any) =>
       selector({ session: null, isLoading: true }),
     );
@@ -43,6 +46,7 @@ describe('ProtectedLayout', () => {
   });
 
   it('redirects to welcome when no session', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mockUseAuthStore.mockImplementation((selector: (s: any) => any) =>
       selector({ session: null, isLoading: false }),
     );
@@ -51,6 +55,7 @@ describe('ProtectedLayout', () => {
   });
 
   it('renders Stack when session exists', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mockUseAuthStore.mockImplementation((selector: (s: any) => any) =>
       selector({ session: { user: { id: '1' } }, isLoading: false }),
     );
@@ -60,6 +65,7 @@ describe('ProtectedLayout', () => {
 
   it('renders Stack when skipAuth is true even without session', () => {
     process.env.EXPO_PUBLIC_SKIP_AUTH = 'true';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mockUseAuthStore.mockImplementation((selector: (s: any) => any) =>
       selector({ session: null, isLoading: false }),
     );
