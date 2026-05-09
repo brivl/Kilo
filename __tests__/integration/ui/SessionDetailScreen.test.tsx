@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
 
-import SessionDetailScreen from '@/app/session/[id]';
+import SessionDetailScreen from '@/app/(protected)/session/[id]';
 import { createSession } from '@/store/workoutStore';
 
 import { makeTestDatabase } from '../../test-utils/makeTestDatabase';

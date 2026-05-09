@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native';
 
-import ProgressScreen from '@/app/(tabs)/progress';
+import ProgressScreen from '@/app/(protected)/(tabs)/progress';
 import { logWeight } from '@/store/bodyWeightStore';
 
 import { makeTestDatabase } from '../../test-utils/makeTestDatabase';

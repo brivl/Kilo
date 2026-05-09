@@ -1,6 +1,6 @@
 import { render, waitFor } from '@testing-library/react-native';
 
-import FoodLogTab from '@/app/(tabs)/index';
+import FoodLogTab from '@/app/(protected)/(tabs)/index';
 import { addEntry } from '@/store/foodStore';
 import { useSettingsStore } from '@/store/settingsStore';
 

@@ -1,6 +1,6 @@
 import { render, waitFor } from '@testing-library/react-native';
 
-import JournalScreen from '@/app/(tabs)/journal';
+import JournalScreen from '@/app/(protected)/(tabs)/journal';
 import { useSettingsStore } from '@/store/settingsStore';
 import { createSession } from '@/store/workoutStore';
 
