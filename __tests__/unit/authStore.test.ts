@@ -33,6 +33,7 @@ beforeEach(() => {
 });
 
 it('initialize sets session from getSession and subscribes to auth changes', async () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const fakeSession = { user: { id: 'abc' } } as any;
   supabase.auth['getSession'].mockResolvedValue({ data: { session: fakeSession } });
 
