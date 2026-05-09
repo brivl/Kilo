@@ -19,6 +19,8 @@
 - [x] #24: Phase 2 — Gym journal (sessions + sets screens)
 - [x] #25: Phase 3 — Training plans (schema, store, plan screens)
 - [x] #26: Phase 4 — Progress screen + body weight chart (Victory Native)
+- [x] #29: Light/dark theming system (central colors.ts)
+- [x] #31: Integration tests for plan screens (plan/new, plan/[id])
 
 ## Pending ⏳
 
@@ -54,20 +56,20 @@
 
 ### Infrastructure & Launch
 
-- [ ] #36: CI/CD pipeline — GitHub Actions with unit/integration/e2e tests + EAS builds
+- [x] #36: CI/CD pipeline — GitHub Actions with unit/integration/e2e tests + EAS builds
   - [x] Lint (format, eslint, typecheck) on PR/push
   - [x] Unit + integration tests on PR/push
   - [x] Preview build on main branch
   - [x] Production build on version tags
-  - [ ] Add E2E tests (Maestro) to pipeline
-  - [ ] Set up GitHub Secrets (EXPO_TOKEN, etc.)
-  - [ ] Create eas.json with build profiles
-  - [ ] Tag workflow: `git tag v1.0.0 && git push --tags`
+  - [x] E2E tests (Maestro) on weekly schedule + manual dispatch
+  - [x] eas.json with build profiles (development/preview/production)
+  - [ ] Set up GitHub Secret: EXPO_TOKEN (repo → Settings → Secrets → Actions)
+  - [ ] Fill in eas.json submit section with Apple credentials
+  - [ ] Update bundleIdentifier in app.config.ts from placeholder
+  - [ ] Run `npx eas-cli init` to link project to EAS
 - [ ] #27: Pre-launch observability — Sentry + PostHog
 - [ ] #28: Monetization — RevenueCat subscription
-- [x] #29: Light/dark theming system (central colors.ts)
 - [ ] #30: Improve food search (min 2 chars, cache, ranking)
-- [ ] #31: Integration tests for plan screens (plan/new, plan/[id])
 
 ## Legend
 
