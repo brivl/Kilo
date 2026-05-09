@@ -1,0 +1,62 @@
+name: E2E
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * 1'
+
+jobs:
+  e2e-ios:
+    name: Maestro — iOS simulator
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Maestro
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+
+      - name: Cache CocoaPods
+        uses: actions/cache@v4
+        with:
+          path: ios/Pods
+          key: pods-${{ hashFiles('ios/Podfile.lock') }}
+          restore-keys: pods-
+
+      - name: Install CocoaPods
+        run: cd ios && pod install --repo-update
+
+      - name: Build for simulator
+        run: |
+          xcodebuild \
+            -workspace ios/GymTracker.xcworkspace \
+            -scheme GymTracker \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+            -derivedDataPath ios/build \
+            -quiet
+
+      - name: Boot simulator
+        run: |
+          xcrun simctl boot "iPhone 16" 2>/dev/null || true
+          xcrun simctl bootstatus "iPhone 16" -b
+
+      - name: Install app on simulator
+        run: |
+          APP=$(find ios/build -name "*.app" -path "*/Debug-iphonesimulator/*" | head -1)
+          xcrun simctl install booted "$APP"
+
+      - name: Run Maestro flows
+        run: maestro test e2e/
+        env:
+          MAESTRO_DRIVER_STARTUP_TIMEOUT: 60000
