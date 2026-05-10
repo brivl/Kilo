@@ -6,8 +6,8 @@ on:
     tags: ['v*']
 
 jobs:
-  build-preview:
-    name: EAS build — preview
+  ota-preview:
+    name: EAS update — preview (OTA)
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
@@ -25,8 +25,8 @@ jobs:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
-      - name: Build preview
-        run: eas build --platform ios --profile preview --non-interactive
+      - name: Publish OTA update
+        run: eas update --branch preview --message "Deploy ${{ github.sha }}"
 
   build-production:
     name: EAS build — production
