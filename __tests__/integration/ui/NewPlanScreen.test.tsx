@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 
-import NewPlanScreen from '@/app/plan/new';
+import NewPlanScreen from '@/app/(protected)/plan/new';
 
 import { makeTestDatabase } from '../../test-utils/makeTestDatabase';
 

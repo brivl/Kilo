@@ -1,0 +1,26 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    ignore:
+      # Pin Expo SDK manually — upgrading requires coordinated native changes
+      - dependency-name: expo
+        versions: ['*']
+      - dependency-name: expo-router
+        versions: ['*']
+      - dependency-name: react-native
+        versions: ['*']
+    groups:
+      expo-ecosystem:
+        patterns:
+          - 'expo-*'
+          - '@expo/*'
+      testing:
+        patterns:
+          - '@testing-library/*'
+          - 'jest*'
+          - 'jest-*'

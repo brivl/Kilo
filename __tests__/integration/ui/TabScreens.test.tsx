@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react-native';
 import React from 'react';
 
-import JournalScreen from '@/app/(tabs)/journal';
-import PlansScreen from '@/app/(tabs)/plans';
-import ProgressScreen from '@/app/(tabs)/progress';
+import JournalScreen from '@/app/(protected)/(tabs)/journal';
+import PlansScreen from '@/app/(protected)/(tabs)/plans';
+import ProgressScreen from '@/app/(protected)/(tabs)/progress';
 
 import { makeTestDatabase } from '../../test-utils/makeTestDatabase';
 

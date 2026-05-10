@@ -1,6 +1,6 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
-import TemplatesScreen from '@/app/food/templates';
+import TemplatesScreen from '@/app/(protected)/food/templates';
 import { createTemplate } from '@/store/mealTemplateStore';
 
 import { makeTestDatabase } from '../../test-utils/makeTestDatabase';

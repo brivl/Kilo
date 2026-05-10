@@ -79,7 +79,7 @@ export default function SessionDetailScreen() {
       .find(id)
       .then(setSession)
       .catch(() => router.back());
-  }, [id]);
+  }, [id, router]);
 
   useEffect(() => {
     const sub = observeSetsForSession(id).subscribe(setSets);

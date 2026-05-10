@@ -1,6 +1,6 @@
 import { fireEvent, render } from '@testing-library/react-native';
 
-import FoodSearchScreen from '@/app/food/search';
+import FoodSearchScreen from '@/app/(protected)/food/search';
 import type { OffFood } from '@/services/openFoodFacts';
 import { addEntry } from '@/store/foodStore';
 import { useSettingsStore } from '@/store/settingsStore';

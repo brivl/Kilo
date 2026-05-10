@@ -1,6 +1,6 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
-import AddFoodScreen from '@/app/food/add';
+import AddFoodScreen from '@/app/(protected)/food/add';
 import type { FoodEntry } from '@/db/models/FoodEntry';
 import { useSettingsStore } from '@/store/settingsStore';
 
