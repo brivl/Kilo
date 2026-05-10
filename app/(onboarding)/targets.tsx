@@ -1,0 +1,147 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+
+import { useOnboardingStore } from '@/store/onboardingStore';
+import { useSettingsStore } from '@/store/settingsStore';
+import { useToastStore } from '@/store/toastStore';
+import { calculateMacros, calculateTargetCalories, calculateTDEE } from '@/utils/tdee';
+
+export default function TargetsScreen() {
+  const router = useRouter();
+  const store = useOnboardingStore();
+  const setCalorieGoal = useSettingsStore(s => s.setCalorieGoal);
+  const setMacroGoals = useSettingsStore(s => s.setMacroGoals);
+  const showToast = useToastStore(s => s.showToast);
+
+  const [calories, setCalories] = useState('');
+  const [protein, setProtein] = useState('');
+  const [carbs, setCarbs] = useState('');
+  const [fat, setFat] = useState('');
+
+  useEffect(() => {
+    const { goal, weightKg, heightCm, age, sex, activityLevel } = store;
+    if (goal && weightKg && heightCm && age && sex && activityLevel) {
+      const tdee = calculateTDEE(weightKg, heightCm, age, sex, activityLevel);
+      const targetCal = calculateTargetCalories(tdee, goal);
+      const macros = calculateMacros(targetCal, goal);
+      setCalories(String(targetCal));
+      setProtein(String(macros.proteinG));
+      setCarbs(String(macros.carbsG));
+      setFat(String(macros.fatG));
+    }
+  }, [store]);
+
+  const handleSave = async () => {
+    try {
+      setCalorieGoal(parseInt(calories, 10) || 2000);
+      setMacroGoals({
+        proteinG: parseInt(protein, 10) || 150,
+        carbsG: parseInt(carbs, 10) || 250,
+        fatG: parseInt(fat, 10) || 65,
+      });
+      store.reset();
+      await AsyncStorage.setItem('onboardingComplete', 'true');
+      router.replace('/(protected)/(tabs)');
+    } catch {
+      showToast('Could not save progress. Try again.', 'error');
+    }
+  };
+
+  const handleSkip = async () => {
+    store.reset();
+    try {
+      await AsyncStorage.setItem('onboardingComplete', 'true');
+      router.replace('/(protected)/(tabs)');
+    } catch {
+      showToast('Could not save progress. Try again.', 'error');
+    }
+  };
+
+  return (
+    <ScrollView style={styles.scroll} contentContainerStyle={styles.container}>
+      <Text style={styles.step}>Step 4 of 4</Text>
+      <Text style={styles.title}>Your daily targets</Text>
+      <Text style={styles.subtitle}>Calculated from your stats. Adjust if needed.</Text>
+
+      <View style={styles.form}>
+        <Text style={styles.label}>Daily calories</Text>
+        <TextInput
+          style={styles.input}
+          value={calories}
+          onChangeText={setCalories}
+          keyboardType="number-pad"
+          accessibilityLabel="Daily calories"
+        />
+
+        <Text style={styles.label}>Protein (g)</Text>
+        <TextInput
+          style={styles.input}
+          value={protein}
+          onChangeText={setProtein}
+          keyboardType="number-pad"
+          accessibilityLabel="Protein goal"
+        />
+
+        <Text style={styles.label}>Carbohydrates (g)</Text>
+        <TextInput
+          style={styles.input}
+          value={carbs}
+          onChangeText={setCarbs}
+          keyboardType="number-pad"
+          accessibilityLabel="Carbs goal"
+        />
+
+        <Text style={styles.label}>Fat (g)</Text>
+        <TextInput
+          style={styles.input}
+          value={fat}
+          onChangeText={setFat}
+          keyboardType="number-pad"
+          accessibilityLabel="Fat goal"
+        />
+      </View>
+
+      <TouchableOpacity
+        style={styles.saveButton}
+        onPress={handleSave}
+        accessibilityLabel="Save targets"
+      >
+        <Text style={styles.saveButtonText}>Save & get started</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={handleSkip} accessibilityLabel="Use defaults instead">
+        <Text style={styles.skip}>Use defaults instead</Text>
+      </TouchableOpacity>
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  scroll: { flex: 1, backgroundColor: '#fff' },
+  container: { padding: 24, paddingTop: 48 },
+  step: { fontSize: 14, color: '#999', marginBottom: 8 },
+  title: { fontSize: 26, fontWeight: '700', marginBottom: 8 },
+  subtitle: { fontSize: 14, color: '#666', marginBottom: 32 },
+  form: { gap: 8, marginBottom: 24 },
+  label: { fontSize: 14, fontWeight: '600', color: '#333' },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    height: 48,
+    paddingHorizontal: 12,
+    fontSize: 16,
+    marginBottom: 8,
+  },
+  saveButton: {
+    backgroundColor: '#000',
+    borderRadius: 8,
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  saveButtonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
+  skip: { textAlign: 'center', color: '#999', fontSize: 14, paddingVertical: 16 },
+});
