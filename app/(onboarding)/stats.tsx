@@ -4,12 +4,14 @@ import { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { useOnboardingStore } from '@/store/onboardingStore';
+import { useToastStore } from '@/store/toastStore';
 import type { Sex } from '@/utils/tdee';
 
 export default function StatsScreen() {
   const router = useRouter();
   const setStats = useOnboardingStore(s => s.setStats);
   const reset = useOnboardingStore(s => s.reset);
+  const showToast = useToastStore(s => s.showToast);
 
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
@@ -20,8 +22,12 @@ export default function StatsScreen() {
 
   const handleSkip = async () => {
     reset();
-    await AsyncStorage.setItem('onboardingComplete', 'true');
-    router.replace('/(protected)/(tabs)');
+    try {
+      await AsyncStorage.setItem('onboardingComplete', 'true');
+      router.replace('/(protected)/(tabs)');
+    } catch {
+      showToast('Could not save progress. Try again.', 'error');
+    }
   };
 
   const handleNext = () => {

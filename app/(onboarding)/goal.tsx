@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { useOnboardingStore } from '@/store/onboardingStore';
+import { useToastStore } from '@/store/toastStore';
 import type { Goal } from '@/utils/tdee';
 
 const GOALS: { key: Goal; label: string; description: string }[] = [
@@ -16,10 +17,15 @@ export default function GoalScreen() {
   const router = useRouter();
   const setGoal = useOnboardingStore(s => s.setGoal);
   const goal = useOnboardingStore(s => s.goal);
+  const showToast = useToastStore(s => s.showToast);
 
   const handleSkip = async () => {
-    await AsyncStorage.setItem('onboardingComplete', 'true');
-    router.replace('/(protected)/(tabs)');
+    try {
+      await AsyncStorage.setItem('onboardingComplete', 'true');
+      router.replace('/(protected)/(tabs)');
+    } catch {
+      showToast('Could not save progress. Try again.', 'error');
+    }
   };
 
   const handleSelect = (key: Goal) => {
@@ -61,7 +67,7 @@ const styles = StyleSheet.create({
   step: { fontSize: 14, color: '#999', marginBottom: 8 },
   title: { fontSize: 26, fontWeight: '700', marginBottom: 32 },
   options: { flex: 1, gap: 12 },
-  card: { borderWidth: 1.5, borderColor: '#e0e0e0', borderRadius: 12, padding: 16 },
+  card: { borderWidth: 1.5, borderColor: '#e0e0e0', borderRadius: 12, padding: 16, minHeight: 44 },
   cardSelected: { borderColor: '#000', backgroundColor: '#f5f5f5' },
   cardLabel: { fontSize: 17, fontWeight: '600', marginBottom: 4 },
   cardLabelSelected: { color: '#000' },
