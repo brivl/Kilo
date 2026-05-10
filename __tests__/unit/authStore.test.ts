@@ -21,7 +21,19 @@ jest.mock('@/store/toastStore', () => ({
 }));
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const { supabase } = require('@/lib/supabase') as { supabase: { auth: Record<string, jest.Mock> } };
+const { supabase } = require('@/lib/supabase') as {
+  supabase: {
+    auth: {
+      getSession: jest.Mock;
+      onAuthStateChange: jest.Mock;
+      signUp: jest.Mock;
+      signInWithPassword: jest.Mock;
+      signOut: jest.Mock;
+      resetPasswordForEmail: jest.Mock;
+      signInWithIdToken: jest.Mock;
+    };
+  };
+};
 
 beforeEach(() => {
   jest.clearAllMocks();
