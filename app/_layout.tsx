@@ -19,6 +19,7 @@ export default function RootLayout() {
       <View style={{ flex: 1 }}>
         <Stack>
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
           <Stack.Screen name="(protected)" options={{ headerShown: false }} />
         </Stack>
         <StatusBar style="auto" />
