@@ -21,9 +21,21 @@ describe('calculateTDEE', () => {
     // BMR=1780, ×1.2 = 2136
     expect(calculateTDEE(80, 180, 30, 'male', 'sedentary')).toBe(2136);
   });
+  it('applies light multiplier (×1.375)', () => {
+    // BMR=1780, ×1.375 = round(2447.5) = 2448
+    expect(calculateTDEE(80, 180, 30, 'male', 'light')).toBe(2448);
+  });
   it('applies moderate multiplier (×1.55)', () => {
     // BMR=1780, ×1.55 = 2759
     expect(calculateTDEE(80, 180, 30, 'male', 'moderate')).toBe(2759);
+  });
+  it('applies very active multiplier (×1.725)', () => {
+    // BMR=1780, ×1.725 = round(3070.5) = 3071
+    expect(calculateTDEE(80, 180, 30, 'male', 'very')).toBe(3071);
+  });
+  it('applies extreme multiplier (×1.9)', () => {
+    // BMR=1780, ×1.9 = round(3382) = 3382
+    expect(calculateTDEE(80, 180, 30, 'male', 'extreme')).toBe(3382);
   });
 });
 

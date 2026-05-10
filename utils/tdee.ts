@@ -41,7 +41,7 @@ export function calculateTDEE(
 }
 
 export function calculateTargetCalories(tdee: number, goal: Goal): number {
-  return tdee + GOAL_ADJUSTMENTS[goal];
+  return Math.round(tdee + GOAL_ADJUSTMENTS[goal]);
 }
 
 export function calculateMacros(
@@ -50,8 +50,8 @@ export function calculateMacros(
 ): { proteinG: number; carbsG: number; fatG: number } {
   const { protein, carbs, fat } = MACRO_SPLITS[goal];
   return {
-    proteinG: Math.round((calories * protein) / 4),
-    carbsG: Math.round((calories * carbs) / 4),
-    fatG: Math.round((calories * fat) / 9),
+    proteinG: Math.max(0, Math.round((calories * protein) / 4)),
+    carbsG: Math.max(0, Math.round((calories * carbs) / 4)),
+    fatG: Math.max(0, Math.round((calories * fat) / 9)),
   };
 }
