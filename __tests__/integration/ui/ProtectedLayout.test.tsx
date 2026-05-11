@@ -1,9 +1,10 @@
-import { render, screen } from '@testing-library/react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { render, screen, waitFor } from '@testing-library/react-native';
 
 import ProtectedLayout from '@/app/(protected)/_layout';
 import { useAuthStore } from '@/store/authStore';
 
-let mockRedirect: jest.Mock;
+let mockRedirect: jest.Mock = jest.fn();
 
 jest.mock('expo-router', () => {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -20,9 +21,7 @@ jest.mock('expo-router', () => {
       ({ children }: { children: React.ReactNode }) => (
         <Text testID="protected-stack">{children}</Text>
       ),
-      {
-        Screen: () => null,
-      },
+      { Screen: () => null },
     ),
   };
 });
@@ -31,9 +30,10 @@ jest.mock('@/store/authStore');
 const mockUseAuthStore = useAuthStore as jest.MockedFunction<typeof useAuthStore>;
 
 describe('ProtectedLayout', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.clearAllMocks();
     delete process.env.EXPO_PUBLIC_SKIP_AUTH;
+    await AsyncStorage.clear();
   });
 
   it('renders nothing while loading', () => {
@@ -45,25 +45,35 @@ describe('ProtectedLayout', () => {
     expect(screen.toJSON()).toBeNull();
   });
 
-  it('redirects to welcome when no session', () => {
+  it('redirects to welcome when no session', async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mockUseAuthStore.mockImplementation((selector: (s: any) => any) =>
       selector({ session: null, isLoading: false }),
     );
     render(<ProtectedLayout />);
-    expect(mockRedirect).toHaveBeenCalledWith({ href: '/(auth)/welcome' });
+    await waitFor(() => expect(mockRedirect).toHaveBeenCalledWith({ href: '/(auth)/welcome' }));
   });
 
-  it('renders Stack when session exists', () => {
+  it('redirects to onboarding when session exists but onboarding not complete', async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mockUseAuthStore.mockImplementation((selector: (s: any) => any) =>
       selector({ session: { user: { id: '1' } }, isLoading: false }),
     );
     render(<ProtectedLayout />);
-    expect(screen.getByTestId('protected-stack')).toBeTruthy();
+    await waitFor(() => expect(mockRedirect).toHaveBeenCalledWith({ href: '/(onboarding)/goal' }));
   });
 
-  it('renders Stack when skipAuth is true even without session', () => {
+  it('renders Stack when session exists and onboarding is complete', async () => {
+    await AsyncStorage.setItem('onboardingComplete', 'true');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    mockUseAuthStore.mockImplementation((selector: (s: any) => any) =>
+      selector({ session: { user: { id: '1' } }, isLoading: false }),
+    );
+    render(<ProtectedLayout />);
+    await waitFor(() => expect(screen.getByTestId('protected-stack')).toBeTruthy());
+  });
+
+  it('renders Stack immediately when skipAuth is true', () => {
     process.env.EXPO_PUBLIC_SKIP_AUTH = 'true';
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mockUseAuthStore.mockImplementation((selector: (s: any) => any) =>

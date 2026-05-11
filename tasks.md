@@ -21,23 +21,10 @@
 - [x] #26: Phase 4 — Progress screen + body weight chart (Victory Native)
 - [x] #29: Light/dark theming system (central colors.ts)
 - [x] #31: Integration tests for plan screens (plan/new, plan/[id])
+- [x] #32: Phase 5 — Auth (Supabase Auth, Zustand authStore, secure token storage, welcome/sign-up/sign-in screens, protected layout gating all tabs)
+- [x] #33: Phase 6 — Onboarding Wizard (TDEE utils, onboardingStore, goal/stats/activity/targets screens, Mifflin-St Jeor calculation, AsyncStorage completion flag, routing)
 
 ## Pending ⏳
-
-### Phase 5 — Auth (next priority)
-
-- [ ] #32: User registration + login flow (Supabase Auth)
-- [ ] Auth state in Zustand store + secure token storage (expo-secure-store)
-- [ ] Auth stack routing (welcome, sign-up, sign-in screens)
-- [ ] Gate all tabs behind auth check
-
-### Phase 6 — Onboarding Wizard
-
-- [ ] #33: Goal selection screen (lose weight / gain muscle / maintain / recomp)
-- [ ] Stats entry (weight, height, age, sex)
-- [ ] Activity level multiplier
-- [ ] Auto-calculate calorie + macro targets (Mifflin-St Jeor TDEE)
-- [ ] Onboarding completion flag (AsyncStorage)
 
 ### Phase 7 — Cloud Sync
 
