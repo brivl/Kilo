@@ -1,3 +1,4 @@
+import { matchFont } from '@shopify/react-native-skia';
 import { useEffect, useMemo, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { CartesianChart, Line } from 'victory-native';
@@ -10,10 +11,17 @@ import { Colors } from '@/utils/colors';
 
 type ChartPoint = { x: number; weight: number };
 
+const chartFont = matchFont({ familyName: 'Helvetica', fontSize: 11 } as object);
+
 function WeightChart({ entries }: { entries: BodyWeightEntry[] }) {
   const data = useMemo<ChartPoint[]>(() => {
-    const sorted = [...entries].reverse().slice(-60);
-    return sorted.map((e, i) => ({ x: i, weight: e.weightKg }));
+    return [...entries]
+      .slice(0, 60)
+      .reverse()
+      .map((e, i) => ({
+        x: i,
+        weight: e.weightKg,
+      }));
   }, [entries]);
 
   if (data.length < 2) {
@@ -26,7 +34,18 @@ function WeightChart({ entries }: { entries: BodyWeightEntry[] }) {
 
   return (
     <View style={s.chart}>
-      <CartesianChart data={data} xKey="x" yKeys={['weight']}>
+      <CartesianChart
+        data={data}
+        xKey="x"
+        yKeys={['weight']}
+        axisOptions={{
+          font: chartFont,
+          tickCount: { x: 0, y: 5 },
+          labelColor: Colors.textMuted,
+          lineColor: Colors.border,
+          labelOffset: { x: 0, y: 4 },
+        }}
+      >
         {({ points }) => (
           <Line
             points={points.weight}
@@ -133,6 +152,8 @@ export default function ProgressScreen() {
     <ErrorBoundary>
       <View style={s.screen}>
         <Text style={s.heading}>Progress</Text>
+        <WeightChart entries={entries} />
+        <LogForm />
         <FlatList
           data={entries}
           keyExtractor={e => e.id}
@@ -140,11 +161,7 @@ export default function ProgressScreen() {
           maxToRenderPerBatch={10}
           contentContainerStyle={s.list}
           ListHeaderComponent={
-            <>
-              <WeightChart entries={entries} />
-              <LogForm />
-              {entries.length > 0 && <Text style={s.historyLabel}>History</Text>}
-            </>
+            entries.length > 0 ? <Text style={s.historyLabel}>History</Text> : null
           }
           renderItem={({ item }) => <EntryRow entry={item} />}
           ListEmptyComponent={
