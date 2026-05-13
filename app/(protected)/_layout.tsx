@@ -36,6 +36,7 @@ export default function ProtectedLayout() {
           options={{ title: 'Search food', presentation: 'modal' }}
         />
         <Stack.Screen name="food/add" options={{ title: 'Add food', presentation: 'modal' }} />
+        <Stack.Screen name="settings" options={{ title: 'Settings', presentation: 'modal' }} />
       </Stack>
     );
   }
@@ -53,6 +54,7 @@ export default function ProtectedLayout() {
       <Stack.Screen name="plan/[id]" options={{ title: 'Plan' }} />
       <Stack.Screen name="food/search" options={{ title: 'Search food', presentation: 'modal' }} />
       <Stack.Screen name="food/add" options={{ title: 'Add food', presentation: 'modal' }} />
+      <Stack.Screen name="settings" options={{ title: 'Settings', presentation: 'modal' }} />
     </Stack>
   );
 }

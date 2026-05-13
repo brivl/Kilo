@@ -151,7 +151,6 @@ export default function ProgressScreen() {
   return (
     <ErrorBoundary>
       <View style={s.screen}>
-        <Text style={s.heading}>Progress</Text>
         <WeightChart entries={entries} />
         <LogForm />
         <FlatList
@@ -175,14 +174,6 @@ export default function ProgressScreen() {
 
 const s = StyleSheet.create({
   screen: { flex: 1, backgroundColor: Colors.background },
-  heading: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: Colors.textPrimary,
-    paddingHorizontal: 16,
-    paddingTop: 60,
-    paddingBottom: 8,
-  },
   list: { padding: 16, gap: 12, paddingBottom: 40 },
 
   chartEmpty: {

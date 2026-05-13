@@ -41,7 +41,6 @@ export default function PlansTab() {
   return (
     <ErrorBoundary>
       <View style={s.screen}>
-        <Text style={s.heading}>Training Plans</Text>
         <FlatList
           data={plans}
           keyExtractor={p => p.id}
@@ -66,14 +65,6 @@ export default function PlansTab() {
 
 const s = StyleSheet.create({
   screen: { flex: 1, backgroundColor: Colors.background },
-  heading: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: Colors.textPrimary,
-    paddingHorizontal: 16,
-    paddingTop: 60,
-    paddingBottom: 8,
-  },
   list: { padding: 16, gap: 12, paddingBottom: 100 },
   empty: { color: Colors.textMuted, fontSize: 14, textAlign: 'center', marginTop: 48 },
   card: {
