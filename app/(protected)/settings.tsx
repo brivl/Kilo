@@ -15,16 +15,7 @@ import { useSettingsStore } from '@/store/settingsStore';
 import { useToastStore } from '@/store/toastStore';
 import type { WeightUnit } from '@/types/weight-unit-type';
 import { Colors } from '@/utils/colors';
-
-function getInitials(name: string | undefined, email: string | undefined): string {
-  if (name) {
-    const parts = name.trim().split(' ');
-    if (parts.length >= 2) return `${parts[0]![0] ?? ''}${parts[1]![0] ?? ''}`.toUpperCase();
-    return (parts[0]![0] ?? '?').toUpperCase();
-  }
-  if (email) return email[0]!.toUpperCase();
-  return '?';
-}
+import { getInitials } from '@/utils/initials';
 
 function GoalRow({
   label,
@@ -91,7 +82,7 @@ export default function SettingsScreen() {
     const pro = parseInt(protein, 10);
     const car = parseInt(carbs, 10);
     const f = parseInt(fat, 10);
-    if ([cal, pro, car, f].some(v => !v || v <= 0)) {
+    if ([cal, pro, car, f].some(v => !Number.isFinite(v) || v <= 0)) {
       showToast('All goals must be positive numbers', 'error');
       return;
     }

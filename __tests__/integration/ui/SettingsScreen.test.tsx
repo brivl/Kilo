@@ -104,4 +104,10 @@ describe('SettingsScreen', () => {
       expect.any(Array),
     );
   });
+
+  it('calls setWeightUnit when lbs segment pressed', () => {
+    render(<SettingsScreen />);
+    fireEvent.press(screen.getByLabelText('lbs'));
+    expect(mockSetWeightUnit).toHaveBeenCalledWith('lbs');
+  });
 });
