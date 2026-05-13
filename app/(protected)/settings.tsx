@@ -1,14 +1,5 @@
 import { useState } from 'react';
-import {
-  Alert,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Switch,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
 
 import { useAuthStore } from '@/store/authStore';
 import { useSettingsStore } from '@/store/settingsStore';
@@ -93,16 +84,11 @@ export default function SettingsScreen() {
 
   function handleSyncToggle(value: boolean) {
     if (!value) {
-      Alert.alert(
-        'Disable sync?',
-        "Opting out disables backup. Data lost on reinstall won't be recoverable.",
-        [
-          { text: 'Cancel', style: 'cancel' },
-          { text: 'Disable', style: 'destructive', onPress: () => setSyncEnabled(false) },
-        ],
-      );
+      setSyncEnabled(false);
+      showToast("Sync disabled. Data won't be backed up on reinstall.");
     } else {
       setSyncEnabled(true);
+      showToast('Sync enabled.');
     }
   }
 
@@ -115,18 +101,7 @@ export default function SettingsScreen() {
   }
 
   function handleDeleteAccount() {
-    Alert.alert(
-      'Delete account?',
-      'This permanently deletes your account and all synced data. This cannot be undone.',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: () => showToast('Coming soon'),
-        },
-      ],
-    );
+    showToast('Coming soon');
   }
 
   return (

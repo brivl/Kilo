@@ -1,5 +1,4 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
-import { Alert } from 'react-native';
 
 import SettingsScreen from '@/app/(protected)/settings';
 import { useAuthStore } from '@/store/authStore';
@@ -27,7 +26,6 @@ const mockShowToast = jest.fn();
 
 beforeEach(() => {
   jest.clearAllMocks();
-  jest.spyOn(Alert, 'alert');
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mockUseAuthStore.mockImplementation((selector: (s: any) => any) =>
@@ -85,24 +83,17 @@ describe('SettingsScreen', () => {
     expect(mockSignOut).toHaveBeenCalled();
   });
 
-  it('shows delete confirmation alert when Delete account pressed', () => {
+  it('shows coming soon toast when Delete account pressed', () => {
     render(<SettingsScreen />);
     fireEvent.press(screen.getByLabelText('Delete account'));
-    expect(Alert.alert).toHaveBeenCalledWith(
-      'Delete account?',
-      expect.stringContaining('permanently deletes'),
-      expect.any(Array),
-    );
+    expect(mockShowToast).toHaveBeenCalledWith('Coming soon');
   });
 
-  it('shows sync confirmation when sync toggled off', () => {
+  it('disables sync and shows toast when sync toggled off', () => {
     render(<SettingsScreen />);
     fireEvent(screen.getByLabelText('Sync my data'), 'valueChange', false);
-    expect(Alert.alert).toHaveBeenCalledWith(
-      'Disable sync?',
-      expect.stringContaining('disables backup'),
-      expect.any(Array),
-    );
+    expect(mockSetSyncEnabled).toHaveBeenCalledWith(false);
+    expect(mockShowToast).toHaveBeenCalledWith(expect.stringContaining('Sync disabled'));
   });
 
   it('calls setWeightUnit when lbs segment pressed', () => {
