@@ -14,10 +14,12 @@ interface SettingsState {
   proteinGoal: number;
   carbsGoal: number;
   fatGoal: number;
+  syncEnabled: boolean;
   setWeightUnit: (u: WeightUnit) => void;
   setSelectedDate: (d: string) => void;
   setCalorieGoal: (n: number) => void;
   setMacroGoals: (g: { proteinG: number; carbsG: number; fatG: number }) => void;
+  setSyncEnabled: (v: boolean) => void;
   resetToToday: () => void;
 }
 
@@ -30,11 +32,13 @@ export const useSettingsStore = create<SettingsState>()(
       proteinGoal: 150,
       carbsGoal: 250,
       fatGoal: 65,
+      syncEnabled: true,
       setWeightUnit: weightUnit => set({ weightUnit }),
       setSelectedDate: selectedDate => set({ selectedDate }),
       setCalorieGoal: calorieGoal => set({ calorieGoal }),
       setMacroGoals: ({ proteinG, carbsG, fatG }) =>
         set({ proteinGoal: proteinG, carbsGoal: carbsG, fatGoal: fatG }),
+      setSyncEnabled: syncEnabled => set({ syncEnabled }),
       resetToToday: () => set({ selectedDate: todayISO() }),
     }),
     { name: 'settings', storage: createJSONStorage(() => AsyncStorage) },
