@@ -17,7 +17,7 @@ const compat = new FlatCompat({
 
 export default tseslint.config(
   {
-    ignores: ['**/node_modules/', '**/.expo/', '**/dist/', '**/coverage/'],
+    ignores: ['**/node_modules/', '**/.expo/', '**/dist/', '**/coverage/', 'supabase/functions/**'],
   },
   // 1. Base configs (Expo, JS, TS)
   ...compat.extends('expo'),

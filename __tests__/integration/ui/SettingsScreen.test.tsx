@@ -12,6 +12,13 @@ jest.mock('@/store/syncStore', () => ({
   isLocalDatabaseEmpty: jest.fn(),
 }));
 
+jest.mock('@/db/database', () => ({
+  database: {
+    write: jest.fn().mockImplementation(async (fn: () => Promise<void>) => fn()),
+    unsafeResetDatabase: jest.fn().mockResolvedValue(undefined),
+  },
+}));
+
 jest.mock('expo-router', () => ({
   useRouter: () => ({ push: jest.fn(), back: jest.fn() }),
 }));
@@ -25,6 +32,7 @@ const mockUseSettingsStore = useSettingsStore as jest.MockedFunction<typeof useS
 const mockUseToastStore = useToastStore as jest.MockedFunction<typeof useToastStore>;
 
 const mockSignOut = jest.fn().mockResolvedValue(undefined);
+const mockDeleteAccount = jest.fn().mockResolvedValue(undefined);
 const mockSetCalorieGoal = jest.fn();
 const mockSetMacroGoals = jest.fn();
 const mockSetWeightUnit = jest.fn();
@@ -44,6 +52,7 @@ beforeEach(() => {
         },
       },
       signOut: mockSignOut,
+      deleteAccount: mockDeleteAccount,
     }),
   );
 
@@ -90,10 +99,28 @@ describe('SettingsScreen', () => {
     expect(mockSignOut).toHaveBeenCalled();
   });
 
-  it('shows coming soon toast when Delete account pressed', () => {
+  it('shows confirmation box when Delete account pressed', () => {
     render(<SettingsScreen />);
     fireEvent.press(screen.getByLabelText('Delete account'));
-    expect(mockShowToast).toHaveBeenCalledWith('Coming soon');
+    expect(screen.getByLabelText('Confirm delete account')).toBeTruthy();
+    expect(screen.getByLabelText('Cancel deletion')).toBeTruthy();
+  });
+
+  it('hides confirmation box when Cancel pressed', () => {
+    render(<SettingsScreen />);
+    fireEvent.press(screen.getByLabelText('Delete account'));
+    fireEvent.press(screen.getByLabelText('Cancel deletion'));
+    expect(screen.queryByLabelText('Confirm delete account')).toBeNull();
+  });
+
+  it('calls deleteAccount, clears storage, and signs out when Confirm delete pressed', async () => {
+    render(<SettingsScreen />);
+    fireEvent.press(screen.getByLabelText('Delete account'));
+    await act(async () => {
+      fireEvent.press(screen.getByLabelText('Confirm delete account'));
+    });
+    expect(mockDeleteAccount).toHaveBeenCalled();
+    expect(mockSignOut).toHaveBeenCalled();
   });
 
   it('disables sync and shows toast when sync toggled off', () => {

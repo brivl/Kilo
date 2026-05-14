@@ -1,6 +1,8 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
 
+import { database } from '@/db/database';
 import { useAuthStore } from '@/store/authStore';
 import { useSettingsStore } from '@/store/settingsStore';
 import { restoreAll } from '@/store/syncStore';
@@ -45,6 +47,7 @@ function RowSeparator() {
 export default function SettingsScreen() {
   const session = useAuthStore(s => s.session);
   const signOut = useAuthStore(s => s.signOut);
+  const deleteAccount = useAuthStore(s => s.deleteAccount);
 
   const calorieGoal = useSettingsStore(s => s.calorieGoal);
   const proteinGoal = useSettingsStore(s => s.proteinGoal);
@@ -64,6 +67,7 @@ export default function SettingsScreen() {
   const [carbs, setCarbs] = useState(String(carbsGoal));
   const [fat, setFat] = useState(String(fatGoal));
   const [restoring, setRestoring] = useState(false);
+  const [deleteStep, setDeleteStep] = useState<'idle' | 'confirming' | 'deleting'>('idle');
 
   const user = session?.user;
   const fullName = (user?.user_metadata?.full_name as string | undefined) ?? '';
@@ -103,7 +107,22 @@ export default function SettingsScreen() {
   }
 
   function handleDeleteAccount() {
-    showToast('Coming soon');
+    setDeleteStep('confirming');
+  }
+
+  async function handleConfirmDelete() {
+    setDeleteStep('deleting');
+    try {
+      await deleteAccount();
+      await database.write(async () => {
+        await database.unsafeResetDatabase();
+      });
+      await AsyncStorage.multiRemove(['onboardingComplete', 'settings']);
+      await signOut();
+    } catch {
+      setDeleteStep('idle');
+      showToast("Couldn't delete account", 'error');
+    }
   }
 
   async function handleRestore() {
@@ -218,11 +237,41 @@ export default function SettingsScreen() {
           <Pressable
             style={s.row}
             onPress={handleDeleteAccount}
+            disabled={deleteStep !== 'idle'}
             accessibilityLabel="Delete account"
             accessibilityRole="button"
           >
             <Text style={[s.rowLabel, s.dangerText]}>Delete account</Text>
           </Pressable>
+          {deleteStep !== 'idle' ? (
+            <View style={s.deleteConfirmBox}>
+              <Text style={s.deleteConfirmText}>
+                This permanently deletes your account and all data. This cannot be undone.
+              </Text>
+              <View style={s.deleteConfirmRow}>
+                <Pressable
+                  style={s.cancelBtn}
+                  onPress={() => setDeleteStep('idle')}
+                  disabled={deleteStep === 'deleting'}
+                  accessibilityLabel="Cancel deletion"
+                  accessibilityRole="button"
+                >
+                  <Text style={s.cancelBtnTxt}>Cancel</Text>
+                </Pressable>
+                <Pressable
+                  style={s.confirmDeleteBtn}
+                  onPress={handleConfirmDelete}
+                  disabled={deleteStep === 'deleting'}
+                  accessibilityLabel="Confirm delete account"
+                  accessibilityRole="button"
+                >
+                  <Text style={s.confirmDeleteBtnTxt}>
+                    {deleteStep === 'deleting' ? 'Deleting…' : 'Confirm delete'}
+                  </Text>
+                </Pressable>
+              </View>
+            </View>
+          ) : null}
         </View>
       </View>
     </ScrollView>
@@ -322,4 +371,51 @@ const s = StyleSheet.create({
   saveBtnTxt: { color: Colors.surface, fontSize: 15, fontWeight: '700' },
 
   dangerText: { color: Colors.danger },
+
+  deleteConfirmBox: {
+    backgroundColor: Colors.background,
+    borderTopWidth: 1,
+    borderTopColor: Colors.border,
+    padding: 16,
+    gap: 12,
+  },
+  deleteConfirmText: {
+    fontSize: 13,
+    color: Colors.textMuted,
+    lineHeight: 18,
+  },
+  deleteConfirmRow: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  cancelBtn: {
+    flex: 1,
+    backgroundColor: Colors.surface,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    paddingVertical: 10,
+    alignItems: 'center',
+    minHeight: 44,
+    justifyContent: 'center',
+  },
+  cancelBtnTxt: {
+    fontSize: 14,
+    color: Colors.textPrimary,
+    fontWeight: '600',
+  },
+  confirmDeleteBtn: {
+    flex: 1,
+    backgroundColor: Colors.danger,
+    borderRadius: 8,
+    paddingVertical: 10,
+    alignItems: 'center',
+    minHeight: 44,
+    justifyContent: 'center',
+  },
+  confirmDeleteBtnTxt: {
+    fontSize: 14,
+    color: Colors.surface,
+    fontWeight: '600',
+  },
 });
