@@ -44,11 +44,11 @@ describe('Tab screens', () => {
 
   it('renders PlansScreen', () => {
     render(<PlansScreen />);
-    expect(screen.getByText('Training Plans')).toBeTruthy();
+    expect(screen.getByText('No plans yet — tap + to create one')).toBeTruthy();
   });
 
   it('renders ProgressScreen', () => {
     render(<ProgressScreen />);
-    expect(screen.getByText('Progress')).toBeTruthy();
+    expect(screen.getByText("Log today's weight")).toBeTruthy();
   });
 });
