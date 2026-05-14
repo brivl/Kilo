@@ -13,6 +13,9 @@ jest.mock('@/lib/supabase', () => ({
       resetPasswordForEmail: jest.fn(),
       signInWithIdToken: jest.fn(),
     },
+    functions: {
+      invoke: jest.fn(),
+    },
   },
 }));
 
@@ -31,6 +34,9 @@ const { supabase } = require('@/lib/supabase') as {
       signOut: jest.Mock;
       resetPasswordForEmail: jest.Mock;
       signInWithIdToken: jest.Mock;
+    };
+    functions: {
+      invoke: jest.Mock;
     };
   };
 };
@@ -112,4 +118,19 @@ it('sendPasswordReset calls resetPasswordForEmail', async () => {
   });
 
   expect(supabase.auth['resetPasswordForEmail']).toHaveBeenCalledWith('user@example.com');
+});
+
+describe('deleteAccount', () => {
+  it('calls supabase.functions.invoke("delete-user")', async () => {
+    (supabase.functions.invoke as jest.Mock).mockResolvedValue({ error: null });
+    await useAuthStore.getState().deleteAccount();
+    expect(supabase.functions.invoke).toHaveBeenCalledWith('delete-user');
+  });
+
+  it('throws when Edge Function returns an error', async () => {
+    (supabase.functions.invoke as jest.Mock).mockResolvedValue({
+      error: { message: 'deletion failed' },
+    });
+    await expect(useAuthStore.getState().deleteAccount()).rejects.toThrow('deletion failed');
+  });
 });

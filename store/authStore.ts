@@ -16,6 +16,7 @@ interface AuthState {
   signInWithApple: () => Promise<void>;
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
+  deleteAccount: () => Promise<void>;
   sendPasswordReset: (email: string) => Promise<void>;
 }
 
@@ -111,6 +112,12 @@ export const useAuthStore = create<AuthState>(set => ({
       toastAuthError(error.message);
       throw error;
     }
+  },
+
+  deleteAccount: async () => {
+    const { error } = await supabase.functions.invoke('delete-user');
+    if (error)
+      throw new Error((error as { message?: string }).message ?? 'Failed to delete account');
   },
 
   sendPasswordReset: async (email: string) => {
