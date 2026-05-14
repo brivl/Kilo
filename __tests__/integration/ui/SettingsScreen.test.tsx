@@ -1,9 +1,16 @@
-import { fireEvent, render, screen } from '@testing-library/react-native';
+import { act, fireEvent, render, screen } from '@testing-library/react-native';
 
 import SettingsScreen from '@/app/(protected)/settings';
 import { useAuthStore } from '@/store/authStore';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useToastStore } from '@/store/toastStore';
+
+jest.mock('@/store/syncStore', () => ({
+  restoreAll: jest.fn().mockResolvedValue({ restoredCount: 12 }),
+  syncUpsert: jest.fn(),
+  syncDelete: jest.fn(),
+  isLocalDatabaseEmpty: jest.fn(),
+}));
 
 jest.mock('expo-router', () => ({
   useRouter: () => ({ push: jest.fn(), back: jest.fn() }),
@@ -100,5 +107,13 @@ describe('SettingsScreen', () => {
     render(<SettingsScreen />);
     fireEvent.press(screen.getByLabelText('lbs'));
     expect(mockSetWeightUnit).toHaveBeenCalledWith('lbs');
+  });
+
+  it('calls restoreAll and shows toast when Restore from cloud pressed', async () => {
+    render(<SettingsScreen />);
+    await act(async () => {
+      fireEvent.press(screen.getByLabelText('Restore from cloud'));
+    });
+    expect(mockShowToast).toHaveBeenCalledWith(expect.stringContaining('Restored 12'));
   });
 });

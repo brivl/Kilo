@@ -3,6 +3,7 @@ import { Pressable, ScrollView, StyleSheet, Switch, Text, TextInput, View } from
 
 import { useAuthStore } from '@/store/authStore';
 import { useSettingsStore } from '@/store/settingsStore';
+import { restoreAll } from '@/store/syncStore';
 import { useToastStore } from '@/store/toastStore';
 import type { WeightUnit } from '@/types/weight-unit-type';
 import { Colors } from '@/utils/colors';
@@ -62,6 +63,7 @@ export default function SettingsScreen() {
   const [protein, setProtein] = useState(String(proteinGoal));
   const [carbs, setCarbs] = useState(String(carbsGoal));
   const [fat, setFat] = useState(String(fatGoal));
+  const [restoring, setRestoring] = useState(false);
 
   const user = session?.user;
   const fullName = (user?.user_metadata?.full_name as string | undefined) ?? '';
@@ -102,6 +104,19 @@ export default function SettingsScreen() {
 
   function handleDeleteAccount() {
     showToast('Coming soon');
+  }
+
+  async function handleRestore() {
+    if (restoring) return;
+    setRestoring(true);
+    try {
+      const { restoredCount } = await restoreAll();
+      showToast(`Restored ${restoredCount} records from cloud`);
+    } catch {
+      showToast("Couldn't restore from cloud", 'error');
+    } finally {
+      setRestoring(false);
+    }
   }
 
   return (
@@ -174,6 +189,17 @@ export default function SettingsScreen() {
               accessibilityLabel="Sync my data"
             />
           </View>
+          <RowSeparator />
+          <Pressable
+            style={s.row}
+            onPress={handleRestore}
+            disabled={restoring}
+            accessibilityLabel="Restore from cloud"
+            accessibilityRole="button"
+            accessibilityState={{ disabled: restoring }}
+          >
+            <Text style={s.rowLabel}>{restoring ? 'Restoring…' : 'Restore from cloud'}</Text>
+          </Pressable>
         </View>
       </View>
 
