@@ -80,6 +80,11 @@ export default function SignUpScreen() {
       />
       {confirmError ? <Text style={styles.errorText}>{confirmError}</Text> : null}
 
+      <Text style={styles.consent} accessibilityLabel="Consent notice">
+        By creating an account you agree to our Terms of Service and Privacy Policy, including
+        syncing your data to our servers.
+      </Text>
+
       <TouchableOpacity
         style={styles.primaryButton}
         onPress={handleSignUp}
@@ -129,4 +134,5 @@ const styles = StyleSheet.create({
   },
   primaryButtonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
   link: { textAlign: 'center', color: '#666', fontSize: 14 },
+  consent: { fontSize: 12, color: '#666', lineHeight: 18, marginTop: 4 },
 });
