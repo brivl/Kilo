@@ -4,14 +4,13 @@ import React from 'react';
 import { ProfileAvatar } from '@/components/ProfileAvatar';
 import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors as ThemeColors } from '@/constants/theme';
 import { Colors } from '@/utils/colors';
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: ThemeColors.light.tint,
+        tabBarActiveTintColor: Colors.brand,
         tabBarButton: HapticTab,
         headerShown: true,
         headerStyle: { backgroundColor: Colors.background },

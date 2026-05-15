@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 
 import { useAuthStore } from '@/store/authStore';
+import { Colors } from '@/utils/colors';
 
 export default function SignUpScreen() {
   const router = useRouter();
@@ -105,38 +106,38 @@ export default function SignUpScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff', padding: 24, gap: 12 },
+  container: { flex: 1, backgroundColor: Colors.surface, padding: 24, gap: 12 },
   title: { fontSize: 28, fontWeight: '700', marginBottom: 8 },
   appleButton: { height: 48 },
   googleButton: {
-    backgroundColor: '#4285F4',
+    backgroundColor: Colors.googleBlue,
     borderRadius: 8,
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  googleButtonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
+  googleButtonText: { color: Colors.surface, fontSize: 16, fontWeight: '600' },
   divider: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  dividerLine: { flex: 1, height: 1, backgroundColor: '#e0e0e0' },
-  dividerText: { color: '#999', fontSize: 14 },
+  dividerLine: { flex: 1, height: 1, backgroundColor: Colors.border },
+  dividerText: { color: Colors.textMuted, fontSize: 14 },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: Colors.border,
     borderRadius: 8,
     height: 48,
     paddingHorizontal: 12,
     fontSize: 16,
   },
-  inputError: { borderColor: '#e53935' },
-  errorText: { color: '#e53935', fontSize: 13 },
+  inputError: { borderColor: Colors.danger },
+  errorText: { color: Colors.danger, fontSize: 13 },
   primaryButton: {
-    backgroundColor: '#000',
+    backgroundColor: Colors.textPrimary,
     borderRadius: 8,
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  primaryButtonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
-  link: { textAlign: 'center', color: '#666', fontSize: 14 },
-  consent: { fontSize: 12, color: '#666', lineHeight: 18, marginTop: 4 },
+  primaryButtonText: { color: Colors.surface, fontSize: 16, fontWeight: '600' },
+  link: { textAlign: 'center', color: Colors.textSecondary, fontSize: 14 },
+  consent: { fontSize: 12, color: Colors.textSecondary, lineHeight: 18, marginTop: 4 },
 });

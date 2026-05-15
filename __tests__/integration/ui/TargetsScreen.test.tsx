@@ -36,36 +36,36 @@ describe('TargetsScreen', () => {
   });
 
   it('auto-populates fields from onboarding store', async () => {
-    mockUseOnboardingStore.mockReturnValue({
-      goal: 'lose',
-      weightKg: 80,
-      heightCm: 180,
-      age: 30,
-      sex: 'male',
-      activityLevel: 'sedentary',
-      setGoal: jest.fn(),
-      setStats: jest.fn(),
-      setActivityLevel: jest.fn(),
-      reset: mockReset,
-    });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    mockUseOnboardingStore.mockImplementation((selector: (s: any) => any) =>
+      selector({
+        goal: 'lose',
+        weightKg: 80,
+        heightCm: 180,
+        age: 30,
+        sex: 'male',
+        activityLevel: 'sedentary',
+        reset: mockReset,
+      }),
+    );
     render(<TargetsScreen />);
     // BMR=1780, TDEE=round(1780×1.2)=2136, target=2136-500=1636
     await waitFor(() => expect(screen.getByDisplayValue('1636')).toBeTruthy());
   });
 
   it('saves targets to settingsStore, sets flag, resets store, navigates on submit', async () => {
-    mockUseOnboardingStore.mockReturnValue({
-      goal: 'maintain',
-      weightKg: 70,
-      heightCm: 170,
-      age: 25,
-      sex: 'female',
-      activityLevel: 'moderate',
-      setGoal: jest.fn(),
-      setStats: jest.fn(),
-      setActivityLevel: jest.fn(),
-      reset: mockReset,
-    });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    mockUseOnboardingStore.mockImplementation((selector: (s: any) => any) =>
+      selector({
+        goal: 'maintain',
+        weightKg: 70,
+        heightCm: 170,
+        age: 25,
+        sex: 'female',
+        activityLevel: 'moderate',
+        reset: mockReset,
+      }),
+    );
     render(<TargetsScreen />);
     await waitFor(() => screen.getByLabelText('Save targets'));
     await act(async () => {
@@ -79,18 +79,18 @@ describe('TargetsScreen', () => {
   });
 
   it('skipping sets flag and navigates without saving goals', async () => {
-    mockUseOnboardingStore.mockReturnValue({
-      goal: null,
-      weightKg: null,
-      heightCm: null,
-      age: null,
-      sex: null,
-      activityLevel: null,
-      setGoal: jest.fn(),
-      setStats: jest.fn(),
-      setActivityLevel: jest.fn(),
-      reset: mockReset,
-    });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    mockUseOnboardingStore.mockImplementation((selector: (s: any) => any) =>
+      selector({
+        goal: null,
+        weightKg: null,
+        heightCm: null,
+        age: null,
+        sex: null,
+        activityLevel: null,
+        reset: mockReset,
+      }),
+    );
     render(<TargetsScreen />);
     await act(async () => {
       fireEvent.press(screen.getByLabelText('Use defaults instead'));

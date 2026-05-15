@@ -12,13 +12,13 @@
 
 ## File map
 
-| File | Change |
-|------|--------|
-| `supabase/functions/delete-user/index.ts` | New — Deno Edge Function |
-| `store/authStore.ts` | Add `deleteAccount()` action |
-| `app/(protected)/settings.tsx` | Replace "Coming soon" stub with two-step confirm flow |
-| `__tests__/unit/authStore.test.ts` | Add `deleteAccount` unit test |
-| `__tests__/integration/ui/SettingsScreen.test.tsx` | Add delete-account integration tests |
+| File                                               | Change                                                |
+| -------------------------------------------------- | ----------------------------------------------------- |
+| `supabase/functions/delete-user/index.ts`          | New — Deno Edge Function                              |
+| `store/authStore.ts`                               | Add `deleteAccount()` action                          |
+| `app/(protected)/settings.tsx`                     | Replace "Coming soon" stub with two-step confirm flow |
+| `__tests__/unit/authStore.test.ts`                 | Add `deleteAccount` unit test                         |
+| `__tests__/integration/ui/SettingsScreen.test.tsx` | Add delete-account integration tests                  |
 
 ---
 
@@ -27,6 +27,7 @@
 Creates the server-side function that deletes the auth user. Must use the service-role key (never exposed to the client).
 
 **Files:**
+
 - Create: `supabase/functions/delete-user/index.ts`
 
 - [ ] **Step 1: Create the Edge Function**
@@ -98,6 +99,7 @@ No automated test for the Edge Function — it runs in the Deno runtime which is
 Adds `deleteAccount()` to the Zustand authStore so the settings screen can call it without importing `supabase` directly (keeps all Supabase calls inside the store layer, matching the existing pattern).
 
 **Files:**
+
 - Modify: `store/authStore.ts`
 - Modify: `__tests__/unit/authStore.test.ts`
 
@@ -188,6 +190,7 @@ git commit -m "feat: add deleteAccount action to authStore"
 Replaces the "Coming soon" toast with a two-step confirmation UI. First tap reveals a warning box with Cancel and Confirm buttons. Confirming calls `deleteAccount()`, wipes WatermelonDB and AsyncStorage, then signs out (triggering redirect via `ProtectedLayout`).
 
 **Files:**
+
 - Modify: `app/(protected)/settings.tsx`
 - Modify: `__tests__/integration/ui/SettingsScreen.test.tsx`
 
@@ -450,6 +453,7 @@ Expected: file exists.
 - [ ] **Step 3: Manual smoke-test instructions (informational — no commit)**
 
 To verify end-to-end:
+
 1. Deploy the Edge Function: `npx supabase functions deploy delete-user` (requires Supabase CLI and project linked via `supabase link`)
 2. Run the app on simulator, sign in
 3. Go to Settings → Account → Delete account

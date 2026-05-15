@@ -272,7 +272,7 @@ const s = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: Colors.surfaceSubtle,
     marginRight: 8,
-    minHeight: 32,
+    minHeight: 44,
     justifyContent: 'center',
   },
   chipActive: { backgroundColor: Colors.brandSubtle },

@@ -5,6 +5,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-nativ
 
 import { useOnboardingStore } from '@/store/onboardingStore';
 import { useToastStore } from '@/store/toastStore';
+import { Colors } from '@/utils/colors';
 import type { Sex } from '@/utils/tdee';
 
 export default function StatsScreen() {
@@ -110,14 +111,14 @@ export default function StatsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff', padding: 24, paddingTop: 48 },
-  step: { fontSize: 14, color: '#999', marginBottom: 8 },
+  container: { flex: 1, backgroundColor: Colors.surface, padding: 24, paddingTop: 48 },
+  step: { fontSize: 14, color: Colors.textMuted, marginBottom: 8 },
   title: { fontSize: 26, fontWeight: '700', marginBottom: 32 },
   form: { flex: 1, gap: 8 },
-  label: { fontSize: 14, fontWeight: '600', color: '#333' },
+  label: { fontSize: 14, fontWeight: '600', color: Colors.textPrimary },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: Colors.border,
     borderRadius: 8,
     height: 48,
     paddingHorizontal: 12,
@@ -128,23 +129,23 @@ const styles = StyleSheet.create({
   sexButton: {
     flex: 1,
     borderWidth: 1.5,
-    borderColor: '#ccc',
+    borderColor: Colors.border,
     borderRadius: 8,
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  sexButtonSelected: { borderColor: '#000', backgroundColor: '#f5f5f5' },
-  sexButtonText: { fontSize: 16, color: '#666' },
-  sexButtonTextSelected: { color: '#000', fontWeight: '600' },
+  sexButtonSelected: { borderColor: Colors.textPrimary, backgroundColor: Colors.surfaceSubtle },
+  sexButtonText: { fontSize: 16, color: Colors.textSecondary },
+  sexButtonTextSelected: { color: Colors.textPrimary, fontWeight: '600' },
   nextButton: {
-    backgroundColor: '#000',
+    backgroundColor: Colors.textPrimary,
     borderRadius: 8,
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  nextButtonDisabled: { backgroundColor: '#ccc' },
-  nextButtonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
-  skip: { textAlign: 'center', color: '#999', fontSize: 14, paddingVertical: 16 },
+  nextButtonDisabled: { backgroundColor: Colors.border },
+  nextButtonText: { color: Colors.surface, fontSize: 16, fontWeight: '600' },
+  skip: { textAlign: 'center', color: Colors.textMuted, fontSize: 14, paddingVertical: 16 },
 });

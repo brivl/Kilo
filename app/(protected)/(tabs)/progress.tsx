@@ -7,7 +7,9 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import type { BodyWeightEntry } from '@/db/models/BodyWeightEntry';
 import { observeAllWeightEntries } from '@/db/queries/bodyWeight';
 import { deleteWeightEntry, logWeight } from '@/store/bodyWeightStore';
+import { useSettingsStore } from '@/store/settingsStore';
 import { Colors } from '@/utils/colors';
+import { formatWeight } from '@/utils/formatWeight';
 
 type ChartPoint = { x: number; weight: number };
 
@@ -60,10 +62,11 @@ function WeightChart({ entries }: { entries: BodyWeightEntry[] }) {
 }
 
 function EntryRow({ entry }: { entry: BodyWeightEntry }) {
+  const weightUnit = useSettingsStore(s => s.weightUnit);
   return (
     <View style={s.entryRow}>
       <View style={s.entryInfo}>
-        <Text style={s.entryWeight}>{entry.weightKg} kg</Text>
+        <Text style={s.entryWeight}>{formatWeight(entry.weightKg, weightUnit)}</Text>
         <Text style={s.entryDate}>{entry.date}</Text>
       </View>
       {entry.notes ? (
@@ -84,7 +87,7 @@ function EntryRow({ entry }: { entry: BodyWeightEntry }) {
 }
 
 function LogForm() {
-  const today = new Date().toISOString().slice(0, 10);
+  const selectedDate = useSettingsStore(s => s.selectedDate);
   const [weight, setWeight] = useState('');
   const [notes, setNotes] = useState('');
   const [saving, setSaving] = useState(false);
@@ -94,7 +97,7 @@ function LogForm() {
     if (!kg || kg <= 0) return;
     setSaving(true);
     try {
-      await logWeight(today, kg, notes.trim() || null);
+      await logWeight(selectedDate, kg, notes.trim() || null);
       setWeight('');
       setNotes('');
     } finally {

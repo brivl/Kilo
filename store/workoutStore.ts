@@ -1,3 +1,5 @@
+import { Q } from '@nozbe/watermelondb';
+
 import { database } from '@/db/database';
 import type { WorkoutSession } from '@/db/models/WorkoutSession';
 import type { WorkoutSet } from '@/db/models/WorkoutSet';
@@ -67,8 +69,10 @@ export async function deleteSession(id: string): Promise<void> {
     let setIds: string[] = [];
     await database.write(async () => {
       const session = await database.collections.get<WorkoutSession>('workout_sessions').find(id);
-      const sets = await database.collections.get<WorkoutSet>('workout_sets').query().fetch();
-      const sessionSets = sets.filter(s => s.sessionId === id);
+      const sessionSets = await database.collections
+        .get<WorkoutSet>('workout_sets')
+        .query(Q.where('session_id', id))
+        .fetch();
       setIds = sessionSets.map(s => s.id);
       for (const s of sessionSets) await s.destroyPermanently();
       await session.destroyPermanently();

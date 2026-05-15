@@ -62,10 +62,15 @@ export async function restoreAll(): Promise<{ restoredCount: number }> {
       const toRaw = ROW_TO_RAW[table];
       if (!toRaw) continue;
       const collection = database.collections.get(table);
-      const records = rows.map(row =>
+      const records = [];
+      for (const row of rows) {
+        const raw = toRaw(row);
+        const existing = await collection.find(raw['id'] as string).catch(() => null);
+        if (existing) continue;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (collection as any).prepareCreateFromDirtyRaw(toRaw(row)),
-      );
+        records.push((collection as any).prepareCreateFromDirtyRaw(raw));
+      }
+      if (records.length === 0) continue;
       await database.batch(...records);
       total += records.length;
     }

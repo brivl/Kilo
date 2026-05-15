@@ -6,11 +6,18 @@ import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 
 import { useOnboardingStore } from '@/store/onboardingStore';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useToastStore } from '@/store/toastStore';
+import { Colors } from '@/utils/colors';
 import { calculateMacros, calculateTargetCalories, calculateTDEE } from '@/utils/tdee';
 
 export default function TargetsScreen() {
   const router = useRouter();
-  const store = useOnboardingStore();
+  const goal = useOnboardingStore(s => s.goal);
+  const weightKg = useOnboardingStore(s => s.weightKg);
+  const heightCm = useOnboardingStore(s => s.heightCm);
+  const age = useOnboardingStore(s => s.age);
+  const sex = useOnboardingStore(s => s.sex);
+  const activityLevel = useOnboardingStore(s => s.activityLevel);
+  const storeReset = useOnboardingStore(s => s.reset);
   const setCalorieGoal = useSettingsStore(s => s.setCalorieGoal);
   const setMacroGoals = useSettingsStore(s => s.setMacroGoals);
   const showToast = useToastStore(s => s.showToast);
@@ -21,7 +28,6 @@ export default function TargetsScreen() {
   const [fat, setFat] = useState('');
 
   useEffect(() => {
-    const { goal, weightKg, heightCm, age, sex, activityLevel } = store;
     if (goal && weightKg && heightCm && age && sex && activityLevel) {
       const tdee = calculateTDEE(weightKg, heightCm, age, sex, activityLevel);
       const targetCal = calculateTargetCalories(tdee, goal);
@@ -31,7 +37,7 @@ export default function TargetsScreen() {
       setCarbs(String(macros.carbsG));
       setFat(String(macros.fatG));
     }
-  }, [store]);
+  }, [goal, weightKg, heightCm, age, sex, activityLevel]);
 
   const handleSave = async () => {
     const cal = parseInt(calories, 10);
@@ -57,7 +63,7 @@ export default function TargetsScreen() {
     try {
       setCalorieGoal(cal);
       setMacroGoals({ proteinG: pro, carbsG: car, fatG: f });
-      store.reset();
+      storeReset();
       await AsyncStorage.setItem('onboardingComplete', 'true');
       router.replace('/(protected)/(tabs)');
     } catch {
@@ -66,7 +72,7 @@ export default function TargetsScreen() {
   };
 
   const handleSkip = async () => {
-    store.reset();
+    storeReset();
     try {
       await AsyncStorage.setItem('onboardingComplete', 'true');
       router.replace('/(protected)/(tabs)');
@@ -135,16 +141,16 @@ export default function TargetsScreen() {
 }
 
 const styles = StyleSheet.create({
-  scroll: { flex: 1, backgroundColor: '#fff' },
+  scroll: { flex: 1, backgroundColor: Colors.surface },
   container: { padding: 24, paddingTop: 48 },
-  step: { fontSize: 14, color: '#999', marginBottom: 8 },
+  step: { fontSize: 14, color: Colors.textMuted, marginBottom: 8 },
   title: { fontSize: 26, fontWeight: '700', marginBottom: 8 },
-  subtitle: { fontSize: 14, color: '#666', marginBottom: 32 },
+  subtitle: { fontSize: 14, color: Colors.textSecondary, marginBottom: 32 },
   form: { gap: 8, marginBottom: 24 },
-  label: { fontSize: 14, fontWeight: '600', color: '#333' },
+  label: { fontSize: 14, fontWeight: '600', color: Colors.textPrimary },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: Colors.border,
     borderRadius: 8,
     height: 48,
     paddingHorizontal: 12,
@@ -152,12 +158,12 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   saveButton: {
-    backgroundColor: '#000',
+    backgroundColor: Colors.textPrimary,
     borderRadius: 8,
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  saveButtonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
-  skip: { textAlign: 'center', color: '#999', fontSize: 14, paddingVertical: 16 },
+  saveButtonText: { color: Colors.surface, fontSize: 16, fontWeight: '600' },
+  skip: { textAlign: 'center', color: Colors.textMuted, fontSize: 14, paddingVertical: 16 },
 });

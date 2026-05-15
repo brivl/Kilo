@@ -89,7 +89,7 @@ const s = StyleSheet.create({
   todayText: { fontSize: 13, color: Colors.brandSecondary },
   backdrop: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: Colors.modalBackdrop,
     justifyContent: 'center',
     alignItems: 'center',
   },

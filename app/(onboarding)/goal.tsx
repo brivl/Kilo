@@ -4,6 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { useOnboardingStore } from '@/store/onboardingStore';
 import { useToastStore } from '@/store/toastStore';
+import { Colors } from '@/utils/colors';
 import type { Goal } from '@/utils/tdee';
 
 const GOALS: { key: Goal; label: string; description: string }[] = [
@@ -63,14 +64,20 @@ export default function GoalScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff', padding: 24, paddingTop: 48 },
-  step: { fontSize: 14, color: '#999', marginBottom: 8 },
+  container: { flex: 1, backgroundColor: Colors.surface, padding: 24, paddingTop: 48 },
+  step: { fontSize: 14, color: Colors.textMuted, marginBottom: 8 },
   title: { fontSize: 26, fontWeight: '700', marginBottom: 32 },
   options: { flex: 1, gap: 12 },
-  card: { borderWidth: 1.5, borderColor: '#e0e0e0', borderRadius: 12, padding: 16, minHeight: 44 },
-  cardSelected: { borderColor: '#000', backgroundColor: '#f5f5f5' },
+  card: {
+    borderWidth: 1.5,
+    borderColor: Colors.border,
+    borderRadius: 12,
+    padding: 16,
+    minHeight: 44,
+  },
+  cardSelected: { borderColor: Colors.textPrimary, backgroundColor: Colors.surfaceSubtle },
   cardLabel: { fontSize: 17, fontWeight: '600', marginBottom: 4 },
-  cardLabelSelected: { color: '#000' },
-  cardDescription: { fontSize: 14, color: '#666' },
-  skip: { textAlign: 'center', color: '#999', fontSize: 14, paddingVertical: 16 },
+  cardLabelSelected: { color: Colors.textPrimary },
+  cardDescription: { fontSize: 14, color: Colors.textSecondary },
+  skip: { textAlign: 'center', color: Colors.textMuted, fontSize: 14, paddingVertical: 16 },
 });
