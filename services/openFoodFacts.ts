@@ -18,7 +18,8 @@ export interface OffFood {
 const BASE_URL = Constants.expoConfig?.extra?.openFoodFactsBaseUrl as string;
 
 export async function searchFoods(query: string, signal?: AbortSignal): Promise<OffFood[]> {
-  const url = `${BASE_URL}/cgi/search.pl?search_terms=${encodeURIComponent(query)}&search_simple=1&action=process&json=1&page_size=20`;
+  const fields = 'id,product_name,brands,image_url,nutriments';
+  const url = `${BASE_URL}/cgi/search.pl?search_terms=${encodeURIComponent(query)}&search_simple=1&action=process&json=1&page_size=20&sort_by=unique_scans_n&fields=${fields}`;
   let response: Response;
   try {
     // TODO: Extract to custom http client for easier usage
