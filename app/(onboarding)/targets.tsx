@@ -34,13 +34,29 @@ export default function TargetsScreen() {
   }, [store]);
 
   const handleSave = async () => {
+    const cal = parseInt(calories, 10);
+    const pro = parseInt(protein, 10);
+    const car = parseInt(carbs, 10);
+    const f = parseInt(fat, 10);
+    if (!cal || cal < 500 || cal > 10000) {
+      showToast('Calorie goal must be between 500 and 10000', 'error');
+      return;
+    }
+    if (!pro || pro < 1 || pro > 500) {
+      showToast('Protein goal must be between 1 and 500 g', 'error');
+      return;
+    }
+    if (!car || car < 1 || car > 1500) {
+      showToast('Carbs goal must be between 1 and 1500 g', 'error');
+      return;
+    }
+    if (!f || f < 1 || f > 500) {
+      showToast('Fat goal must be between 1 and 500 g', 'error');
+      return;
+    }
     try {
-      setCalorieGoal(parseInt(calories, 10) || 2000);
-      setMacroGoals({
-        proteinG: parseInt(protein, 10) || 150,
-        carbsG: parseInt(carbs, 10) || 250,
-        fatG: parseInt(fat, 10) || 65,
-      });
+      setCalorieGoal(cal);
+      setMacroGoals({ proteinG: pro, carbsG: car, fatG: f });
       store.reset();
       await AsyncStorage.setItem('onboardingComplete', 'true');
       router.replace('/(protected)/(tabs)');

@@ -17,6 +17,10 @@ export default function SignUpScreen() {
   const [confirmError, setConfirmError] = useState('');
 
   const handleSignUp = async () => {
+    if (password.length < 8) {
+      setConfirmError('Password must be at least 8 characters');
+      return;
+    }
     if (password !== confirm) {
       setConfirmError('Passwords do not match');
       return;
