@@ -4,6 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { useOnboardingStore } from '@/store/onboardingStore';
 import { useToastStore } from '@/store/toastStore';
+import { Colors } from '@/utils/colors';
 import type { ActivityLevel } from '@/utils/tdee';
 
 const LEVELS: { key: ActivityLevel; label: string; description: string }[] = [
@@ -66,14 +67,20 @@ export default function ActivityScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff', padding: 24, paddingTop: 48 },
-  step: { fontSize: 14, color: '#999', marginBottom: 8 },
+  container: { flex: 1, backgroundColor: Colors.surface, padding: 24, paddingTop: 48 },
+  step: { fontSize: 14, color: Colors.textMuted, marginBottom: 8 },
   title: { fontSize: 26, fontWeight: '700', marginBottom: 32 },
   options: { flex: 1, gap: 10 },
-  card: { borderWidth: 1.5, borderColor: '#e0e0e0', borderRadius: 12, padding: 14, minHeight: 44 },
-  cardSelected: { borderColor: '#000', backgroundColor: '#f5f5f5' },
+  card: {
+    borderWidth: 1.5,
+    borderColor: Colors.border,
+    borderRadius: 12,
+    padding: 14,
+    minHeight: 44,
+  },
+  cardSelected: { borderColor: Colors.textPrimary, backgroundColor: Colors.surfaceSubtle },
   cardLabel: { fontSize: 16, fontWeight: '600', marginBottom: 2 },
-  cardLabelSelected: { color: '#000' },
-  cardDescription: { fontSize: 13, color: '#666' },
-  skip: { textAlign: 'center', color: '#999', fontSize: 14, paddingVertical: 16 },
+  cardLabelSelected: { color: Colors.textPrimary },
+  cardDescription: { fontSize: 13, color: Colors.textSecondary },
+  skip: { textAlign: 'center', color: Colors.textMuted, fontSize: 14, paddingVertical: 16 },
 });

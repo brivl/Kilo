@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router';
 import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 
 import { useAuthStore } from '@/store/authStore';
+import { Colors } from '@/utils/colors';
 
 export default function WelcomeScreen() {
   const router = useRouter();
@@ -63,35 +64,35 @@ export default function WelcomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.surface,
     justifyContent: 'space-between',
     paddingVertical: 64,
     paddingHorizontal: 24,
   },
   hero: { alignItems: 'center', gap: 8 },
   title: { fontSize: 48, fontWeight: '700' },
-  subtitle: { fontSize: 16, color: '#666' },
+  subtitle: { fontSize: 16, color: Colors.textSecondary },
   buttons: { gap: 12 },
   appleButton: { height: 48 },
   googleButton: {
-    backgroundColor: '#4285F4',
+    backgroundColor: Colors.googleBlue,
     borderRadius: 8,
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  googleButtonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
+  googleButtonText: { color: Colors.surface, fontSize: 16, fontWeight: '600' },
   divider: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  dividerLine: { flex: 1, height: 1, backgroundColor: '#e0e0e0' },
-  dividerText: { color: '#999', fontSize: 14 },
+  dividerLine: { flex: 1, height: 1, backgroundColor: Colors.border },
+  dividerText: { color: Colors.textMuted, fontSize: 14 },
   emailButton: {
     borderWidth: 1,
-    borderColor: '#000',
+    borderColor: Colors.textPrimary,
     borderRadius: 8,
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
   emailButtonText: { fontSize: 16, fontWeight: '600' },
-  signInLink: { textAlign: 'center', color: '#666', fontSize: 14 },
+  signInLink: { textAlign: 'center', color: Colors.textSecondary, fontSize: 14 },
 });

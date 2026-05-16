@@ -25,6 +25,7 @@ const palette = {
   // Other
   white: '#ffffff',
   teal600: '#0a7ea4',
+  googleBlue: '#4285F4',
 } as const;
 
 export const Colors = {
@@ -61,6 +62,12 @@ export const Colors = {
   macroProtein: palette.emerald300,
   macroCarbs: palette.blue300,
   macroFat: palette.red300,
+
+  // Third-party brand
+  googleBlue: palette.googleBlue,
+
+  // Modal
+  modalBackdrop: 'rgba(0,0,0,0.5)',
 
   // Toast variants
   toastSuccess: palette.indigo600,

@@ -55,7 +55,10 @@ function MacroStat({
 }
 
 export function MacroRing({ totals }: { totals: Totals }) {
-  const { calorieGoal, proteinGoal, carbsGoal, fatGoal } = useSettingsStore();
+  const calorieGoal = useSettingsStore(s => s.calorieGoal);
+  const proteinGoal = useSettingsStore(s => s.proteinGoal);
+  const carbsGoal = useSettingsStore(s => s.carbsGoal);
+  const fatGoal = useSettingsStore(s => s.fatGoal);
   const label = `Calories ${totals.calories} of ${calorieGoal}. Protein ${totals.proteinG} of ${proteinGoal} grams. Carbs ${totals.carbsG} of ${carbsGoal} grams. Fat ${totals.fatG} of ${fatGoal} grams.`;
   return (
     <View style={s.wrapper} accessibilityLabel={label}>

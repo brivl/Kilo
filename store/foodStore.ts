@@ -1,6 +1,8 @@
 import { database } from '@/db/database';
 import type { FoodEntry } from '@/db/models/FoodEntry';
+import { serializeFoodEntry } from '@/db/sync/serializers';
 
+import { syncDelete, syncUpsert } from './syncStore';
 import { useToastStore } from './toastStore';
 
 interface AddEntryInput {
@@ -18,8 +20,9 @@ interface AddEntryInput {
 
 export async function addEntry(input: AddEntryInput): Promise<void> {
   try {
+    let created: FoodEntry | undefined;
     await database.write(async () => {
-      await database.collections.get<FoodEntry>('food_entries').create(r => {
+      created = await database.collections.get<FoodEntry>('food_entries').create(r => {
         r.date = input.date;
         r.mealType = input.mealType;
         r.foodName = input.foodName;
@@ -32,6 +35,8 @@ export async function addEntry(input: AddEntryInput): Promise<void> {
         r.source = input.source;
       });
     });
+    if (created)
+      syncUpsert('food_entries', serializeFoodEntry(created) as unknown as Record<string, unknown>);
   } catch (e) {
     console.error('foodStore.addEntry failed', e);
     useToastStore.getState().showToast("Couldn't save food entry", 'error');
@@ -45,6 +50,7 @@ export async function deleteEntry(id: string): Promise<void> {
       const entry = await database.collections.get<FoodEntry>('food_entries').find(id);
       await entry.destroyPermanently();
     });
+    syncDelete('food_entries', id);
   } catch (e) {
     console.error('foodStore.deleteEntry failed', e);
     useToastStore.getState().showToast("Couldn't delete entry", 'error');
@@ -58,10 +64,11 @@ export async function relogEntry(
 ): Promise<void> {
   try {
     let srcName: string;
+    let created: FoodEntry | undefined;
     await database.write(async () => {
       const src = await database.collections.get<FoodEntry>('food_entries').find(sourceEntryId);
       srcName = src.foodName;
-      await database.collections.get<FoodEntry>('food_entries').create(r => {
+      created = await database.collections.get<FoodEntry>('food_entries').create(r => {
         r.date = targetDate;
         r.mealType = targetMealType;
         r.foodName = src.foodName;
@@ -74,6 +81,8 @@ export async function relogEntry(
         r.source = src.source;
       });
     });
+    if (created)
+      syncUpsert('food_entries', serializeFoodEntry(created) as unknown as Record<string, unknown>);
     useToastStore.getState().showToast(`Logged ${srcName!}`);
   } catch (e) {
     console.error('foodStore.relogEntry failed', e);

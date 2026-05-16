@@ -6,6 +6,13 @@ import { useAuthStore } from '@/store/authStore';
 
 let mockRedirect: jest.Mock = jest.fn();
 
+jest.mock('@/store/syncStore', () => ({
+  isLocalDatabaseEmpty: jest.fn().mockResolvedValue(false),
+  restoreAll: jest.fn().mockResolvedValue({ restoredCount: 0 }),
+  syncUpsert: jest.fn(),
+  syncDelete: jest.fn(),
+}));
+
 jest.mock('expo-router', () => {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const React = require('react');

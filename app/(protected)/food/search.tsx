@@ -12,7 +12,7 @@ import {
 
 import type { FoodEntry } from '@/db/models/FoodEntry';
 import { observeRecentFoods } from '@/db/queries/foodEntries';
-import { OffNetworkError, searchFoods, type OffFood } from '@/services/openFoodFacts';
+import { searchFoods, type OffFood } from '@/services/openFoodFacts';
 import { useToastStore } from '@/store/toastStore';
 import { Colors } from '@/utils/colors';
 
@@ -52,7 +52,7 @@ export default function FoodSearchScreen() {
         const foods = await searchFoods(query.trim(), abortRef.current.signal);
         setResults(foods);
       } catch (err) {
-        if (err instanceof OffNetworkError && err.message.includes('aborted')) return;
+        if ((err as Error).name === 'AbortError') return;
         useToastStore
           .getState()
           .showToast("Couldn't reach server. Check your connection.", 'error');

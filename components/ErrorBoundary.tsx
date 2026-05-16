@@ -37,7 +37,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
 
 const s = StyleSheet.create({
   container: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 },
-  title: { fontSize: 18, color: Colors.surface, marginBottom: 16 },
+  title: { fontSize: 18, color: Colors.textPrimary, marginBottom: 16 },
   button: {
     backgroundColor: Colors.brand,
     paddingHorizontal: 24,

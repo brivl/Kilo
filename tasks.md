@@ -54,6 +54,7 @@
   - [ ] Fill in eas.json submit section with Apple credentials
   - [ ] Update bundleIdentifier in app.config.ts from placeholder
   - [ ] Run `npx eas-cli init` to link project to EAS
+- [ ] #97: Manual QA pass — see `docs/qa-plan.md` (9 journeys)
 - [ ] #27: Pre-launch observability — Sentry + PostHog
 - [ ] #28: Monetization — RevenueCat subscription
 - [ ] #30: Improve food search (min 2 chars, cache, ranking)

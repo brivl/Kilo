@@ -14,6 +14,7 @@ jest.mock('@shopify/react-native-skia', () => ({
   Canvas: ({ children }: { children: any }) => children,
   Path: () => null,
   useFont: () => null,
+  matchFont: () => null,
   useDerivedValue: (fn: () => unknown) => ({ value: fn() }),
   useSharedValue: (v: unknown) => ({ value: v }),
 }));

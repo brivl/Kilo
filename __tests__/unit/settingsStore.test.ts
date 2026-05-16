@@ -10,6 +10,7 @@ beforeEach(() => {
     proteinGoal: 150,
     carbsGoal: 250,
     fatGoal: 65,
+    syncEnabled: true,
   });
 });
 
@@ -38,5 +39,14 @@ describe('settingsStore', () => {
     useSettingsStore.getState().setSelectedDate('2020-01-01');
     useSettingsStore.getState().resetToToday();
     expect(useSettingsStore.getState().selectedDate).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  });
+
+  it('syncEnabled defaults to true', () => {
+    expect(useSettingsStore.getState().syncEnabled).toBe(true);
+  });
+
+  it('setSyncEnabled updates syncEnabled', () => {
+    useSettingsStore.getState().setSyncEnabled(false);
+    expect(useSettingsStore.getState().syncEnabled).toBe(false);
   });
 });

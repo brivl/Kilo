@@ -17,6 +17,7 @@ import { database } from '@/db/database';
 import type { TrainingPlan } from '@/db/models/TrainingPlan';
 import type { TrainingPlanExercise } from '@/db/models/TrainingPlanExercise';
 import { observeExercisesForPlan } from '@/db/queries/trainingPlans';
+import { useSettingsStore } from '@/store/settingsStore';
 import {
   addExerciseToPlan,
   deletePlanExercise,
@@ -49,14 +50,7 @@ function ExerciseRow({ ex, onDelete }: { ex: TrainingPlanExercise; onDelete: () 
   );
 }
 
-function DayCard({
-  section,
-  onLaunch,
-}: {
-  section: DaySection;
-  planId: string;
-  onLaunch: (day: string) => void;
-}) {
+function DayCard({ section, onLaunch }: { section: DaySection; onLaunch: (day: string) => void }) {
   return (
     <View style={s.dayCard}>
       <View style={s.dayHeader}>
@@ -85,6 +79,7 @@ export default function PlanDetailScreen() {
   const params = useLocalSearchParams<{ id: string }>();
   const id = String(params.id ?? '');
   const router = useRouter();
+  const selectedDate = useSettingsStore(s => s.selectedDate);
   const [plan, setPlan] = useState<TrainingPlan | null>(null);
   const [exercises, setExercises] = useState<TrainingPlanExercise[]>([]);
 
@@ -142,12 +137,11 @@ export default function PlanDetailScreen() {
   }
 
   async function handleLaunch(day: string) {
-    const today = new Date().toISOString().slice(0, 10);
     try {
-      const sessionId = await launchSessionFromPlan(id, day, today);
+      const sessionId = await launchSessionFromPlan(id, day, selectedDate);
       router.push(`/session/${sessionId}`);
-    } catch {
-      // toast shown by store
+    } catch (e) {
+      console.error('handleLaunch', e);
     }
   }
 
@@ -168,7 +162,7 @@ export default function PlanDetailScreen() {
               <Text style={s.emptyMain}>No days yet — add an exercise to get started</Text>
             ) : null
           }
-          renderItem={({ item }) => <DayCard section={item} planId={id} onLaunch={handleLaunch} />}
+          renderItem={({ item }) => <DayCard section={item} onLaunch={handleLaunch} />}
           ListFooterComponent={
             <View style={s.form}>
               <Text style={s.formTitle}>Add exercise</Text>
