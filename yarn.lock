@@ -8672,7 +8672,7 @@ zod@^4.4.2:
   resolved "https://registry.npmjs.org/zod/-/zod-4.4.2.tgz"
   integrity sha512-IynmDyxsEsb9RKzO3J9+4SxXnl2FTFSzNBaKKaMV6tsSk0rw9gYw9gs+JFCq/qk2LCZ78KDwyj+Z289TijSkUw==
 
-zustand@^5.0.12:
-  version "5.0.12"
-  resolved "https://registry.npmjs.org/zustand/-/zustand-5.0.12.tgz"
-  integrity sha512-i77ae3aZq4dhMlRhJVCYgMLKuSiZAaUPAct2AksxQ+gOtimhGMdXljRT21P5BNpeT4kXlLIckvkPM029OljD7g==
+zustand@^5.0.13:
+  version "5.0.13"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-5.0.13.tgz#06995c126e8903cd27100af04da91c36ae3051ed"
+  integrity sha512-efI2tVaVQPqtOh114loML/Z80Y4NP3yc+Ff0fYiZJPauNeWZeIp/bRFD7I9bfmCOYBh/PHxlglQ9+wvlwnPikQ==
